@@ -11,6 +11,6 @@ class Home extends BaseController
 
     public function tailwind(): string
     {
-        return views('layouts/layout');
+        return view('layouts/layout');
     }
 }

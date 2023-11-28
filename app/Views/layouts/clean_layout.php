@@ -15,8 +15,6 @@
     </head>
 
     <body>
-        <?= $this->include('layouts/header') ?>
-
         <main>
             <div class="mx-auto w-full px-4 py-28 sm:px-6 md:max-w-7xl md:px-8">
                 <?= $this->renderSection('content') ?>
