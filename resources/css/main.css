@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    body {
+        /* @apply font-sans antialiased text-gray-200 min-h-screen bg-vulcan-950; */
+        @apply font-sans antialiased text-gray-200 min-h-screen bg-slate-950;
+        min-height: 100%;
+    }
+
+    .bg-glass {
+        background-image: url(/img/glass.png);
+    }
+
+    /* header > div {
+        @apply px-4 py-6 lg:py-8;
+    } */
+}
