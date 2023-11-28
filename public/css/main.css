@@ -584,7 +584,6 @@ body {
 }
 
 .nav-menu-wrapper {
-  /* @apply w-full md:border-t md:border-gray-600 bottom-0 fixed md:absolute md:top-24 py-3.5 px-4 sm:px-6 md:px-0 md:py-3.5; */
   position: fixed;
   bottom: 0px;
   width: 100%;
@@ -634,7 +633,6 @@ body {
 }
 
 .nav-menu-wrapper-on-top {
-  /* @apply w-full px-4 md:px-0 fixed md:pr-16 md:border-t md:border-transparent; */
   position: fixed;
   width: 100%;
   padding-left: 1rem;
@@ -653,7 +651,6 @@ body {
 }
 
 .nav-menu-wrapper-on-top > div {
-  /* @apply md:bg-vulcan-900  py-2 md:py-4 md:pl-4; */
   border-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(52 64 88 / var(--tw-border-opacity));
@@ -685,7 +682,6 @@ body {
 }
 
 .profile-menu {
-  /* @apply absolute right-0 origin-top-right mt-5; */
   position: fixed;
   right: 2rem;
   margin-top: 0.5rem;
@@ -709,10 +705,6 @@ body {
   .header-on-top .profile-menu {
     right: 105px;
   }
-}
-
-.header-on-top .profile-menu {
-  /* @apply fixed top-20 right-8 xl:right-[105px]; */
 }
 
 .nav-item {
@@ -885,6 +877,34 @@ body {
   margin-top: 1rem;
 }
 
+.mr-8 {
+  margin-right: 2rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
+.mr-3 {
+  margin-right: 0.75rem;
+}
+
+.mr-1\.5 {
+  margin-right: 0.375rem;
+}
+
+.ml-0 {
+  margin-left: 0px;
+}
+
+.ml-0\.5 {
+  margin-left: 0.125rem;
+}
+
 .block {
   display: block;
 }
@@ -1029,11 +1049,6 @@ body {
 
 .border-vulcan-600\/80 {
   border-color: rgb(73 93 128 / 0.8);
-}
-
-.bg-slate-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
 }
 
 .bg-vulcan-500 {
@@ -1235,6 +1250,30 @@ body {
 
 .hover\:bg-vulcan-500\/30:hover {
   background-color: rgb(92 117 155 / 0.3);
+}
+
+.hover\:bg-red-500\/30:hover {
+  background-color: rgb(239 68 68 / 0.3);
+}
+
+.hover\:bg-rose-500\/30:hover {
+  background-color: rgb(244 63 94 / 0.3);
+}
+
+.hover\:bg-rose-700\/30:hover {
+  background-color: rgb(190 18 60 / 0.3);
+}
+
+.hover\:bg-red-700\/30:hover {
+  background-color: rgb(185 28 28 / 0.3);
+}
+
+.hover\:bg-pink-700\/30:hover {
+  background-color: rgb(190 24 93 / 0.3);
+}
+
+.hover\:bg-pink-700\/20:hover {
+  background-color: rgb(190 24 93 / 0.2);
 }
 
 .hover\:text-slate-200:hover {
