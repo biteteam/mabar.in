@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import { colors as defaultColors } from 'tailwindcss/defaultTheme';
 
-
-
 const colors = {
   'elephant': {
     50: '#f1f7fa',
@@ -42,13 +40,21 @@ const colors = {
     800: '#393c53',
     900: '#333547',
     950: '#232431',
-},
+  },
 };
 
 module.exports = {
   content: [
     "./app/Views/**/*.{js,html,php}",
   ],
+  safelist: [
+    "bg-glass",
+    "nav-menu-wrapper",
+    "nav-menu-wrapper-on-top",
+    "opacity-0",
+    "opacity-100",
+  ],
+
   theme: {
 
     fontFamily: {
