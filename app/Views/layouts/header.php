@@ -26,27 +26,31 @@
                             <div
                                  class="z-50 rounded-xl border border-vulcan-600/80 bg-vulcan-500 bg-opacity-40 bg-clip-padding px-1 py-1 shadow-lg backdrop-blur-lg backdrop-filter">
                                 <div>
-                                    <a class="flex rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-vulcan-500/30 hover:text-slate-200 focus:outline-none md:block"
-                                       href="/">
-                                        Home
+                                    <a class="flex items-center rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-vulcan-500/30 hover:text-slate-200 focus:outline-none md:block"
+                                       href="<?= base_url('/') ?>">
+                                        <i class="fa-solid fa-house mr-1 md:mb-0.5"></i>
+                                        <span>Home</span>
                                     </a>
                                 </div>
                                 <div class="pb-1 pt-0.5">
-                                    <a class="flex rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-vulcan-500/30 hover:text-slate-200 focus:outline-none md:block"
-                                       href="/profile">
-                                        Profil
+                                    <a class="flex items-center rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-vulcan-500/30 hover:text-slate-200 focus:outline-none md:block"
+                                       href="<?= base_url('/profile') ?>">
+                                        <i class="fa-solid fa-user mr-2"></i>
+                                        <span>Profil</span>
                                     </a>
-                                    <a class="flex rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-vulcan-500/30 hover:text-slate-200 focus:outline-none md:block"
-                                       href="/game/account">
-                                        Akun Game
+                                    <a class="flex items-center rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-vulcan-500/30 hover:text-slate-200 focus:outline-none md:block"
+                                       href="<?= base_url('/game/account') ?>">
+                                        <i class="fa-brands fa-steam mr-1.5"></i>
+                                        <span>Akun Game</span>
                                     </a>
                                 </div>
                                 <div class="border-t border-vulcan-500/70"></div>
-                                <form>
+                                <form action="<?= base_url('/auth/logout') ?>" method="POST">
                                     <div class="pt-1">
-                                        <button class="flex w-full rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-vulcan-500/30 hover:text-slate-200 focus:outline-none md:block"
+                                        <button class="flex items-center w-full rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-pink-700/20 hover:text-slate-200 focus:outline-none md:block"
                                                 type="submit">
-                                            Keluar
+                                            <i class="fa-solid fa-right-from-bracket ml-0.5 mr-1.5"></i>
+                                            <span>Keluar</span>
                                         </button>
                                     </div>
                                 </form>
@@ -60,35 +64,35 @@
             <div class="nav-menu-wrapper z-40" id="nav-menu-wrapper">
                 <div class="flex w-full justify-between rounded-lg transition-all duration-700 lg:rounded-xl">
                     <nav class="flex w-full items-center justify-between space-x-4 transition-all duration-700 md:justify-normal">
-                        <a class="nav-item active" href="/dashboard">
+                        <a class="nav-item active" href="<?= base_url('/') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-house mb-0.5 mt-1 md:m-0 md:mb-0.5"></i>
                                 <span>Home</span>
                             </span>
                         </a>
-                        <a class="nav-item" href="/project">
+                        <a class="nav-item" href="<?= base_url('/game') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-gamepad mb-0.5 mt-1 md:m-0"></i>
-                                <span class="">Game</span>
+                                <span>Game</span>
                             </span>
                         </a>
-                        <a class="nav-item" href="/transaction">
+                        <a class="nav-item" href="<?= base_url('/team') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-layer-group mb-0.5 mt-1 md:m-0"></i>
-                                <span class="">Team</span>
+                                <span>Team</span>
                             </span>
                         </a>
-                        <a class="nav-item" href="/profile">
+                        <a class="nav-item" href="<?= base_url('/game/account') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-brands fa-steam mb-0.5 mt-1 md:m-0"></i>
-                                <span class="">Akun</span>
+                                <span>Akun</span>
                             </span>
                         </a>
-                        <a class="nav-item flex md:hidden" href="/profile">
+                        <a class="nav-item flex md:hidden" href="<?= base_url('/profile') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <img class="h-7 w-7 rounded-full object-cover" src="https://ui-avatars.com/api/?name=F+p&color=7F9CF5&background=EBF4FF"
                                      alt="User">
-                                <span class="">Profil</span>
+                                <span>Profil</span>
                             </span>
                         </a>
                     </nav>
