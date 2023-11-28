@@ -13,3 +13,36 @@
  *
  * @see: https://codeigniter.com/user_guide/extending/common.html
  */
+
+
+/**
+ * Overriding view master helper
+ *
+ * @param string $name
+ * @param array $data
+ * @param array $options
+ * @return string
+ */
+function view(string $name, array $data = [], array $options = []): string
+{
+    $renderer = \Config\Services::renderer();
+
+    $config   = config(\Config\View::class);
+    $saveData = $config->saveData;
+
+    if (array_key_exists('saveData', $options)) {
+        $saveData = (bool) $options['saveData'];
+        unset($options['saveData']);
+    }
+
+    if (empty($options['dataParse']) || $options['dataParse'] == 'object') {
+        unset($options['dataParse']);
+
+        // Change data type as object instead of array
+        foreach ($data as $keyData => $valueData) {
+            $data[$keyData] = json_decode(json_encode($valueData), false);
+        }
+    }
+
+    return $renderer->setData($data, 'raw')->render($name, $options, $saveData);
+}
