@@ -17,11 +17,7 @@
     <body>
         <?= $this->include('layouts/header') ?>
 
-        <main>
-            <div class="mx-auto w-full px-4 py-28 sm:px-6 md:max-w-7xl md:px-8">
-                <?= $this->renderSection('content') ?>
-            </div>
-        </main>
+        <main class="content"><?= $this->renderSection('content') ?></main>
 
         <div class="fixed top-0 -z-10 h-full min-h-screen w-full bg-vulcan-800 bg-opacity-40 bg-clip-padding backdrop-blur-xl backdrop-filter"></div>
         <div class="bg-glass fixed top-0 -z-20 h-full min-h-screen w-full"></div>
