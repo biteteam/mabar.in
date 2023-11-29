@@ -14,6 +14,7 @@
  * @see: https://codeigniter.com/user_guide/extending/common.html
  */
 
+use App\Libraries\AuthLibrary;
 
 /**
  * Overriding view master helper
@@ -40,9 +41,15 @@ function view(string $name, array $data = [], array $options = []): string
 
         // Change data type as object instead of array
         foreach ($data as $keyData => $valueData) {
-            $data[$keyData] = json_decode(json_encode($valueData), false);
+            $data[$keyData] = to_object($valueData);
         }
     }
 
     return $renderer->setData($data, 'raw')->render($name, $options, $saveData);
+}
+
+
+function auth(bool $silent = false)
+{
+    return new AuthLibrary($silent);
 }

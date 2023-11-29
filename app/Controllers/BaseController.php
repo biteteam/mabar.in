@@ -62,7 +62,9 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
 
-        $this->session = Services::session();
+        $sessionConfig = config(\Config\Session::class);
+        $this->session = Services::session($sessionConfig);
+
         $this->validation = Services::validation();
     }
 }
