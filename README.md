@@ -1,67 +1,116 @@
-# CodeIgniter 4 Application Starter
+# Mabar.in - Cari Tim Mabar
 
-## What is CodeIgniter?
+## Instalasi
+Pilih salah satu dari langkah berikut, antara [Clone Repo](#clone-repo) atau [Download sebagai Zip file](#download-sebagai-zip).
+#### Clone Repo
+> Sebelum mengkloning, pastikan [git](https://git-scm.com/downloads) telah di install di komputer masing-masing. 
+>
+> Jika belum, kamu dapat mengikuti [tutorial ini untuk windows](https://youtu.be/RK_6D18AyIs?t=83) atau [artikel ini untuk linux](https://fiki.tech/how-to-install-linux-on-windows-11#heading-install-oh-my-zsh)
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+Jalankan Kode berikut di terminal
+```bash
+git clone git@github.com:biteteam/mabar.in.git
+```
+#### Download Sebagai ZIP
+[Klik disini untuk Download](https://github.com/biteteam/mabar.in/archive/refs/heads/master.zip)
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## Development
+Sebelum menjalankannya di local, pastikan [php](https://www.php.net/downloads.php), [composer](https://getcomposer.org/download/) dan [nodejs](https://nodejs.org/en/download/current) beserta package manager [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) atau [yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable) telah di install.
 
-The user guide corresponding to the latest version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
+Atau kamu bisa mengikuti beberapa tutorial berikut untuk menginstallnya:
+- [Install PHP](https://youtu.be/-hQu4IpdIDw?t=137)
+- [Install Composer](https://www.youtube.com/watch?v=UhpzEne6omo&list=PLFIM0718LjIUkkIq1Ub6B5dYNb6IlMvtc&t=264s)
+- [Install NodeJs](https://youtu.be/VfN1_pEdQAA?t=35)
 
-## Installation & updates
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+### Install Dependencies
+Setelah Semua Tools Siap, Install Dependencies terlebih dahulu, Jalankan kode berikut di terminal:
+-  Install PHP Dependencies
+   ```bash
+   composer install
+   ```
+-  Install NodeJs Dependencies (Opsional Jika Ingin Recompile [TailwindCSS](https://tailwindcss.com/docs/installation)).
+   
+   Jika menggunakan npm
+   ```bash
+   npm install
+   ```
+   Jika menggunakan yarn
+   ```bash
+   yarn install
+   ```
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
 
-## Setup
+### Konfigurasi Environment Variables
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+Copy file `env` di root project ke file `.env`.
 
-## Important Change with index.php
+Atau lakukan melalui perintah di terminal 
+```bash
+./spark env development
+```
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+Hapus komentar(`#`) pada bagian `app.name` dan `app.baseURL` di file [.env](https://github.com/biteteam/mabar.in/blob/0c6d86663e7f1d3504a88725ce301417e6010d6a/env#L23-L24) dan edit seperti berikut:
+```env
+app.name = 'MabarIn'
+app.baseURL = 'http://localhost:8080/'
+```
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+Konfigurasikan juga untuk databasenya di file [.env](https://github.com/biteteam/mabar.in/blob/0c6d86663e7f1d3504a88725ce301417e6010d6a/env#L34-L40), Lakukan sesuai dengan konfigurasi database kamu:
+> Pastikan databasenya (dalam konteks contoh berikut adalah `mabar_in`) sudah dibuat.
+>  
+> Atau Jalankan perintah sql berikut ini untuk membuatnya.
+> ```sql
+> CREATE DATABASE mabar_in;
+> ```
+>
 
-**Please** read the user guide for a better explanation of how CI4 works!
+```env
+database.default.hostname = localhost
+database.default.database = mabar_in
+database.default.username = USERNAME_DATABASE_KAMU
+database.default.password = PASSWORD_DATABASE_KAMU
+database.default.DBDriver = MySQLi
+database.default.DBPrefix =
+database.default.port = 3306
+```
 
-## Repository Management
+Konfigurasikan juga untuk `encryption.key` di file [.env](https://github.com/biteteam/mabar.in/blob/0c6d86663e7f1d3504a88725ce301417e6010d6a/env#L93).
+Atau lakukan secara langsung dan otomatis di terminal: 
+```bash
+./spark key:generate
+```
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+### Migrasi Data
+Jalankan perintah migrasi berikut ini di terminal untuk membuat [table-table yang telah dikonfigurasikan](https://github.com/biteteam/mabar.in/tree/master/app/Database/Migrations):
+```bash
+./spark migrate:refresh
+```
 
-## Server Requirements
 
-PHP version 7.4 or higher is required, with the following extensions installed:
+### Seeding Data
+soon...
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
 
-> **Warning**
-> The end of life date for PHP 7.4 was November 28, 2022. If you are
-> still using PHP 7.4, you should upgrade immediately. The end of life date
-> for PHP 8.0 will be November 26, 2023.
+### Jalankan Server
+Gunakan perintah berikut untuk menjalankannya:
+```bash
+./spark server
+```
+Kemudian buka link yang muncul di browser, biasanya http://localhost:8080.
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+Lalu jika ingin recompile tailwindcss dan melakukan perubahan/penambahan pada attribute class di beberapa file [views](https://github.com/biteteam/mabar.in/tree/master/app/Views) atau [components](https://github.com/biteteam/mabar.in/tree/master/app/Cells/components) maka harus menjalankan perintah berikut agar tailwindss dapat merecompile class yang baru.
+- Jika Menggunakan Npm
+  ```bash
+  npm run dev
+  ```
+- Jika Menggunakan Yarn
+  ```bash
+  yarn dev
+  ```
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+
+#### Publish
+Semua source kode repository ini akan dibuka dan bisa diakses untuk publik setelah Feb/02/23 dibawah akun [biteteam](https://github.com/biteteam) ataupun [bitecore](https://github.com/bitecore) 
