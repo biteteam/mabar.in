@@ -42,7 +42,7 @@ class AuthLibrary
         $isValid = password_verify($rawPassword, $encryptedPassword);
         if ($isValid) {
             $this->userData = $user;
-            $this->session->set(self::AUTH_UUID_SESSION_KEY, $user);
+            $this->session->set(self::AUTH_UUID_SESSION_KEY, $user->id);
             $this->session->set(self::AUTH_USER_SESSION_KEY, to_array($user));
             $this->session->set(self::AUTH_TIME_SESSION_KEY, Time::now()->addMonths(1)->getTimestamp());
         }
@@ -60,12 +60,12 @@ class AuthLibrary
     {
         if (!empty($this->userData)) return $this->userData;
 
-        if ($this->session->has(self::AUTH_UUID_SESSION_KEY)) {
+        if ($this->session->has(self::AUTH_USER_SESSION_KEY)) {
             $userSession = $this->session->get(self::AUTH_USER_SESSION_KEY);
             if (!empty($userSession)) return to_object($userSession);
         }
 
-        if ($this->session->has(self::AUTH_USER_SESSION_KEY)) {
+        if ($this->session->has(self::AUTH_UUID_SESSION_KEY)) {
             $userId = $this->session->get(self::AUTH_UUID_SESSION_KEY);
             $userData = $this->userModel->find($userId);
             if (!empty($userData)) {
@@ -90,11 +90,11 @@ class AuthLibrary
         return true;
     }
 
-    public function logout(): RedirectResponse
+    public function logout(string $routeRedirect = 'login'): RedirectResponse
     {
         $this->clearAuth();
         $this->userData = null;
-        return redirect('login');
+        return redirect($routeRedirect);
     }
 
     private  function clearAuth(): void

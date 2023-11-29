@@ -14,3 +14,11 @@ if (!function_exists('initial_name')) {
         return rtrim($initial, $separator);
     }
 }
+
+if (!function_exists('first_name')) {
+    function first_name(string $name, string | null $separator = null): string
+    {
+        $firstName = explode($separator ?? ' ', $name)[0];
+        return ucfirst($firstName);
+    }
+}

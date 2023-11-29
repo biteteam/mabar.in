@@ -101,6 +101,7 @@ class Autoload extends AutoloadConfig
      */
     public $helpers = [
         'text',
+        'route',
         "serializer"
     ];
 }

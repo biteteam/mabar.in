@@ -5,9 +5,19 @@
                 <div class="sm:flex sm:space-x-5">
                     <div class="mt-4 text-left sm:mt-0 sm:pt-1">
                         <p class="text-2xl font-bold capitalize text-gray-200 sm:text-2xl">
-                            <span class="font-medium text-gray-400">Halo,</span> Name.
+                            <?php if (!empty($metadata->header->title)): ?>
+                            <?= $metadata->header->title ?>
+                            <?php else: ?>
+                            <span class="font-medium text-gray-400">Halo,</span> <?= first_name($userAuth->name) ?>.
+                            <?php endif; ?>
                         </p>
-                        <p class="text-sm font-medium text-gray-400">username@email.com</p>
+                        <p class="text-sm font-medium text-gray-400">
+                            <?php if (!empty($metadata->header->description)): ?>
+                            <?= $metadata->header->description ?>
+                            <?php else: ?>
+                            <?= $userAuth->email ?>.
+                            <?php endif; ?>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -17,7 +27,7 @@
                         <div class="profile-toggle opacity-100 transition delay-300 duration-700">
                             <button class="flex rounded-full border-2 border-transparent text-sm transition focus:border-gray-500/80 focus:outline-none">
                                 <span class="h-10 w-10 rounded-full">
-                                    <img class="rounded-full" src="https://ui-avatars.com/api/?name=F+P&color=7F9CF5&background=EBF4FF" alt="User">
+                                    <img class="h-10 w-10 rounded-full object-cover" src="<?= $userAuth->photo ?>" alt="<?= $userAuth->name ?>">
                                 </span>
                             </button>
                         </div>
@@ -45,7 +55,7 @@
                                     </a>
                                 </div>
                                 <div class="border-t border-vulcan-500/70"></div>
-                                <form action="<?= base_url('/auth/logout') ?>" method="POST">
+                                <form action="<?= url_to('logout') ?>" method="POST">
                                     <div class="pt-1">
                                         <button class="flex items-center w-full rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-pink-700/20 hover:text-slate-200 focus:outline-none md:block"
                                                 type="submit">
@@ -64,34 +74,47 @@
             <div class="nav-menu-wrapper z-40" id="nav-menu-wrapper">
                 <div class="flex w-full justify-between rounded-lg transition-all duration-700 lg:rounded-xl">
                     <nav class="flex w-full items-center justify-between space-x-4 transition-all duration-700 md:justify-normal">
-                        <a class="nav-item active" href="<?= base_url('/') ?>">
+                        <a class="nav-item <?= is_active_class('/') ?>" href="<?= base_url('/') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-house mb-0.5 mt-1 md:m-0 md:mb-0.5"></i>
                                 <span>Home</span>
                             </span>
                         </a>
-                        <a class="nav-item" href="<?= base_url('/game') ?>">
+                        <a class="nav-item <?= is_active_class('/game') ?>" href="<?= base_url('/game') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-gamepad mb-0.5 mt-1 md:m-0"></i>
                                 <span>Game</span>
                             </span>
                         </a>
-                        <a class="nav-item" href="<?= base_url('/team') ?>">
+                        <a class="nav-item <?= is_active_class('/team') ?>" href="<?= base_url('/team') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-layer-group mb-0.5 mt-1 md:m-0"></i>
                                 <span>Team</span>
                             </span>
                         </a>
-                        <a class="nav-item" href="<?= base_url('/game/account') ?>">
+                        <a class="nav-item <?= is_active_class('/game/account') ?>" href="<?= base_url('/game/account') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-brands fa-steam mb-0.5 mt-1 md:m-0"></i>
                                 <span>Akun</span>
                             </span>
                         </a>
-                        <a class="nav-item flex md:hidden" href="<?= base_url('/profile') ?>">
+                        <a class="nav-item hidden md:flex <?= is_active_class('/profile') ?>" href="<?= base_url('/profile') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
-                                <img class="h-7 w-7 rounded-full object-cover" src="https://ui-avatars.com/api/?name=F+p&color=7F9CF5&background=EBF4FF"
-                                     alt="User">
+                                <i class="fa-solid fa-user mb-0.5 mt-1 md:m-0"></i>
+                                <span>Profil</span>
+                            </span>
+                        </a>
+                        <?php if ($userAuth->isAdmin): ?>
+                        <a class="nav-item hidden md:flex <?= is_active_class('/user') ?>" href="<?= base_url('/user') ?>">
+                            <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
+                                <i class="fa-solid fa-user-group mb-0.5 mt-1 md:m-0"></i>
+                                <span>Pengguna</span>
+                            </span>
+                        </a>
+                        <?php endif; ?>
+                        <a class="nav-item flex md:hidden <?= is_active_class('/profile') ?>" href="<?= base_url('/profile') ?>">
+                            <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
+                                <img class="h-7 w-7 rounded-full object-cover" src="<?= $userAuth->photo ?>" alt="<?= $userAuth->name ?>">
                                 <span>Profil</span>
                             </span>
                         </a>
@@ -100,7 +123,7 @@
                     <div class="profile-toggle hidden opacity-0 transition duration-700 md:flex">
                         <button class="flex rounded-full border-2 border-transparent text-sm focus:border-gray-500/80 focus:outline-none">
                             <span class="h-10 w-10 rounded-full">
-                                <img class="rounded-full object-cover" src="https://ui-avatars.com/api/?name=F+p&color=7F9CF5&background=EBF4FF" alt="User">
+                                <img class="h-10 w-10 rounded-full object-cover" src="<?= $userAuth->photo ?>" alt="<?= $userAuth->name ?>">
                             </span>
                         </button>
                     </div>
