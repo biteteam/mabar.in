@@ -5,19 +5,22 @@ namespace App\Database\Migrations;
 use App\Models\UserModel;
 use CodeIgniter\Database\Migration;
 
-class UserMigration extends Migration {
+class UserMigration extends Migration
+{
     protected string $tableName;
     protected string $primaryKey;
     protected string $uniqueKey  = 'username';
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->tableName  = UserModel::getConfigName('tableName');
         $this->primaryKey = UserModel::getConfigName('primaryKey');
     }
 
-    public function up(): void {
+    public function up(): void
+    {
         $this->forge->addField([
             $this->primaryKey => [
                 'type'           => 'BIGINT',
@@ -69,7 +72,8 @@ class UserMigration extends Migration {
         $this->forge->createTable($this->tableName, true);
     }
 
-    public function down(): void {
+    public function down(): void
+    {
         $this->forge->dropTable($this->tableName, true);
     }
 }
