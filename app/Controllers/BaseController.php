@@ -3,10 +3,13 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
+use CodeIgniter\Session\Session;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Validation\ValidationInterface;
+use Config\Services;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -43,6 +46,10 @@ abstract class BaseController extends Controller
      */
     // protected $session;
 
+    protected Session $session;
+
+    protected ValidationInterface $validation;
+
     /**
      * @return void
      */
@@ -54,5 +61,8 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+
+        $this->session = Services::session();
+        $this->validation = Services::validation();
     }
 }

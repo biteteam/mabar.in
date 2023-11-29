@@ -41,4 +41,23 @@ class Validation extends BaseConfig
     // --------------------------------------------------------------------
     // Rules
     // --------------------------------------------------------------------
+
+    public array $login = [
+        'username' => [
+            'rules'  => 'required|min_length[5]|max_length[16]',
+            'errors' => [
+                'required' => 'Username tidak boleh kosong.',
+                'min_length' => 'Username harus minimal 5 karakter.',
+                'max_length' => 'Username tidak boleh lebih dari 16 karakter.',
+            ],
+        ],
+        'password' => [
+            'rules'  => 'required|min_length[8]|max_length[132]',
+            'errors' => [
+                'required' => 'Password tidak boleh kosong.',
+                'min_length' => 'Password harus minimal 8 karakter.',
+                'max_length' => 'Password tidak boleh lebih dari 132 karakter.',
+            ]
+        ],
+    ];
 }
