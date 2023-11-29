@@ -19,6 +19,8 @@
 
         <div class="fixed top-0 -z-10 h-full min-h-screen w-full bg-vulcan-800 bg-opacity-40 bg-clip-padding backdrop-blur-xl backdrop-filter"></div>
         <div class="bg-glass fixed top-0 -z-20 h-full min-h-screen w-full"></div>
+
+        <?= view_cell('ToastCell') ?>
     </body>
 
 </html>
