@@ -70,6 +70,26 @@ profileToggles?.forEach(profileToggle => {
     });
 })
 
+const inputPasswordShowBtns = document.querySelectorAll('[aria-label="password-show"]')
+inputPasswordShowBtns.forEach(passwordShowBtn => {
+    passwordShowBtn.addEventListener('click', () => {
+        const input = passwordShowBtn.previousElementSibling
+        const eye = passwordShowBtn.querySelector('.fa-eye')
+        const eyeSlash = passwordShowBtn.querySelector('.fa-eye-slash')
+
+        if (input.type == 'password') {
+            eyeSlash.classList.replace('hidden', 'inline')
+            eye.classList.replace('inline', 'hidden')
+            input.setAttribute('type', 'text')
+        } else {
+            eye.classList.replace('hidden', 'inline')
+            eyeSlash.classList.replace('inline', 'hidden')
+            input.setAttribute('type', 'password')
+
+        }
+    })
+});
+
 window.addEventListener('resize', () => navMenuAction(0, window.scrollY))
 
 if (window.scrollY > 0 && navMenu?.classList?.contains('nav-menu-wrapper')) navMenuAction(window?.oldScrollY ?? 0, window.scrollY)

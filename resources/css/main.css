@@ -86,3 +86,23 @@
         }
     }
 }
+
+::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+    background: rgba(68, 96, 137, 0.3) !important;
+    z-index: 100 !important;
+}
+
+::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+}
+
+::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(68, 76, 137, 0.5);
+    border-radius: 15px;
+}
