@@ -45,6 +45,13 @@ function view(string $name, array $data = [], array $options = []): string
         }
     }
 
+    if (auth()->isLoggedIn()) {
+        $user = auth()->user();
+        $user->isAdmin = boolval($user->role === 'admin');
+        $renderer->setVar('userAuth', $user);
+    }
+
+
     return $renderer->setData($data, 'raw')->render($name, $options, $saveData);
 }
 
