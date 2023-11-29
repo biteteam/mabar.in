@@ -1049,6 +1049,22 @@ body {
   margin-top: calc(25vh);
 }
 
+.-mt-0 {
+  margin-top: -0px;
+}
+
+.-mt-8 {
+  margin-top: -2rem;
+}
+
+.-mt-6 {
+  margin-top: -1.5rem;
+}
+
+.-mt-4 {
+  margin-top: -1rem;
+}
+
 .block {
   display: block;
 }
