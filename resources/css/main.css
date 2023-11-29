@@ -7,6 +7,14 @@
         @apply font-sans antialiased text-gray-200 min-h-screen bg-slate-950;
     }
 
+    .content {
+        @apply mx-auto w-full px-4 pt-28 pb-8 md:pt-20 sm:px-6 md:max-w-7xl md:px-8;
+    }
+
+    .container {
+        @apply mx-auto w-full px-4 pb-8 sm:px-6 md:max-w-7xl md:px-8;
+    }
+
     .bg-glass {
         background-image: url(/img/glass.png);
     }
@@ -61,6 +69,14 @@
 
     .nav-menu-wrapper-on-top nav .nav-item > span > span {
         @apply md:text-base;
+    }
+
+    .normal-input {
+        @apply bg-vulcan-800 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border-vulcan-600 placeholder-slate-400 text-white focus:ring-blue-500 focus:border-vulcan-500;
+    }
+
+    .invalid-input {
+        @apply bg-red-800 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border-red-500/40 placeholder-red-200 text-white focus:ring-red-500 focus:border-red-600;
     }
 
     @screen 2xl {

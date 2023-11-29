@@ -46,6 +46,7 @@ const colors = {
 module.exports = {
   content: [
     "./app/Views/**/*.{js,html,php}",
+    "./app/Cells/components/**/*.{js,html,php}",
   ],
   safelist: [
     "bg-glass",
@@ -53,6 +54,8 @@ module.exports = {
     "nav-menu-wrapper-on-top",
     "opacity-0",
     "opacity-100",
+    "normal-input",
+    "invalid-input",
   ],
 
   theme: {
