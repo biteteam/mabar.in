@@ -47,6 +47,7 @@ module.exports = {
   content: [
     "./app/Views/**/*.{js,html,php}",
     "./app/Cells/components/**/*.{js,html,php}",
+    "./public/js/**/*.js",
   ],
   safelist: [
     "bg-glass",

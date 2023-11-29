@@ -90,6 +90,11 @@ class AuthLibrary
         return true;
     }
 
+    public function register(string $name, string $username, string $email, string $password): mixed
+    {
+        return $this->userModel->registerUser($name, $username, $email, $password);
+    }
+
     public function logout(string $routeRedirect = 'login'): RedirectResponse
     {
         $this->clearAuth();

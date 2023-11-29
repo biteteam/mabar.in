@@ -4,14 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model {
+class UserModel extends Model
+{
     protected $table            = 'users';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['name', 'username', 'email', 'phone', 'photo', 'password', 'role'];
 
     // Dates
     protected $useTimestamps = true;
@@ -37,7 +38,40 @@ class UserModel extends Model {
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public static function getConfigName(string $configName = null): string|array {;
+    /**
+     * Register a new User
+     *
+     * @param string $name
+     * @param string $username
+     * @param string $email
+     * @param string $password
+     * @param string $role
+     * @param string|null $phone
+     * @param string|null $photo
+     * @return mixed
+     */
+    public function registerUser(
+        string $name,
+        string $username,
+        string $email,
+        string $password,
+        string $role = 'user',
+        ?string $phone = null,
+        ?string $photo = null
+    ): mixed {
+        return $this->insert([
+            'name'     => $name,
+            'username' => $username,
+            'email'    => $email,
+            'phone'    => $phone ?? null,
+            'photo'    => $photo ?? "https://ui-avatars.com/api?name=" . initial_name($name, "+") . "&color=7F9CF5&background=EBF4FF",
+            'password' => auth(true)->hashCreds($password),
+            'role'     => $role,
+        ], true);
+    }
+
+    public static function getConfigName(string $configName = null): string|array
+    {;
         $instance = new self();
 
         switch ($configName) {
