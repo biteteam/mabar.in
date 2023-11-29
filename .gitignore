@@ -132,3 +132,18 @@ nb-configuration.xml
 /phpunit*.xml
 /.phpunit.*.cache
 
+#-------------------------
+# Image Asset Game Files
+#-------------------------
+public/img/game/*
+!public/img/game/.gitkeep
+!public/img/game/pubg-mobile-icon.png
+!public/img/game/mobile-legends-icon.jpg
+
+#-------------------------
+# Image Asset User Profile Files
+#-------------------------
+public/img/user/*
+!public/img/user/.gitkeep
+!public/img/game/profile-default.png
+!public/img/game/profile-default.jpg
