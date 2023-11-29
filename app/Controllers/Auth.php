@@ -50,6 +50,33 @@ class Auth extends BaseController
 
     public function register()
     {
-        echo "register";
+        if ($this->request->is('post')) {
+            $validationErrors = [];
+            $this->validation->setRuleGroup('register');
+            if (!$this->validation->withRequest($this->request)->run()) {
+                $validationErrors = [
+                    'name'             => $this->validation->getError('name'),
+                    'username'         => $this->validation->getError('username'),
+                    'email'            => $this->validation->getError('email'),
+                    'password'         => $this->validation->getError('password'),
+                    'retype_password'  => $this->validation->getError('retype_password'),
+                ];
+            }
+
+            $userData = $this->validation->getValidated();
+
+
+            if ($userData && empty($validationErrors)) {
+                // Logic Register Here
+            }
+
+
+            $this->session->setFlashdata('error', count($validationErrors) ? $validationErrors : ['global' => "Terjadi Kesalahan, Silahkan Coba Lagi!"]);
+        }
+
+        return view("auth/register", [
+            'metadata' => ['title' => "Daftar"],
+            'error'    => $this->session->getFlashdata('error')
+        ]);
     }
 }
