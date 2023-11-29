@@ -7,7 +7,6 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
-$routes->get('/test-tailwind', 'Home::tailwind');
 
 // Authentication Routes
 $routes->group('auth', static function ($route) {
