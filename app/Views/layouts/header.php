@@ -74,7 +74,7 @@
             <div class="nav-menu-wrapper z-40" id="nav-menu-wrapper">
                 <div class="flex w-full justify-between rounded-lg transition-all duration-700 lg:rounded-xl">
                     <nav class="flex w-full items-center justify-between space-x-4 transition-all duration-700 md:justify-normal">
-                        <a class="nav-item <?= is_active_class('/') ?>" href="<?= base_url('/') ?>">
+                        <a class="nav-item <?= is_active_class('/', true) ?>" href="<?= base_url('/') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-house mb-0.5 mt-1 md:m-0 md:mb-0.5"></i>
                                 <span>Home</span>
