@@ -34,5 +34,18 @@ class GameSeeder extends Seeder
         foreach ($games as $game) {
             $this->db->table($tableName)->insert($game);
         }
+
+        foreach ($games as $game) {
+            $game['code'] = "{$game['code']}-2";
+            $game['creator'] = 2;
+            $game['is_verified'] = false;
+            $this->db->table($tableName)->insert($game);
+        }
+
+        foreach ($games as $game) {
+            $game['code'] = "{$game['code']}-3";
+            $game['creator'] = 3;
+            $this->db->table($tableName)->insert($game);
+        }
     }
 }

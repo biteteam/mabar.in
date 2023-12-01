@@ -24,7 +24,9 @@ $routes->group('game', static function ($route) {
     $route->get('', [Game::class, "index"], ['as' => 'game']);
     $route->match(['get', 'post'], 'add', [Game::class, "addGame"], ['as' => 'game.add']);
     $route->match(['get', 'post'], '(:any)/edit', [Game::class, "editGame"], ['as' => 'game.edit']);
-    $route->post('(:any)/delete', [Game::class, "editGame"], ['as' => 'game.edit']);
+    $route->match(['get', 'post'], '(:any)/verify', [Game::class, "editGame"], ['as' => 'game.verify']);
+    $route->post('(:any)/delete', [Game::class, "deleteGame"], ['as' => 'game.delete']);
+    $route->post('upload-image', [Game::class, "uploadImage"], ['as' => 'game.upload-image']);
 
     // Account Game
     $route->get('account', [Game::class, "account"], ['as' => 'game.account']);

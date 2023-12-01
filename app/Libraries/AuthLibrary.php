@@ -56,13 +56,20 @@ class AuthLibrary
         return $encryptedPassword;
     }
 
-    public function user(): \stdClass
+    public function user(string $key = null): \stdClass|string
     {
-        if (!empty($this->userData)) return $this->userData;
+        if (!empty($this->userData)) {
+            if (!empty($key)) return $this->getSpecificUserData($key, $this->userData);
+            return $this->userData;
+        };
 
         if ($this->session->has(self::AUTH_USER_SESSION_KEY)) {
             $userSession = $this->session->get(self::AUTH_USER_SESSION_KEY);
-            if (!empty($userSession)) return to_object($userSession);
+            if (!empty($userSession)) {
+                $this->userData = to_object($userSession);
+                if (!empty($key)) return $this->getSpecificUserData($key, $this->userData);
+                return $this->userData;
+            };
         }
 
         if ($this->session->has(self::AUTH_UUID_SESSION_KEY)) {
@@ -70,10 +77,12 @@ class AuthLibrary
             $userData = $this->userModel->find($userId);
             if (!empty($userData)) {
                 $this->userData = $userData;
+                if (!empty($key)) return $this->getSpecificUserData($key, $this->userData);
                 return $userData;
             }
         }
 
+        if (!empty($key) && !empty($this->userData)) return $this->getSpecificUserData($key, $this->userData);
         return $this->userData;
     }
 
@@ -88,6 +97,18 @@ class AuthLibrary
         }
 
         return true;
+    }
+
+    public function isAdmin(): bool
+    {
+        $user = $this->user();
+        return ($user->role == 'admin');
+    }
+
+    public function isUser(): bool
+    {
+        $user = $this->user();
+        return ($user->role == 'user');
     }
 
     public function register(string $name, string $username, string $email, string $password): mixed
@@ -115,5 +136,11 @@ class AuthLibrary
         return !$this->session->has(self::AUTH_TIME_SESSION_KEY) ||
             !$this->session->has(self::AUTH_USER_SESSION_KEY) ||
             !$this->session->has(self::AUTH_UUID_SESSION_KEY);
+    }
+
+    private function getSpecificUserData(string $key, \stdClass $userData)
+    {
+        $user = to_array($userData);
+        return $user[$key];
     }
 }

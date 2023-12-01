@@ -39,7 +39,7 @@ class Validation extends BaseConfig
     ];
 
     // --------------------------------------------------------------------
-    // Rules
+    // Auth Rules
     // --------------------------------------------------------------------
 
     public array $login = [
@@ -105,6 +105,62 @@ class Validation extends BaseConfig
                 'min_length' => 'Ulangi Password harus minimal 8 karakter.',
                 'max_length' => 'Ulangi Password tidak boleh lebih dari 132 karakter.',
                 'matches'    => 'Ulangi Password harus sama dengan Password.'
+            ]
+        ],
+    ];
+
+
+    // --------------------------------------------------------------------
+    // Game Rules
+    // --------------------------------------------------------------------
+
+    public array $game = [
+        'game_name' => [
+            'rules'  => 'required|min_length[4]|max_length[64]',
+            'errors' => [
+                'required' => 'Nama game tidak boleh kosong.',
+                'min_length' => 'Nama game harus minimal 4 karakter.',
+                'max_length' => 'Nama game tidak boleh lebih dari 64 karakter.',
+            ],
+        ],
+        'game_code' => [
+            'rules'  => 'required|min_length[4]|max_length[32]',
+            'errors' => [
+                'required' => 'Kode game tidak boleh kosong.',
+                'min_length' => 'Kode game harus minimal 4 karakter.',
+                'max_length' => 'Kode game tidak boleh lebih dari 32 karakter.',
+            ],
+        ],
+        'game_description' => [
+            'rules'  => 'required|min_length[8]|max_length[255]',
+            'errors' => [
+                'required' => 'Deskripsi game tidak boleh kosong.',
+                'min_length' => 'Deskripsi game harus minimal 8 karakter.',
+                'max_length' => 'Deskripsi game tidak boleh lebih dari 255 karakter.',
+            ]
+        ],
+        'game_image' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Gambar game harus wajib ada.',
+            ]
+        ],
+        'game_max_player' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Maksimal player game tidak boleh kosong.',
+            ]
+        ],
+        'game_creator' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Terjadi kesalahan (creator), Silahkan coba lagi.',
+            ]
+        ],
+        'game_is_verified' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Terjadi kesalahan (verified), Silahkan coba lagi.',
             ]
         ],
     ];

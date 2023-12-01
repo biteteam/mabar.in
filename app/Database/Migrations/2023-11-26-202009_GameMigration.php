@@ -6,13 +6,15 @@ use App\Models\GameModel;
 use App\Models\UserModel;
 use CodeIgniter\Database\Migration;
 
-class GameMigration extends Migration {
+class GameMigration extends Migration
+{
     protected string $tableName;
     protected string $primaryKey;
     protected string $uniqueKey  = 'code';
     protected array $foreignKeys = [];
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->tableName = GameModel::getConfigName('tableName');
@@ -34,7 +36,8 @@ class GameMigration extends Migration {
     }
 
 
-    public function up(): void {
+    public function up(): void
+    {
         $foreignKey = [];
         foreach ($this->foreignKeys as $foreignKeyConstraintName => $foreignKeyConstraintValue) {
             $foreignKey[$this->foreignKeys[$foreignKeyConstraintName]['field']] = $foreignKeyConstraintValue['field_type'];
@@ -49,7 +52,7 @@ class GameMigration extends Migration {
             ],
             $this->uniqueKey => [
                 'type'       => 'VARCHAR',
-                'constraint' => 16,
+                'constraint' => 32,
                 'null'       => false
             ],
             ...$foreignKey,
@@ -92,7 +95,8 @@ class GameMigration extends Migration {
         $this->forge->createTable($this->tableName, true);
     }
 
-    public function down(): void {
+    public function down(): void
+    {
         foreach ($this->foreignKeys as $foreignKeyConstraintName => $foreignKey) {
             $this->forge->dropForeignKey($this->tableName, $foreignKeyConstraintName);
         }

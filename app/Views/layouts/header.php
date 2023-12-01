@@ -24,7 +24,7 @@
             <div class="hidden md:ml-4 md:flex md:items-center md:py-5 md:pr-0.5">
                 <div class="relative ml-4 flex-shrink-0">
                     <div class="relative">
-                        <div class="profile-toggle opacity-100 transition delay-300 duration-700">
+                        <div class="profile-toggle opacity-100 transition delay-300 duration-700 hidden lg:block">
                             <button class="flex rounded-full border-2 border-transparent text-sm transition focus:border-gray-500/80 focus:outline-none">
                                 <span class="h-10 w-10 rounded-full">
                                     <img class="h-10 w-10 rounded-full object-cover" src="<?= $userAuth->photo ?>" alt="<?= $userAuth->name ?>">
@@ -70,11 +70,11 @@
                 </div>
             </div>
 
-            <div class="absolute top-24 hidden md:block  z-0 w-full border-t border-gray-600 opacity-100 transition-all delay-700 duration-700"></div>
+            <div class="absolute top-24 hidden md:block z-0 w-full border-t border-gray-600 opacity-100 transition-all delay-700 duration-700"></div>
             <div class="nav-menu-wrapper z-40" id="nav-menu-wrapper">
                 <div class="flex w-full justify-between rounded-lg transition-all duration-700 lg:rounded-xl">
                     <nav class="flex w-full items-center justify-between space-x-4 transition-all duration-700 md:justify-normal">
-                        <a class="nav-item <?= is_active_class('/') ?>" href="<?= base_url('/') ?>">
+                        <a class="nav-item <?= is_active_class('/', true) ?>" href="<?= base_url('/') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-house mb-0.5 mt-1 md:m-0 md:mb-0.5"></i>
                                 <span>Home</span>

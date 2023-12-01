@@ -13,6 +13,13 @@ class InputCell extends Cell
     public $value;
     public $required;
     public $errorMessage;
+    public $className;
+    public $rows;
+    public $cols;
+    public $autoComplete;
+    public $mathParent = null;
+    public $mathParentSlug = null;
+    public $disable = false;
 
     protected string $view = "components/input";
 }

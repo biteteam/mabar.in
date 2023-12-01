@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use PhpParser\Node\Stmt\TryCatch;
 
 class UserModel extends Model
 {
@@ -58,16 +59,20 @@ class UserModel extends Model
         string $role = 'user',
         ?string $phone = null,
         ?string $photo = null
-    ): mixed {
-        return $this->insert([
-            'name'     => $name,
-            'username' => $username,
-            'email'    => $email,
-            'phone'    => $phone ?? null,
-            'photo'    => $photo ?? "https://ui-avatars.com/api?name=" . initial_name($name, "+") . "&color=7F9CF5&background=EBF4FF",
-            'password' => auth(true)->hashCreds($password),
-            'role'     => $role,
-        ], true);
+    ): int|bool {
+        try {
+            return $this->insert([
+                'name'     => $name,
+                'username' => $username,
+                'email'    => $email,
+                'phone'    => $phone ?? null,
+                'photo'    => $photo ?? "https://ui-avatars.com/api?name=" . initial_name($name, "+") . "&color=7F9CF5&background=EBF4FF",
+                'password' => auth(true)->hashCreds($password),
+                'role'     => $role,
+            ], true);
+        } catch (\Throwable $th) {
+            return false;
+        }
     }
 
     public static function getConfigName(string $configName = null): string|array

@@ -48,6 +48,7 @@ function view(string $name, array $data = [], array $options = []): string
     if (auth()->isLoggedIn()) {
         $user = auth()->user();
         $user->isAdmin = boolval($user->role === 'admin');
+        $user->isUser = boolval($user->role === 'user');
         $renderer->setVar('userAuth', $user);
     }
 
@@ -58,5 +59,6 @@ function view(string $name, array $data = [], array $options = []): string
 
 function auth(bool $silent = false)
 {
+    // return service("auth", $silent);
     return new AuthLibrary($silent);
 }
