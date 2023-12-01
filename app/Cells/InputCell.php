@@ -16,6 +16,9 @@ class InputCell extends Cell
     public $className;
     public $rows;
     public $cols;
+    public $autoComplete;
+    public $mathParent = null;
+    public $mathParentSlug = null;
 
     protected string $view = "components/input";
 }

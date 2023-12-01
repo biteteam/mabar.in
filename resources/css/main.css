@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer components {
+    @screen md {
+        html {
+            padding-right: 8px !important;
+        }
+    }
+
     body {
         @apply font-sans antialiased text-gray-200 min-h-screen bg-slate-950;
     }
@@ -44,7 +50,7 @@
     }
 
     .nav-item {
-        @apply flex items-center text-2xl md:text-sm md:transition-all md:duration-1000 md:delay-75 text-gray-300 leading-tight font-medium rounded-3xl md:bg-blue-500 md:bg-opacity-0 md:px-3 md:py-2 md:hover:bg-opacity-20;
+        @apply flex items-center text-2xl md:text-sm md:transition-all md:duration-1000 md:delay-75 text-gray-300 leading-tight font-medium rounded-sm hover:rounded-3xl md:bg-blue-500 md:bg-opacity-0 md:px-3 md:py-2 md:hover:bg-opacity-20;
     }
 
     .nav-item > span > span {
@@ -60,7 +66,7 @@
     }
 
     .nav-item.active {
-        @apply text-white font-semibold;
+        @apply text-white font-semibold rounded-3xl md:hover:bg-blue-500 md:hover:bg-clip-padding md:hover:backdrop-filter md:hover:backdrop-blur-lg md:hover:bg-opacity-40;
     }
 
     .nav-menu-wrapper-on-top nav .nav-item {

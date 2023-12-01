@@ -4,7 +4,8 @@
     <?php if ($type == 'textarea') : ?>
         <textarea cols="<?= !empty($cols) ? $cols : 30 ?>" rows="<?= !empty($rows) ? $rows : 10 ?>" class="<?= !empty($className) ? $className : "" ?> border text-sm rounded-lg block w-full p-2.5 outline-none <?= !empty($errorMessage) ? 'invalid-input' : 'normal-input' ?>" id="<?= $name ?>" name="<?= $name ?>" placeholder="<?= $placeholder ?>" <?= !empty($required) ? 'required' : '' ?>><?= $value ?></textarea>
     <?php else : ?>
-        <input class="<?= !empty($className) ? $className : "" ?> border text-sm rounded-lg block w-full p-2.5 outline-none <?= !empty($errorMessage) ? 'invalid-input' : 'normal-input' ?>" id="<?= $name ?>" name="<?= $name ?>" type="<?= $type ?>" value="<?= $value ?>" placeholder="<?= $placeholder ?>" <?= !empty($required) ? 'required' : '' ?> />
+
+        <input id="<?= $name ?>" name="<?= $name ?>" type="<?= $type ?>" value="<?= $value ?>" placeholder="<?= $placeholder ?>" class="<?= !empty($className) ? $className : "" ?> border text-sm rounded-lg block w-full p-2.5 outline-none <?= !empty($errorMessage) ? 'invalid-input' : 'normal-input' ?>" <?= !empty($required) ? 'required' : '' ?> <?= !empty($autoComplete) ? "autocomplete='$autoComplete'" : "" ?> <?= !empty($mathParent) ? "match-parent='$mathParent'" : "" ?> <?= !empty($mathParentSlug) ? "match-parent-slug='$mathParentSlug'" : "" ?> />
     <?php endif; ?>
 
     <?php if (!empty($type == 'password')) : ?>

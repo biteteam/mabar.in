@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Libraries\AuthLibrary;
 use CodeIgniter\Config\BaseService;
 
 /**
@@ -29,4 +30,10 @@ class Services extends BaseService
      *     return new \CodeIgniter\Example();
      * }
      */
+
+    public static function auth(bool $silent = false, bool $getShared = true): AuthLibrary
+    {
+        if ($getShared) return static::getSharedInstance('auth');
+        return new AuthLibrary($silent);
+    }
 }

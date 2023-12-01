@@ -24,7 +24,7 @@
             <div class="hidden md:ml-4 md:flex md:items-center md:py-5 md:pr-0.5">
                 <div class="relative ml-4 flex-shrink-0">
                     <div class="relative">
-                        <div class="profile-toggle opacity-100 transition delay-300 duration-700">
+                        <div class="profile-toggle opacity-100 transition delay-300 duration-700 hidden lg:block">
                             <button class="flex rounded-full border-2 border-transparent text-sm transition focus:border-gray-500/80 focus:outline-none">
                                 <span class="h-10 w-10 rounded-full">
                                     <img class="h-10 w-10 rounded-full object-cover" src="<?= $userAuth->photo ?>" alt="<?= $userAuth->name ?>">

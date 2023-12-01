@@ -1,3 +1,6 @@
+let isWindowLoaded = false;
+
+
 
 const screenGreatherThan = (screenSize) => {
     const sizeConfigured = {
@@ -10,6 +13,11 @@ const screenGreatherThan = (screenSize) => {
 
     const size = Object?.keys(sizeConfigured)?.includes(screenSize) ? sizeConfigured[screenSize] : 0
     return (window.innerWidth > size);
+}
+
+window.onload = () => {
+    isWindowLoaded = true
+    // if (screenGreatherThan("md")) document.body.style.paddingRight = '8px';
 }
 
 const navMenu = document.querySelector('#nav-menu-wrapper');
@@ -118,3 +126,106 @@ const removeToast = (toastElement) => {
 
 const toasts = document.querySelectorAll('.toast')
 toasts?.forEach(toast => removeToast(toast));
+
+
+
+let lastWidth = document.documentElement.clientWidth;
+function handleScrollbarOnShow(entries) {
+    const currentWidth = entries[0].contentRect.width;
+
+    if (currentWidth !== lastWidth && isWindowLoaded && screenGreatherThan("md")) {
+        if (currentWidth > lastWidth) {
+            document.body.style.paddingRight = '8px';
+        } else {
+            document.body.style.paddingRight = '0';
+        }
+
+        lastWidth = currentWidth;
+    }
+}
+
+// Membuat instance ResizeObserver
+const resizeObserver = new ResizeObserver(handleScrollbarOnShow);
+resizeObserver.observe(document.documentElement);
+handleScrollbarOnShow([{ contentRect: document.documentElement.getBoundingClientRect() }]);
+
+
+// Handling file input
+const upload = async (file, uri, fieldName) => {
+    const formData = new FormData();
+    formData.append(fieldName, file);
+
+    try {
+        const response = await fetch(uri, {
+            method: 'POST',
+            body: formData
+        })
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+};
+
+
+
+// Hanling button file input
+const buttonsFileInput = document.querySelectorAll('button[role="upload-image-input"]')
+buttonsFileInput?.forEach(buttonFileInput => {
+    const wrapper = document.querySelector('[target-wrapper-role="upload-image-input"]');
+    const targetPreview = document.querySelector(`#${buttonFileInput.getAttribute('target-preview')}`)
+    const targetInput = document.querySelector(`#${buttonFileInput.getAttribute("target-input")}`);
+    const targetFileInput = document.querySelector(`[target-name="${buttonFileInput.getAttribute("target-input")}"]`);
+
+    const handlingOnImageNotEmpty = (previewImgUri) => {
+        targetPreview.style = `background-repeat: no-repeat; background-position: center; background-image: url(${previewImgUri});`;
+        wrapper.classList.replace("bg-black/50", "group-hover/upload-image:bg-black/50")
+        buttonFileInput.classList.replace('opacity-100', 'opacity-0');
+        targetInput.value = previewImgUri;
+    }
+
+    if (targetInput.value?.length) handlingOnImageNotEmpty(targetInput.value)
+
+    if (targetFileInput) {
+        buttonFileInput.addEventListener('click', () => {
+            const targetUriUpload = targetFileInput.getAttribute("uri-upload");
+            const targetFieldName = targetFileInput.getAttribute('target-name');
+            targetFileInput.addEventListener('change', async () => {
+                try {
+                    const result = await upload(targetFileInput.files[0], targetUriUpload, targetFieldName);
+
+                    if (result.preview && targetPreview) handlingOnImageNotEmpty(result.preview)
+                    console.log(result);
+                } catch (error) {
+                    targetFileInput.value = "";
+                    targetInput.value = "";
+                    console.error(error);
+                }
+            }, true);
+
+            targetFileInput.click();
+        })
+    }
+});
+
+
+const handlingInputMathParent = (inputElement, parentNameId, isSlug = false) => {
+    const parentElement = document.querySelector(`#${parentNameId}`)
+    console.log(parentElement);
+    parentElement.addEventListener("keyup", (e) => {
+        const parentValue = e.target.value;
+        if (!isSlug) {
+            inputElement.value = parentValue
+        } else {
+
+            const formatted = parentValue.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            inputElement.value = formatted
+        }
+
+    })
+}
+
+const inputsMathParent = document.querySelectorAll('input[match-parent]')
+inputsMathParent?.forEach(input => handlingInputMathParent(input, input.getAttribute('match-parent'), false))
+
+const inputsMathParentSlug = document.querySelectorAll('input[match-parent-slug]')
+inputsMathParentSlug?.forEach(input => handlingInputMathParent(input, input.getAttribute('match-parent-slug'), true))

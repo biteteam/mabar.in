@@ -90,6 +90,18 @@ class AuthLibrary
         return true;
     }
 
+    public function isAdmin(): bool
+    {
+        $user = $this->user();
+        return ($user->role == 'admin');
+    }
+
+    public function isUser(): bool
+    {
+        $user = $this->user();
+        return ($user->role == 'user');
+    }
+
     public function register(string $name, string $username, string $email, string $password): mixed
     {
         return $this->userModel->registerUser($name, $username, $email, $password);
