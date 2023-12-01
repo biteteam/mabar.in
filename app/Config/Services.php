@@ -33,7 +33,11 @@ class Services extends BaseService
 
     public static function auth(bool $silent = false, bool $getShared = true): AuthLibrary
     {
-        if ($getShared) return static::getSharedInstance('auth');
-        return new AuthLibrary($silent);
+        if ($getShared && static::hasSharedInstance('auth')) return static::getSharedInstance('auth');
+
+        $authInstance = new AuthLibrary($silent);
+        static::saveSharedInstance('auth', $authInstance);
+
+        return $authInstance;
     }
 }
