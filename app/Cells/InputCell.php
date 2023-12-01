@@ -19,6 +19,7 @@ class InputCell extends Cell
     public $autoComplete;
     public $mathParent = null;
     public $mathParentSlug = null;
+    public $disable = false;
 
     protected string $view = "components/input";
 }

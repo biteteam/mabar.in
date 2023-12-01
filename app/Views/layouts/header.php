@@ -70,7 +70,7 @@
                 </div>
             </div>
 
-            <div class="absolute top-24 hidden md:block  z-0 w-full border-t border-gray-600 opacity-100 transition-all delay-700 duration-700"></div>
+            <div class="absolute top-24 hidden md:block z-0 w-full border-t border-gray-600 opacity-100 transition-all delay-700 duration-700"></div>
             <div class="nav-menu-wrapper z-40" id="nav-menu-wrapper">
                 <div class="flex w-full justify-between rounded-lg transition-all duration-700 lg:rounded-xl">
                     <nav class="flex w-full items-center justify-between space-x-4 transition-all duration-700 md:justify-normal">

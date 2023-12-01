@@ -52,7 +52,7 @@ class GameMigration extends Migration
             ],
             $this->uniqueKey => [
                 'type'       => 'VARCHAR',
-                'constraint' => 16,
+                'constraint' => 32,
                 'null'       => false
             ],
             ...$foreignKey,

@@ -124,11 +124,11 @@ class Validation extends BaseConfig
             ],
         ],
         'game_code' => [
-            'rules'  => 'required|min_length[4]|max_length[16]',
+            'rules'  => 'required|min_length[4]|max_length[32]',
             'errors' => [
-                'required' => 'Nama game tidak boleh kosong.',
-                'min_length' => 'Nama game harus minimal 4 karakter.',
-                'max_length' => 'Nama game tidak boleh lebih dari 16 karakter.',
+                'required' => 'Kode game tidak boleh kosong.',
+                'min_length' => 'Kode game harus minimal 4 karakter.',
+                'max_length' => 'Kode game tidak boleh lebih dari 32 karakter.',
             ],
         ],
         'game_description' => [
@@ -154,13 +154,13 @@ class Validation extends BaseConfig
         'game_creator' => [
             'rules'  => 'required',
             'errors' => [
-                'required' => 'Terjadi kesalahan, Silahkan coba lagi.',
+                'required' => 'Terjadi kesalahan (creator), Silahkan coba lagi.',
             ]
         ],
-        'game_verified' => [
+        'game_is_verified' => [
             'rules'  => 'required',
             'errors' => [
-                'required' => 'Terjadi kesalahan, Silahkan coba lagi.',
+                'required' => 'Terjadi kesalahan (verified), Silahkan coba lagi.',
             ]
         ],
     ];

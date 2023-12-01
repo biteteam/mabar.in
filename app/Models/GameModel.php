@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+use CodeIgniter\Database\BaseResult;
 use CodeIgniter\Model;
+use PhpParser\Node\Stmt\TryCatch;
+
+use function PHPUnit\Framework\isNull;
 
 class GameModel extends Model
 {
@@ -38,7 +42,7 @@ class GameModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function findAllGame(int $limit = 0, int $offset = 0)
+    public function findAllGame(int $limit = 0, int $offset = 0, array $options = ['isVerifiedOnly' => false, 'isVerified' => null])
     {
         $userTable = UserModel::getConfigName('tableName');
         $userPK = UserModel::getConfigName('primaryKey');
@@ -46,15 +50,17 @@ class GameModel extends Model
         $allGames = $this->join($userTable, "$userTable.$userPK = {$this->table}.creator", "LEFT")
             ->select("
                 {$this->table}.*,
-                $userTable.name as creator,
-                $userTable.id as creator_id,
+                $userTable.id as creator,
+                $userTable.name as creator_name,
                 $userTable.username as creator_username,
                 $userTable.photo as creator_photo")
             ->orderBy("{$this->table}.updated_at")
-            ->orderBy("{$this->table}.is_verified")
-            ->findAll($limit, $offset);
+            ->orderBy("{$this->table}.is_verified");
 
-        return $allGames;
+        if (isset($options['isVerifiedOnly']) && $options['isVerifiedOnly']) $allGames = $allGames->where('is_verified', true);
+        if (isset($options['isVerified']) && gettype($options['isVerified']) == 'boolean') $allGames = $allGames->where('is_verified', $options['isVerified']);
+
+        return $allGames->findAll($limit, $offset);
     }
 
     public function findGameByUserId(string|int $userId, int $limit = 0, int $offset = 0)
@@ -65,8 +71,8 @@ class GameModel extends Model
         $allGames = $this->join($userTable, "$userTable.$userPK = {$this->table}.creator", "LEFT")
             ->select("
                 {$this->table}.*,
-                $userTable.name as creator,
-                $userTable.id as creator_id,
+                $userTable.id as creator,
+                $userTable.name as creator_name,
                 $userTable.username as creator_username,
                 $userTable.photo as creator_photo")
             ->where("$userTable.id", $userId)
@@ -75,6 +81,61 @@ class GameModel extends Model
             ->findAll($limit, $offset);
 
         return $allGames;
+    }
+
+    public function findGameByCode(string $gameCode): \stdClass|null
+    {
+        $userTable = UserModel::getConfigName('tableName');
+        $userPK = UserModel::getConfigName('primaryKey');
+
+        return $this->where('code', $gameCode)
+            ->join($userTable, "$userTable.$userPK = {$this->table}.creator", "LEFT")
+            ->select("
+                {$this->table}.*,
+                $userTable.id as creator,
+                $userTable.name as creator_name,
+                $userTable.username as creator_username,
+                $userTable.photo as creator_photo")
+            ->orderBy("{$this->table}.updated_at")
+            ->orderBy("{$this->table}.is_verified")
+            ->first();
+    }
+
+    public function updateGame(string|int $gameId, array $gameData): bool
+    {
+        try {
+            // also Update team game.code
+
+            return $this->update($gameId, $gameData);
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    public function deleteGame(string|int $gameId): BaseResult|bool
+    {
+        try {
+            // also Edit team game.code
+
+            return $this->delete($gameId);
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    /**
+     * Add new Game
+     *
+     * @param array $gameData
+     * @return integer|boolean
+     */
+    public function addGame(array $gameData): int|bool
+    {
+        try {
+            return $this->insert($gameData, true);
+        } catch (\Throwable $th) {
+            return false;
+        }
     }
 
     public static function getConfigName(string $configName = null): string|array

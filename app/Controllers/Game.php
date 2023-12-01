@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\GameModel;
 use CodeIgniter\HTTP\Files\UploadedFile;
+use CodeIgniter\Router\Router;
 use Error;
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -23,7 +24,7 @@ class Game extends BaseController
     {
         $limit = $this->request->getVar('limit') ?? 100;
         $data  = [
-            'all' => $this->game->findAllGame($limit),
+            'all' => $this->game->findAllGame($limit, 0, ['isVerifiedOnly' => auth()->isUser()]),
             'own' => [],
         ];
 
@@ -32,6 +33,11 @@ class Game extends BaseController
             $data['own'] = $this->game->findGameByUserId($userId, $limit);
 
             $data = $this->duplicateGameFilter($data['all'], $data['own']);
+
+            if (auth()->isAdmin()) {
+                $unverifyGame =  $this->game->findAllGame(0, 0, ['isVerified' => false]);
+                if (count($unverifyGame) >= 1) $data['verifyRequired'] = $unverifyGame;
+            }
         }
 
         return view('game/main', [
@@ -50,18 +56,42 @@ class Game extends BaseController
     {
         if ($this->request->is('post')) {
             $validationErrors = [];
-            $this->validation->setRuleGroup('login');
+            $this->validation->setRuleGroup('game');
             if (!$this->validation->withRequest($this->request)->run()) {
                 $validationErrors = [
-                    'game_verified'  => $this->validation->getError('game_verified'),
                     'game_creator'  => $this->validation->getError('game_creator'),
                     'game_image'  => $this->validation->getError('game_image'),
                     'game_name'  => $this->validation->getError('game_name'),
                     'game_code'  => $this->validation->getError('game_code'),
                     'game_description'  => $this->validation->getError('game_description'),
                     'game_max_player'  => $this->validation->getError('game_max_player'),
+                    'game_is_verified'  => $this->validation->getError('game_is_verified'),
                 ];
             }
+
+
+            $gameValidated = $this->validation->getValidated();
+            $gameData = $this->serialize($gameValidated);
+
+            if (isset($gameData['code'])) {
+                $isGameExist = $this->game->findGameByCode($gameData['code']);
+                if ($isGameExist) $validationErrors['game_code'] = "Kode game sudah ada, gunakan kode game yang lain.!";
+            }
+
+            if (isset($gameData['is_verified']) && $gameData['is_verified'] == "1" && auth()->isUser())
+                $validationErrors['game_is_verified'] = "Kamu tidak memiliki akses untuk mengubah ini";
+            if (isset($gameData['creator']) && $gameData['creator'] !== auth()->user('id'))
+                $validationErrors['game_creator'] = "Creator game tidak dapat kamu ubah!";
+
+            if ($gameData && empty($validationErrors)) {
+                $isGameAdded = $this->game->addGame($gameData);
+                if ($isGameAdded) {
+                    $this->session->setFlashdata('toast_success', "Yuhhu, Berhasil menambah game!");
+                    return redirect('game');
+                }
+            }
+
+            $this->session->setFlashdata('error', count($validationErrors) ? $validationErrors : ['global' => "Gagal menambahkan game, Silahkan Coba Lagi!"]);
         }
 
         return view('game/add', [
@@ -71,8 +101,105 @@ class Game extends BaseController
                     'title'        => 'Tambah Game',
                     'description'  => 'Tambah game favoritmu.'
                 ]
-            ]
+            ],
+            'error'    => $this->session->getFlashdata('error')
         ]);
+    }
+
+    public function editGame(string $gameCode)
+    {
+        $isFromVerify = url_to('game.verify', $gameCode) == current_url();
+        $messageType = $isFromVerify ? 'memverifikasi' : 'mengedit';
+        $game = $this->game->findGameByCode($gameCode);
+        if (empty($game)) {
+            $this->session->setFlashdata('toast_error', "Game $gameCode tidak ditemukan!");
+            return redirect('game');
+        }
+
+        if (($isFromVerify && auth()->isUser()) || ($game->creator !== auth()->user('id') && auth()->isUser())) {
+            $this->session->setFlashdata('toast_error', "Kamu tidak memiliki akses untuk $messageType game $gameCode!");
+            return redirect('game');
+        }
+
+        if ($this->request->is('post')) {
+            $validationErrors = [];
+            $this->validation->setRuleGroup('game');
+            if (!$this->validation->withRequest($this->request)->run()) {
+                $validationErrors = [
+                    'game_creator'  => $this->validation->getError('game_creator'),
+                    'game_image'  => $this->validation->getError('game_image'),
+                    'game_name'  => $this->validation->getError('game_name'),
+                    'game_code'  => $this->validation->getError('game_code'),
+                    'game_description'  => $this->validation->getError('game_description'),
+                    'game_max_player'  => $this->validation->getError('game_max_player'),
+                    'game_is_verified'  => $this->validation->getError('game_is_verified'),
+                ];
+            }
+
+            $gameValidated = $this->validation->getValidated();
+            $gameData = $this->serialize($gameValidated);
+            if ($gameData['code'] !== $game->code) {
+                $isGameExist = $this->game->findGameByCode($gameData['code']);
+                if ($isGameExist) $validationErrors['game_code'] = "Kode game sudah ada, gunakan kode game yang lain.!";
+            }
+
+            if ($isFromVerify) {
+                if (isset($gameData['is_verified']) && $gameData['is_verified'] !== $game->is_verified && auth()->isUser())
+                    $validationErrors['game_is_verified'] = "Kamu tidak memiliki akses untuk verifikasi game!";
+                if (isset($gameData['creator']) && $gameData['creator'] !== auth()->user('id') && auth()->isUser())
+                    $validationErrors['game_creator'] = "Kamu tidak memiliki akses untuk mengubah creator game!";
+            } else {
+                if (isset($gameData['is_verified']) && $gameData['is_verified'] && auth()->isUser()) $gameData['is_verified'] = false;
+            }
+
+            if ($gameData && empty($validationErrors)) {
+                // dd($gameData);
+                $isGameUpdated = $this->game->update($game->id, $gameData);
+                if ($isGameUpdated) {
+                    $this->session->setFlashdata('toast_success', "Berhasil $messageType game {$gameData['name']}!");
+                    return redirect('game');
+                }
+            }
+
+            $this->session->setFlashdata('error', count($validationErrors) ? $validationErrors : ['global' => "Gagal $messageType game, Silahkan Coba Lagi!"]);
+        }
+
+        return view('game/edit', [
+            'game'      => $game,
+            'error'     => $this->session->getFlashdata('error'),
+            'metadata'  => [
+                'title'   => $isFromVerify  ? "Verifikasi Game $game->name" : "Edit Game $game->name",
+                'header'  => [
+                    'title'        => $isFromVerify  ? "Verifikasi Game" : "Edit Game",
+                    'description'  => $isFromVerify  ? "Verifikasi Game $game->name dari $game->creator_name" : "Edit Game $game->name",
+                ]
+            ],
+        ]);
+    }
+
+    public function deleteGame(string $gameCode)
+    {
+        $error = null;
+        $game = $this->game->findGameByCode($gameCode);
+        if (empty($game)) $error = "Gagal menghapus game, game dengan kode $gameCode tidak ditemukan!";
+
+        if (isset($game) && $game->creator !== auth()->user('id') && auth()->isUser())
+            $error = "Gagal menghapus game, Kamu tidak memiliki akses untuk menghapus game $game->name!";
+
+        // Must be check is game not have team
+
+        $isDeleted = $this->game->deleteGame($game->id);
+        if (!$isDeleted) $error = "Gagal menghapus game $game->name";
+
+        $this->session->setFlashdata(
+            isset($error) ?
+                'toast_error' :
+                'toast_success',
+            isset($error) ?
+                $error :
+                "Berhasil menghapus game $game->name!"
+        );
+        return redirect('game');
     }
 
     /**
@@ -86,7 +213,7 @@ class Game extends BaseController
      */
     public function uploadImage(?UploadedFile $uploadedFile = null)
     {
-        if (!empty($uploadedFile)) {
+        if (isset($uploadedFile)) {
             $file = $uploadedFile;
         } else {
             if (!$this->request->is("post")) return $this->response->setJSON(['status' => 'error', 'message' => 'Must be use POST method!']);
@@ -108,14 +235,14 @@ class Game extends BaseController
             $isMoved = $file->move($uploadPath, $fileName, (bool)(ENVIRONMENT == 'development'));
             if (!$isMoved) throw new Error("Gagal upload gambar game, File gagal dipindahkan!");
 
-            if (!empty($uploadedFile)) return true;
+            if (isset($uploadedFile)) return true;
             return $this->response->setStatusCode(200)->setJSON([
                 'status' => 'success',
                 'message' => 'Game image uploaded!',
                 'preview'   => $previewUri
             ]);
         } catch (\Throwable $th) {
-            if (!empty($uploadedFile)) return false;
+            if (isset($uploadedFile)) return false;
             $errMsg = $th->getMessage();
             return $this->response->setStatusCode(400)->setJSON([
                 'status' => 'error',
@@ -147,5 +274,21 @@ class Game extends BaseController
             'all' => $allGamesData,
             'own' => $ownGamesData,
         ];
+    }
+
+    private function serialize($gameDataValidated)
+    {
+        $game = [];
+
+        foreach ($gameDataValidated as $gameKey => $gameValue) {
+            if ($gameKey == 'game_is_verified') {
+                $game[str_replace("game_", "", $gameKey)] = boolval($gameValue == "true" || $gameValue == '1');
+                continue;
+            }
+
+            $game[str_replace("game_", "", $gameKey)] = $gameValue;
+        }
+
+        return $game;
     }
 }

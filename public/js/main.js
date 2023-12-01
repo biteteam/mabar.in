@@ -172,18 +172,28 @@ const upload = async (file, uri, fieldName) => {
 const buttonsFileInput = document.querySelectorAll('button[role="upload-image-input"]')
 buttonsFileInput?.forEach(buttonFileInput => {
     const wrapper = document.querySelector('[target-wrapper-role="upload-image-input"]');
-    const targetPreview = document.querySelector(`#${buttonFileInput.getAttribute('target-preview')}`)
+    const targetPreview = document.querySelector(`img#${buttonFileInput.getAttribute('target-preview')}`)
     const targetInput = document.querySelector(`#${buttonFileInput.getAttribute("target-input")}`);
     const targetFileInput = document.querySelector(`[target-name="${buttonFileInput.getAttribute("target-input")}"]`);
 
-    const handlingOnImageNotEmpty = (previewImgUri) => {
-        targetPreview.style = `background-repeat: no-repeat; background-position: center; background-image: url(${previewImgUri});`;
-        wrapper.classList.replace("bg-black/50", "group-hover/upload-image:bg-black/50")
-        buttonFileInput.classList.replace('opacity-100', 'opacity-0');
+    const handlingOnImageNotEmpty = (previewImgUri, isInitialRender = false) => {
+        if (!isInitialRender) {
+            targetPreview.src = previewImgUri;
+            wrapper.classList.replace("bg-black/50", "group-hover/upload-image:bg-black/50")
+            buttonFileInput.classList.replace('opacity-100', 'opacity-0');
+        }
+
         targetInput.value = previewImgUri;
     }
 
-    if (targetInput.value?.length) handlingOnImageNotEmpty(targetInput.value)
+    if (targetInput.value?.length) {
+        let isInitialRender = false;
+        if (Boolean(targetFileInput.getAttribute('initial-render'))) {
+            isInitialRender = true;
+            targetFileInput.removeAttribute('initial-render')
+        }
+        handlingOnImageNotEmpty(targetInput.value, isInitialRender)
+    }
 
     if (targetFileInput) {
         buttonFileInput.addEventListener('click', () => {

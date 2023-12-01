@@ -10,8 +10,7 @@ if (!function_exists('to_object')) {
     function to_object(mixed $data): mixed
     {
         if (gettype($data) !== "array") return $data;
-        // return json_decode(json_encode($data), false);
-        return json_decode(json_encode($data));
+        return json_decode(json_encode($data), false);
     }
 }
 
@@ -25,6 +24,6 @@ if (!function_exists('to_array')) {
     function to_array(mixed $data): mixed
     {
         if (gettype($data) !== "object") return $data;
-        return json_decode(json_encode($data), false);
+        return json_decode(json_encode($data), true);
     }
 }
