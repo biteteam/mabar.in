@@ -13,6 +13,9 @@ class InputCell extends Cell
     public $value;
     public $required;
     public $errorMessage;
+    public $className;
+    public $rows;
+    public $cols;
 
     protected string $view = "components/input";
 }

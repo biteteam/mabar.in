@@ -1,6 +1,11 @@
 <div class="relative">
     <label class="block mb-2 text-sm font-medium text-white" for="<?= $name ?>"><?= $label ?></label>
-    <input class="border text-sm rounded-lg block w-full p-2.5 outline-none <?= !empty($errorMessage) ? 'invalid-input' : 'normal-input' ?>" id="<?= $name ?>" name="<?= $name ?>" type="<?= $type ?>" value="<?= $value ?>" placeholder="<?= $placeholder ?>" <?= !empty($required) ? 'required' : '' ?> />
+
+    <?php if ($type == 'textarea') : ?>
+        <textarea cols="<?= !empty($cols) ? $cols : 30 ?>" rows="<?= !empty($rows) ? $rows : 10 ?>" class="<?= !empty($className) ? $className : "" ?> border text-sm rounded-lg block w-full p-2.5 outline-none <?= !empty($errorMessage) ? 'invalid-input' : 'normal-input' ?>" id="<?= $name ?>" name="<?= $name ?>" placeholder="<?= $placeholder ?>" <?= !empty($required) ? 'required' : '' ?>><?= $value ?></textarea>
+    <?php else : ?>
+        <input class="<?= !empty($className) ? $className : "" ?> border text-sm rounded-lg block w-full p-2.5 outline-none <?= !empty($errorMessage) ? 'invalid-input' : 'normal-input' ?>" id="<?= $name ?>" name="<?= $name ?>" type="<?= $type ?>" value="<?= $value ?>" placeholder="<?= $placeholder ?>" <?= !empty($required) ? 'required' : '' ?> />
+    <?php endif; ?>
 
     <?php if (!empty($type == 'password')) : ?>
         <button type="button" aria-label="password-show" class="absolute transition-colors duration-300 top-9 right-3 text-xl <?= empty($errorMessage) ? "text-vulcan-400 hover:text-vulcan-300" : "text-red-200/70 hover:text-red-200" ?>">
