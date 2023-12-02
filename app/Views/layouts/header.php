@@ -80,7 +80,8 @@
                                 <span>Home</span>
                             </span>
                         </a>
-                        <a class="nav-item <?= is_active_class('/game') ?>" href="<?= base_url('/game') ?>">
+                        <a class="nav-item <?= is_active_class('/game', false, ['route' => ['/game/account'], 'matchOnly' => false]) ?>"
+                           href="<?= base_url('/game') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-gamepad mb-0.5 mt-1 md:m-0"></i>
                                 <span>Game</span>
