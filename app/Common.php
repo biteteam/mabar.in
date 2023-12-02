@@ -59,6 +59,10 @@ function view(string $name, array $data = [], array $options = []): string
 
 function auth(bool $silent = false)
 {
-    // return service("auth", $silent);
-    return new AuthLibrary($silent);
+    return service("auth", $silent);
+}
+
+function mobileLegends(array $options = [])
+{
+    return service("mobileLegends", $options);
 }

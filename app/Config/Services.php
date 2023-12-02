@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Libraries\AuthLibrary;
+use App\Libraries\MobileLegendsLibrary;
 use CodeIgniter\Config\BaseService;
 
 /**
@@ -39,5 +40,15 @@ class Services extends BaseService
         static::saveSharedInstance('auth', $authInstance);
 
         return $authInstance;
+    }
+
+    public static function mobileLegends(array $httpOptions = [], bool $getShared = true): MobileLegendsLibrary
+    {
+        if ($getShared && static::hasSharedInstance('mobileLegends')) return static::getSharedInstance('mobileLegends');
+
+        $mobileLegendsInstance = new MobileLegendsLibrary($httpOptions);
+        static::saveSharedInstance('mobileLegends', $mobileLegendsInstance);
+
+        return $mobileLegendsInstance;
     }
 }
