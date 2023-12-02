@@ -10,6 +10,8 @@ use function PHPUnit\Framework\isNull;
 
 class GameModel extends Model
 {
+    public static array $availableScraper = ['mobile-legends', 'pubg-mobile'];
+
     protected $table            = 'games';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;

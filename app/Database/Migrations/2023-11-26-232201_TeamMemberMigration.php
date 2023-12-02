@@ -3,17 +3,20 @@
 namespace App\Database\Migrations;
 
 use App\Models\GameAccountModel;
+use App\Models\GameModel;
 use App\Models\TeamMemberModel;
 use App\Models\TeamModel;
 use App\Models\UserModel;
 use CodeIgniter\Database\Migration;
 
-class TeamMemberMigration extends Migration {
+class TeamMemberMigration extends Migration
+{
     protected string $tableName;
     protected string $primaryKey;
     protected array $foreignKeys = [];
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->tableName  = TeamMemberModel::getConfigName('tableName');
@@ -46,11 +49,14 @@ class TeamMemberMigration extends Migration {
         ];
     }
 
-    public function up(): void {
+    public function up(): void
+    {
         $foreignKey = [];
         foreach ($this->foreignKeys as $foreignKeyConstraintName => $foreignKeyConstraintValue) {
             $foreignKey[$this->foreignKeys[$foreignKeyConstraintName]['field']] = $foreignKeyConstraintValue['field_type'];
         }
+
+        $availableGameScraper = "('" . implode("', '", GameModel::$availableScraper) . "')";
 
         $this->forge->addField([
             $this->primaryKey => [
@@ -61,14 +67,25 @@ class TeamMemberMigration extends Migration {
             ],
             ...$foreignKey,
             'hero' => [
-                'type'       => 'BIGINT',
-                'constraint' => 5,
-                'unsigned'   => true,
+                'type'       => 'VARCHAR',
+                'constraint' => 64,
+                'null'   => false,
             ],
             'hero_role' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 16,
+                'constraint' => 64,
                 'null'       => true
+            ],
+            'hero_image' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => true
+            ],
+            'hero_scraper' => [
+                'type'       => "VARCHAR",
+                'constraint' => 32,
+                'null'       => true,
+                'check' => "hero_scraper IN $availableGameScraper OR hero_scraper IS NULL",
             ],
             'created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP',
             'updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
@@ -84,7 +101,8 @@ class TeamMemberMigration extends Migration {
         $this->forge->createTable($this->tableName, true);
     }
 
-    public function down(): void {
+    public function down(): void
+    {
         foreach ($this->foreignKeys as $foreignKeyConstraintName => $foreignKey) {
             $this->forge->dropForeignKey($this->tableName, $foreignKeyConstraintName);
         }
