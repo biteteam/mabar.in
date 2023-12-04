@@ -52,8 +52,8 @@
             </div>
         </div>
         <div class="flex flex-col lg:flex-row w-full mt-4 items-center justify-between gap-y-1.5">
-            <a href="<?= base_url("/team?game={$game->code}") ?>" class="text-sm text-center w-full lg:w-auto py-1.5 px-4 font-medium rounded-md border transition focus:outline-none bg-vulcan-600/50 border-transparent bg-bg-vulcan-400/80 text-slate-200 hover:bg-vulcan-500 hover:border-vulcan-500 hover:text-white cursor-pointer">
-                Team
+            <a href="<?= base_url("/game/{$game->code}/detail") ?>" class="text-sm text-center w-full lg:w-auto py-1.5 px-4 font-medium rounded-md border transition focus:outline-none bg-vulcan-600/50 border-transparent bg-bg-vulcan-400/80 text-slate-200 hover:bg-vulcan-500 hover:border-vulcan-500 hover:text-white cursor-pointer">
+                Detail
             </a>
             <a href="<?= base_url("/team/add?game={$game->code}") ?>" class="text-sm text-center w-full lg:w-auto py-1.5 px-4 font-medium rounded-md border transition focus:outline-none bg-vulcan-600 border-transparent bg-bg-vulcan-400/80 text-slate-200 hover:bg-vulcan-500 hover:border-vulcan-500 hover:text-white cursor-pointer">
                 Buat Team

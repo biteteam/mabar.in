@@ -11,7 +11,6 @@ class GameAccountMigration extends Migration
 {
     protected string $tableName;
     protected string $primaryKey;
-    protected string $uniqueKey  = 'identity';
     protected array $foreignKeys = [];
 
     public function __construct()
@@ -55,6 +54,8 @@ class GameAccountMigration extends Migration
             $foreignKey[$this->foreignKeys[$foreignKeyConstraintName]['field']] = $foreignKeyConstraintValue['field_type'];
         }
 
+        $availableAccountStatus = "'" . implode("', '", GameAccountModel::$availableStatus) . "'";
+
         $this->forge->addField([
             $this->primaryKey => [
                 'type'           => 'BIGINT',
@@ -62,15 +63,20 @@ class GameAccountMigration extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            $this->uniqueKey => [
-                'type'       => 'VARCHAR',
-                'constraint' => '16',
+            'identity' => [
+                'type'       => 'INT',
+                'constraint' => 32,
                 'null'       => false
+            ],
+            'identity_zone_id' => [
+                'type'       => 'INT',
+                'constraint' => 16,
+                'null'       => true
             ],
             ...$foreignKey,
             'status' => [
-                'type'       => 'ENUM("unverified", "verified", "scam")',
-                'default'    => 'unverified',
+                'type'       => "ENUM($availableAccountStatus)",
+                'default'    => GameAccountModel::$defaultStatus,
                 'null'       => false
             ],
             'created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP',
@@ -78,8 +84,6 @@ class GameAccountMigration extends Migration
         ]);
 
         $this->forge->addKey($this->primaryKey, true);
-        $this->forge->addKey($this->uniqueKey, false, true);
-
         foreach ($this->foreignKeys as $foreignKeyConstraintName => $foreignKey) {
             $this->forge->addForeignKey($foreignKey['field'], $foreignKey['ref_table'], $foreignKey['ref_field'], $foreignKey['on_update'], $foreignKey['on_delete'], $foreignKeyConstraintName);
         }

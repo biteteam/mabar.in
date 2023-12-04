@@ -8,6 +8,8 @@ use PhpParser\Node\Stmt\TryCatch;
 class UserModel extends Model
 {
     protected $table            = 'users';
+    protected $tableSingular    = 'user';
+
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
@@ -82,6 +84,8 @@ class UserModel extends Model
         switch ($configName) {
             case 'tableName':
                 return $instance->table;
+            case 'tableSingular':
+                return $instance->tableSingular;
             case 'primaryKey':
                 return $instance->primaryKey;
             case 'createdField':

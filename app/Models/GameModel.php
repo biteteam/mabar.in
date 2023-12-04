@@ -13,6 +13,8 @@ class GameModel extends Model
     public static array $availableScraper = ['mobile-legends', 'pubg-mobile'];
 
     protected $table            = 'games';
+    protected $tableSingular    = 'game';
+
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
@@ -52,12 +54,12 @@ class GameModel extends Model
         $allGames = $this->join($userTable, "$userTable.$userPK = {$this->table}.creator", "LEFT")
             ->select("
                 {$this->table}.*,
-                $userTable.id as creator,
-                $userTable.name as creator_name,
-                $userTable.username as creator_username,
-                $userTable.photo as creator_photo")
-            ->orderBy("{$this->table}.updated_at")
-            ->orderBy("{$this->table}.is_verified");
+                $userTable.id AS creator,
+                $userTable.name AS creator_name,
+                $userTable.username AS creator_username,
+                $userTable.photo AS creator_photo")
+            ->orderBy("{$this->table}.is_verified", "DESC")
+            ->orderBy("{$this->table}.updated_at", "DESC");
 
         if (isset($options['isVerifiedOnly']) && $options['isVerifiedOnly']) $allGames = $allGames->where('is_verified', true);
         if (isset($options['isVerified']) && gettype($options['isVerified']) == 'boolean') $allGames = $allGames->where('is_verified', $options['isVerified']);
@@ -73,13 +75,13 @@ class GameModel extends Model
         $allGames = $this->join($userTable, "$userTable.$userPK = {$this->table}.creator", "LEFT")
             ->select("
                 {$this->table}.*,
-                $userTable.id as creator,
-                $userTable.name as creator_name,
-                $userTable.username as creator_username,
-                $userTable.photo as creator_photo")
+                $userTable.id AS creator,
+                $userTable.name AS creator_name,
+                $userTable.username AS creator_username,
+                $userTable.photo AS creator_photo")
             ->where("$userTable.id", $userId)
-            ->orderBy("{$this->table}.updated_at")
-            ->orderBy("{$this->table}.is_verified")
+            ->orderBy("{$this->table}.is_verified", "ASC")
+            ->orderBy("{$this->table}.updated_at", "DESC")
             ->findAll($limit, $offset);
 
         return $allGames;
@@ -94,20 +96,17 @@ class GameModel extends Model
             ->join($userTable, "$userTable.$userPK = {$this->table}.creator", "LEFT")
             ->select("
                 {$this->table}.*,
-                $userTable.id as creator,
-                $userTable.name as creator_name,
-                $userTable.username as creator_username,
-                $userTable.photo as creator_photo")
-            ->orderBy("{$this->table}.updated_at")
-            ->orderBy("{$this->table}.is_verified")
+                $userTable.id AS creator,
+                $userTable.name AS creator_name,
+                $userTable.username AS creator_username,
+                $userTable.photo AS creator_photo")
+            ->orderBy("{$this->table}.updated_at", "DESC")
             ->first();
     }
 
     public function updateGame(string|int $gameId, array $gameData): bool
     {
         try {
-            // also Update team game.code
-
             return $this->update($gameId, $gameData);
         } catch (\Throwable $th) {
             return false;
@@ -117,8 +116,6 @@ class GameModel extends Model
     public function deleteGame(string|int $gameId): BaseResult|bool
     {
         try {
-            // also Edit team game.code
-
             return $this->delete($gameId);
         } catch (\Throwable $th) {
             return false;
@@ -147,6 +144,8 @@ class GameModel extends Model
         switch ($configName) {
             case 'tableName':
                 return $instance->table;
+            case 'tableSingular':
+                return $instance->tableSingular;
             case 'primaryKey':
                 return $instance->primaryKey;
             case 'createdField':

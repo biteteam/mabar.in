@@ -5,11 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\GameModel;
 use CodeIgniter\HTTP\Files\UploadedFile;
-use CodeIgniter\Router\Router;
 use Error;
-use PhpParser\Node\Stmt\TryCatch;
-
-use function PHPSTORM_META\map;
 
 class Game extends BaseController
 {
@@ -24,21 +20,10 @@ class Game extends BaseController
     {
         $limit = $this->request->getVar('limit') ?? 100;
         $data  = [
-            'all' => $this->game->findAllGame($limit, 0, ['isVerifiedOnly' => auth()->isUser()]),
-            'own' => [],
+            'all' => $this->game->where("creator !=", auth()->user('id'))->where("is_verified", true)->findAllGame($limit, 0),
+            'own' => $this->game->findGameByUserId(auth()->user('id'), $limit),
+            'verifyRequired' => $this->game->where('is_verified', false)->findAllGame($limit),
         ];
-
-        if (auth()->isLoggedIn()) {
-            $userId = auth()->user()->id;
-            $data['own'] = $this->game->findGameByUserId($userId, $limit);
-
-            $data = $this->duplicateGameFilter($data['all'], $data['own']);
-
-            if (auth()->isAdmin()) {
-                $unverifyGame =  $this->game->findAllGame(0, 0, ['isVerified' => false]);
-                if (count($unverifyGame) >= 1) $data['verifyRequired'] = $unverifyGame;
-            }
-        }
 
         return view('game/main', [
             'games'     => $data,

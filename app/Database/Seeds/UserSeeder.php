@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         $defaultPassword = $auth->hashCreds("supersecret");
         $defaultAdmins = [
             [
-                'name' => 'Fiki Pratama',
+                'name'     => 'Fiki Pratama',
                 'username' => 'nsmle',
                 'email'    => 'fikipratama@students.amikom.ac.id',
                 'phone'    => '+6289531538005',
@@ -28,7 +28,47 @@ class UserSeeder extends Seeder
                 'password' => $auth->hashCreds('nsmlesleep'),
                 'role'     => 'admin',
 
-            ]
+            ],
+            [
+                'name'     => 'Realino Primanda Prasano',
+                'username' => 'realino',
+                'email'    => 'realino@students.amikom.ac.id',
+                'phone'    => '+6282255556666',
+                'photo'    => 'https://fotomhs.amikom.ac.id/2022/22_12_2548.jpg',
+                'password' => $auth->hashCreds('primandaprasano'),
+                'role'     => 'user',
+
+            ],
+            [
+                'name'     => 'Zulafan Fadhlan Widadi',
+                'username' => 'zulafan',
+                'email'    => 'zulafan@students.amikom.ac.id',
+                'phone'    => '+6282466662222',
+                'photo'    => 'https://fotomhs.amikom.ac.id/2022/22_12_2568.jpg',
+                'password' => $auth->hashCreds('fadhlanwidadi'),
+                'role'     => 'admin',
+
+            ],
+            [
+                'name'     => 'Sabib Prastio',
+                'username' => 'sabib',
+                'email'    => 'sabibprastio@students.amikom.ac.id',
+                'phone'    => '+6282344448888',
+                'photo'    => 'https://fotomhs.amikom.ac.id/2022/22_12_2598.jpg',
+                'password' => $auth->hashCreds('sprastio'),
+                'role'     => 'user',
+
+            ],
+            [
+                'name'     => 'Rizka Amela Sari',
+                'username' => 'rizka',
+                'email'    => 'rizka@students.amikom.ac.id',
+                'phone'    => '+6289677779999',
+                'photo'    => 'https://fotomhs.amikom.ac.id/2022/22_12_2603.jpg',
+                'password' => $auth->hashCreds('ameliasari'),
+                'role'     => 'admin',
+
+            ],
         ];
 
         foreach ($defaultAdmins as $admin) {

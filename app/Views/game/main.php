@@ -2,11 +2,16 @@
 
 <?= $this->section('content') ?>
 <div class="w-full relative">
-    <div class="mt-4 md:mt-0 md:mb-6">
+    <div class="flex justify-between sm:justify-normal sm:gap-6 items-center mt-6 sm:mt-0 md:mt-0 md:mb-6">
         <a class="text-xs lg:text-sm text-center w-auto py-1.5 px-4 font-medium rounded-md border transition focus:outline-none bg-vulcan-600 border-transparent bg-bg-vulcan-400/80 text-slate-200 hover:bg-vulcan-500 hover:border-vulcan-500 hover:text-white cursor-pointer"
            href="<?= url_to('game.add') ?>">
             <i class="fa-solid fa-plus mr-0.5"></i>
             Tambah Game
+        </a>
+        <a class="text-xs lg:text-sm text-center w-auto py-1.5 px-4 font-medium rounded-md border transition focus:outline-none bg-vulcan-600 border-transparent bg-bg-vulcan-400/80 text-slate-200 hover:bg-vulcan-500 hover:border-vulcan-500 hover:text-white cursor-pointer"
+           href="<?= url_to('game.account') ?>">
+            <i class="fa-solid fa-link mr-0.5"></i>
+            Koneksikan Akun<span class="hidden md:inline"> Game</span>
         </a>
     </div>
 

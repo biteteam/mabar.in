@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 @layer components {
+    * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+
     @screen md {
         html {
             padding-right: 8px !important;
@@ -84,6 +86,25 @@
 
     .normal-input:disabled {
         @apply opacity-50 cursor-no-drop;
+    }
+
+    .game-input {
+        @apply bg-[#302f6c] hover:bg-opacity-70 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-60 border-[#2c2b67] text-white hover:border-[#35347a];
+    }
+
+    .game-input-expander {
+        @apply flex w-full h-0 opacity-0;
+    }
+    
+    .game-input-expander-show {
+        @apply flex w-full h-[500px] opacity-100;
+    }
+
+    .game-input-list-color {
+        @apply bg-[#323174]  border-[#313070] hover:border-[#35347a] hover:bg-opacity-70  bg-opacity-30 bg-clip-padding backdrop-filter backdrop-blur-sm shadow-lg;
+    }
+    .game-input-list-color.selected {
+        @apply bg-[#373680]  border-[#413e9c] hover:border-[#35347a] hover:bg-opacity-70  bg-opacity-100 bg-clip-padding backdrop-filter backdrop-blur-sm shadow-lg;
     }
 
     .invalid-input {

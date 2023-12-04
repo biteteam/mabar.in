@@ -56,24 +56,21 @@
                 </div>
                 <?php if ($userAuth->isAdmin): ?>
                 <div class="pt-5 mt-2 border-t border-vulcan-800"></div>
-                <?php if ($game->creator !== $userAuth->id): ?>
+                <?php if (intval($game->creator) !== intval($userAuth->id)): ?>
                 <div class="mb-5">
-                    <?= view_cell('InputCell', [
-                        'label' => 'Pemilik Game',
-                        'type' => 'text',
-                        'mathParentSlug' => null,
-                        'value' => $game->creator_name,
-                        'disable' => true,
-                    ]) ?>
-                </div>
-                <div class="mb-5">
-                    <?= view_cell('InputCell', [
-                        'label' => 'Username Pemilik',
-                        'type' => 'text',
-                        'mathParentSlug' => null,
-                        'value' => $game->creator_username,
-                        'disable' => true,
-                    ]) ?>
+                    <p class="block mb-2 text-sm font-medium text-white">Pemilik Game</p>
+                    <div class="flex flex-row items-center w-full mt-1">
+                        <a class="flex flex-row items-center gap-2 border border-transparent text-sm transition-all duration-700 outline-none bg-vulcan-800 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-40 hover:bg-blue-500 hover:border-blue-600/50 hover:bg-opacity-20 p-2 pr-3 hover:py-2 hover:px-3 rounded-xl"
+                           href="<?= url_to('user.detail', $game->creator_username) ?>">
+                            <span class="h-10 w-10 rounded-full">
+                                <img class="h-10 w-10 rounded-full object-cover" src="<?= $game->creator_photo ?>" alt="<?= $game->creator_name ?>">
+                            </span>
+                            <span class="flex flex-col text-start ">
+                                <span class="text-sm text-slate-200 font-semibold line-clamp-1 hover:line-clamp-none"><?= $game->creator_name ?></span>
+                                <span class="text-xs text-slate-300">@<?= $game->creator_username ?></span>
+                            </span>
+                        </a>
+                    </div>
                 </div>
                 <?php endif ?>
                 <div class="mb-8">

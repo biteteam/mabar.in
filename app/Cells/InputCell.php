@@ -17,9 +17,16 @@ class InputCell extends Cell
     public $rows;
     public $cols;
     public $autoComplete;
+    public $options;
     public $mathParent = null;
     public $mathParentSlug = null;
     public $disable = false;
 
     protected string $view = "components/input";
+
+    public function mount()
+    {
+        if (!empty($this->options))
+            $this->options = to_object($this->options);
+    }
 }

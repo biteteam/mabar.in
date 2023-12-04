@@ -5,9 +5,19 @@ namespace App\Filters;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Session\Session;
+use Config\Services;
 
 class AuthFilter implements FilterInterface
 {
+    protected Session $session;
+
+    public function __construct()
+    {
+        $sessionConfig = config(\Config\Session::class);
+        $this->session = Services::session($sessionConfig);
+    }
+
     /**
      * Do whatever processing this filter needs to do.
      * By default it should not return anything during
@@ -26,7 +36,10 @@ class AuthFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         $auth = service('auth');
-        if (!$auth->isLoggedIn()) return redirect('login');
+        if (!$auth->isLoggedIn()) {
+            $this->session->set("redirect_after_login", current_url());
+            return redirect('login');
+        }
     }
 
     /**

@@ -66,7 +66,15 @@ class Auth extends BaseController
             if ($isUserCredentialsValid) {
                 $firstName = first_name(auth()->user()->name);
 
+
                 $this->session->setFlashdata('toast_info', "Halo $firstName, Selamat datang kembali.");
+                $redirection = $this->session->get("redirect_after_login");
+
+                if ($redirection && is_string($redirection)) {
+                    $this->session->remove("redirect_after_login");
+                    return redirect()->to($redirection);
+                }
+
                 return redirect('home');
             }
 

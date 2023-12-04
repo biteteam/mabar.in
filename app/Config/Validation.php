@@ -164,4 +164,39 @@ class Validation extends BaseConfig
             ]
         ],
     ];
+
+    public array $gameAccount = [
+        'account_identity' => [
+            'rules'  => 'required|min_length[6]|max_length[32]',
+            'errors' => [
+                'required' => 'User Id tidak boleh kosong.',
+                'min_length' => 'User Id harus minimal 6 karakter.',
+                'max_length' => 'User Id tidak boleh lebih dari 32 karakter.',
+            ],
+        ],
+        'account_identity_zone_id' => [
+            'rules'  => 'max_length[16]',
+            'errors' => [
+                'max_length' => 'Zone Id tidak boleh lebih dari 16 karakter.',
+            ],
+        ],
+        'account_game' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Game harus dipilih untuk menambahkan akun game tersebut.',
+            ],
+        ],
+        'account_user' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Terjadi kesalahan pada akunmu, silahkan coba lagi.',
+            ],
+        ],
+        'account_status' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Terjadi kesalahan pada saat memverifikasi status akun ini, silahkan coba lagi.',
+            ],
+        ],
+    ];
 }

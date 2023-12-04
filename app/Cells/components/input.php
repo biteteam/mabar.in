@@ -5,8 +5,14 @@
         <textarea cols="<?= !empty($cols) ? $cols : 30 ?>" rows="<?= !empty($rows) ? $rows : 10 ?>" class="<?= !empty($className) ? $className : "" ?> border text-sm rounded-lg block w-full p-2.5 outline-none <?= !empty($errorMessage) ? 'invalid-input' : 'normal-input' ?>" id="<?= $name ?>" name="<?= $name ?>" placeholder="<?= $placeholder ?>" <?= !empty($required) ? 'required' : '' ?>><?= $value ?></textarea>
     <?php elseif ($type == 'boolean') : ?>
         <select id="<?= $name ?>" name="<?= $name ?>" type="<?= $type ?>" class="<?= !empty($className) ? $className : "" ?> border text-sm rounded-lg block w-full p-2.5 outline-none <?= !empty($errorMessage) ? 'invalid-input' : 'normal-input' ?>" <?= !empty($required) ? 'required' : '' ?>>
-            <option value="true" <?= $value == 'true' || $value == true || $value == "1" || $value == 1 ? "selected" : "" ?>>Ya</option>
-            <option value="false" <?= $value == 'false' || $value == false || $value == "0" || $value == 0 ? "selected" : "" ?>>Tidak</option>
+            <option class="bg-vulcan-700" value="true" <?= $value == 'true' || $value == true || $value == "1" || $value == 1 ? "selected" : "" ?>>Ya</option>
+            <option class="bg-vulcan-700" value="false" <?= $value == 'false' || $value == false || $value == "0" || $value == 0 ? "selected" : "" ?>>Tidak</option>
+        </select>
+    <?php elseif ($type == 'select' && !empty($options)) : ?>
+        <select id="<?= $name ?>" name="<?= $name ?>" type="<?= $type ?>" class="<?= !empty($className) ? $className : "" ?> border text-sm rounded-lg block w-full p-2.5 outline-none <?= !empty($errorMessage) ? 'invalid-input' : 'normal-input' ?>" <?= !empty($required) ? 'required' : '' ?>>
+            <?php foreach ($options as $option) : ?>
+                <option class="bg-vulcan-700" value="<?= $option->value ?>" <?= $value == $option->value ? "selected" : "" ?>><?= $option->text ?></option>
+            <?php endforeach ?>
         </select>
     <?php else : ?>
 
