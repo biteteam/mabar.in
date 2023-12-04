@@ -46,6 +46,7 @@ const colors = {
 module.exports = {
   content: [
     "./app/Views/**/*.{js,html,php}",
+    "./app/Cells/**/*.php",
     "./app/Cells/components/**/*.{js,html,php}",
     "./public/js/**/*.js",
   ],
@@ -57,14 +58,6 @@ module.exports = {
     "opacity-100",
     "normal-input",
     "invalid-input",
-    {
-      pattern: /text-(red|green|blue|yellow|vulcan)-(50|100|200|300|400|500|600|700|800|900|950)/,
-      variants: ['lg', 'xl', '2xl', 'hover', 'focus', 'disabled'],
-    },
-    {
-      pattern: /bg-(red|green|blue|yellow|vulcan)-(50|100|200|300|400|500|600|700|800|900|950)/,
-      variants: ['lg', 'xl', '2xl', 'hover', 'focus', 'disabled'],
-    },
   ],
 
   theme: {
