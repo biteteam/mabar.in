@@ -1,12 +1,11 @@
 <?= $this->extend('layouts/layout') ?>
 
 <?= $this->section('content') ?>
-<div class="w-full relative">
+<div class="w-full relative pb-20 md:pb-0">
     <div class="flex w-full justify-center">
         <div class="flex flex-col lg:flex-row w-full bg-slate-900 border border-slate-800 rounded-xl shadow-lg shadow-elephant-800/10">
             <form class="flex flex-col w-full lg:w-1/2 px-4 py-6 md:px-6 md:py-8" action="<?= current_url() ?>" method="post" accept-charset="utf-8">
-                <input id="game_creator" name="game_creator" type="hidden"
-                       value="<?= set_value('game_creator', !empty($game->creator_id) ? $game->creator : $game->creator) ?>">
+                <input id="game_creator" name="game_creator" type="hidden" value="<?= set_value('game_creator', $game->creator->id) ?>">
                 <input id="game_image" name="game_image" type="hidden" value="<?= set_value('game_image', $game->image) ?>">
                 <?php if($userAuth->isUser): ?>
                 <input id="game_is_verified" name="game_is_verified" type="hidden" value="<?= set_value('game_is_verified', $game->is_verified) ?>">
@@ -56,18 +55,18 @@
                 </div>
                 <?php if ($userAuth->isAdmin): ?>
                 <div class="pt-5 mt-2 border-t border-vulcan-800"></div>
-                <?php if (intval($game->creator) !== intval($userAuth->id)): ?>
+                <?php if (intval($game->creator->id) !== intval($userAuth->id)): ?>
                 <div class="mb-5">
                     <p class="block mb-2 text-sm font-medium text-white">Pemilik Game</p>
                     <div class="flex flex-row items-center w-full mt-1">
                         <a class="flex flex-row items-center gap-2 border border-transparent text-sm transition-all duration-700 outline-none bg-vulcan-800 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-40 hover:bg-blue-500 hover:border-blue-600/50 hover:bg-opacity-20 p-2 pr-3 hover:py-2 hover:px-3 rounded-xl"
-                           href="<?= url_to('user.detail', $game->creator_username) ?>">
+                           href="<?= url_to('user.detail', esc($game->creator->username)) ?>">
                             <span class="h-10 w-10 rounded-full">
-                                <img class="h-10 w-10 rounded-full object-cover" src="<?= $game->creator_photo ?>" alt="<?= $game->creator_name ?>">
+                                <img class="h-10 w-10 rounded-full object-cover" src="<?= esc($game->creator->photo) ?>" alt="<?= esc($game->creator->name) ?>">
                             </span>
                             <span class="flex flex-col text-start ">
-                                <span class="text-sm text-slate-200 font-semibold line-clamp-1 hover:line-clamp-none"><?= $game->creator_name ?></span>
-                                <span class="text-xs text-slate-300">@<?= $game->creator_username ?></span>
+                                <span class="text-sm text-slate-200 font-semibold line-clamp-1 hover:line-clamp-none"><?= esc($game->creator->name) ?></span>
+                                <span class="text-xs text-slate-300">@<?= esc($game->creator->username) ?></span>
                             </span>
                         </a>
                     </div>

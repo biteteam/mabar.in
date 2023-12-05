@@ -25,6 +25,7 @@
                                 'label' => 'Username',
                                 'type' => 'text',
                                 'placeholder' => 'Username atau Email kamu',
+                                'className' => 'border-vulcan-600',
                                 'value' => set_value('username'),
                                 'errorMessage' => !empty($error->username) ? $error->username : null,
                             ]) ?>
@@ -35,6 +36,7 @@
                                 'label' => 'Password',
                                 'type' => 'password',
                                 'placeholder' => '••••••••',
+                                'className' => 'border-vulcan-600',
                                 'value' => set_value('password'),
                                 'errorMessage' => !empty($error->password) ? $error->password : null,
                             ]) ?>

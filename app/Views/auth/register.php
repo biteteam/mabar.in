@@ -25,6 +25,7 @@
                                 'label' => 'Nama',
                                 'type' => 'text',
                                 'placeholder' => 'Nama Kamu',
+                                'className' => 'border-vulcan-600',
                                 'value' => set_value('name'),
                                 'errorMessage' => !empty($error->name) ? $error->name : null,
                             ]) ?>
@@ -35,6 +36,7 @@
                                 'label' => 'Username',
                                 'type' => 'text',
                                 'placeholder' => 'Pilih Username Kamu',
+                                'className' => 'border-vulcan-600',
                                 'value' => set_value('username'),
                                 'errorMessage' => !empty($error->username) ? $error->username : null,
                             ]) ?>
@@ -45,6 +47,7 @@
                                 'label' => 'Email',
                                 'type' => 'email',
                                 'placeholder' => 'Email Kamu',
+                                'className' => 'border-vulcan-600',
                                 'value' => set_value('email'),
                                 'errorMessage' => !empty($error->email) ? $error->email : null,
                             ]) ?>
@@ -55,6 +58,7 @@
                                 'label' => 'Password',
                                 'type' => 'password',
                                 'placeholder' => '••••••••',
+                                'className' => 'border-vulcan-600',
                                 'value' => set_value('password'),
                                 'errorMessage' => !empty($error->password) ? $error->password : null,
                             ]) ?>
@@ -65,6 +69,7 @@
                                 'label' => 'Ulangi Password',
                                 'type' => 'password',
                                 'placeholder' => '••••••••',
+                                'className' => 'border-vulcan-600',
                                 'value' => set_value('retype_password'),
                                 'errorMessage' => !empty($error->retype_password) ? $error->retype_password : null,
                             ]) ?>

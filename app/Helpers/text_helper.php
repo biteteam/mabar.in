@@ -1,5 +1,7 @@
 <?php
 
+use CodeIgniter\I18n\Time;
+
 if (!function_exists('initial_name')) {
     function initial_name(string $name, string | null $separator = null)
     {
@@ -20,5 +22,25 @@ if (!function_exists('first_name')) {
     {
         $firstName = explode($separator ?? ' ', $name)[0];
         return ucfirst($firstName);
+    }
+}
+
+if (!function_exists('humanizeTimestamp')) {
+    function humanizeTimestamp(string|int $timestamp): string
+    {
+        if (is_string($timestamp)) $timestamp = strtotime($timestamp);
+
+        $time = Time::createFromTimestamp($timestamp, "Asia/Jakarta", "id_ID");
+        return $time->humanize();
+    }
+}
+
+if (!function_exists('readableTimestamp')) {
+    function readableTimestamp(string|int $timestamp): string
+    {
+        if (is_string($timestamp)) $timestamp = strtotime($timestamp);
+        $time = Time::createFromTimestamp($timestamp, "Asia/Jakarta", "id_ID");
+
+        return $time->toLocalizedString('HH:mm. EEEE, dd MMMM yyyy', 'short');
     }
 }

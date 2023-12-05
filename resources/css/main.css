@@ -81,11 +81,14 @@
     }
 
     .normal-input {
-        @apply bg-vulcan-800 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border-vulcan-600 placeholder-slate-400 text-white focus:ring-blue-500 focus:border-vulcan-500;
+        @apply bg-vulcan-800 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border-vulcan-800/50 placeholder-slate-400 text-white focus:ring-blue-500 focus:border-vulcan-500;
     }
 
+    /* .normal-input:disabled {
+        @apply bg-opacity-20 text-slate-200 cursor-no-drop;
+    } */
     .normal-input:disabled {
-        @apply opacity-50 cursor-no-drop;
+        @apply bg-opacity-20 bg-vulcan-700 border-vulcan-800/50 text-slate-300 cursor-no-drop;
     }
 
     .game-input {

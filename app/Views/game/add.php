@@ -1,12 +1,7 @@
-<?=
-''
-// dd()
-// ""
-?>
 <?= $this->extend('layouts/layout') ?>
 
 <?= $this->section('content') ?>
-<div class="w-full relative">
+<div class="w-full relative pb-20 md:pb-0">
     <div class="flex w-full justify-center">
         <div class="flex flex-col lg:flex-row w-full bg-slate-900 border border-slate-800 rounded-xl shadow-lg shadow-elephant-800/10">
             <form class="flex flex-col w-full lg:w-1/2 px-4 py-6 md:px-6 md:py-8" action="<?= url_to('game.add') ?>" method="post" accept-charset="utf-8">

@@ -19,11 +19,12 @@ class Game extends BaseController
     public function index()
     {
         $limit = $this->request->getVar('limit') ?? 100;
-        $data  = [
-            'all' => $this->game->where("creator !=", auth()->user('id'))->where("is_verified", true)->findAllGame($limit, 0),
-            'own' => $this->game->findGameByUserId(auth()->user('id'), $limit),
-            'verifyRequired' => $this->game->where('is_verified', false)->findAllGame($limit),
-        ];
+
+        $data['all'] = $this->game->where("creator !=", auth()->user('id'))->where("is_verified", true)->findAllGame($limit, 0);
+        $data['own'] = $this->game->findGameByUserId(auth()->user('id'), $limit);
+        $data['verifyRequired'] = $this->game->where('is_verified', false)->findAllGame($limit);
+
+
 
         return view('game/main', [
             'games'     => $data,
@@ -65,7 +66,7 @@ class Game extends BaseController
 
             if (isset($gameData['is_verified']) && $gameData['is_verified'] == "1" && auth()->isUser())
                 $validationErrors['game_is_verified'] = "Kamu tidak memiliki akses untuk mengubah ini";
-            if (isset($gameData['creator']) && $gameData['creator'] !== auth()->user('id'))
+            if (isset($gameData['creator']) && intval($gameData['creator']) !== intval(auth()->user('id')))
                 $validationErrors['game_creator'] = "Creator game tidak dapat kamu ubah!";
 
             if ($gameData && empty($validationErrors)) {
@@ -101,7 +102,7 @@ class Game extends BaseController
             return redirect('game');
         }
 
-        if (($isFromVerify && auth()->isUser()) || ($game->creator !== auth()->user('id') && auth()->isUser())) {
+        if (($isFromVerify && auth()->isUser()) || (intval($game->creator->id) !== intval(auth()->user('id')) && auth()->isUser())) {
             $this->session->setFlashdata('toast_error', "Kamu tidak memiliki akses untuk $messageType game $gameCode!");
             return redirect('game');
         }
@@ -131,7 +132,7 @@ class Game extends BaseController
             if ($isFromVerify) {
                 if (isset($gameData['is_verified']) && $gameData['is_verified'] !== $game->is_verified && auth()->isUser())
                     $validationErrors['game_is_verified'] = "Kamu tidak memiliki akses untuk verifikasi game!";
-                if (isset($gameData['creator']) && $gameData['creator'] !== auth()->user('id') && auth()->isUser())
+                if (isset($gameData['creator']) && intval($gameData['creator']) !== intval(auth()->user('id')) && auth()->isUser())
                     $validationErrors['game_creator'] = "Kamu tidak memiliki akses untuk mengubah creator game!";
             } else {
                 if (isset($gameData['is_verified']) && $gameData['is_verified'] && auth()->isUser()) $gameData['is_verified'] = false;
@@ -156,7 +157,28 @@ class Game extends BaseController
                 'title'   => $isFromVerify  ? "Verifikasi Game $game->name" : "Edit Game $game->name",
                 'header'  => [
                     'title'        => $isFromVerify  ? "Verifikasi Game" : "Edit Game",
-                    'description'  => $isFromVerify  ? "Verifikasi Game $game->name dari $game->creator_name" : "Edit Game $game->name",
+                    'description'  => $isFromVerify  ? "Verifikasi Game $game->name dari {$game->creator->name}" : "Edit Game $game->name",
+                ]
+            ],
+        ]);
+    }
+
+    public function detailGame(string $gameCode)
+    {
+        $game = $this->game->findGameByCode($gameCode);
+        if (empty($game)) {
+            $this->session->setFlashdata('toast_error', "Game $gameCode tidak ditemukan!");
+            return redirect('game');
+        }
+
+        return view('game/detail', [
+            'game'      => $game,
+            'error'     => $this->session->getFlashdata('error'),
+            'metadata'  => [
+                'title'   => "Game $game->name",
+                'header'  => [
+                    'title'        => 'Detail Game',
+                    'description'  => "Detal Game $game->name."
                 ]
             ],
         ]);
@@ -168,7 +190,7 @@ class Game extends BaseController
         $game = $this->game->findGameByCode($gameCode);
         if (empty($game)) $error = "Gagal menghapus game, game dengan kode $gameCode tidak ditemukan!";
 
-        if (isset($game) && $game->creator !== auth()->user('id') && auth()->isUser())
+        if (isset($game) && intval($game->creator->id) !== intval(auth()->user('id')) && auth()->isUser())
             $error = "Gagal menghapus game, Kamu tidak memiliki akses untuk menghapus game $game->name!";
 
         // Must be check is game not have team
