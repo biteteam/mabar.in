@@ -7,7 +7,7 @@ jobs:
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
-    
+
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
@@ -19,12 +19,15 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 18
-      
+
     - name: Install Node Dependencies
       run: npm install --global yarn
 
     - name: Install PHP Dependencies
       run: composer install --no-dev
+
+    - name: Minify Tailwind CSS Output
+      run: yarn build:minify
 
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
