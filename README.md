@@ -48,7 +48,7 @@ Copy file `env` di root project ke file `.env`.
 
 Atau lakukan melalui perintah di terminal 
 ```bash
-./spark env development
+php spark env development
 ```
 
 Hapus komentar(`#`) pada bagian `app.name` dan `app.baseURL` di file [.env](https://github.com/biteteam/mabar.in/blob/0c6d86663e7f1d3504a88725ce301417e6010d6a/env#L23-L24) dan edit seperti berikut:
@@ -79,25 +79,28 @@ database.default.port = 3306
 Konfigurasikan juga untuk `encryption.key` di file [.env](https://github.com/biteteam/mabar.in/blob/0c6d86663e7f1d3504a88725ce301417e6010d6a/env#L93).
 Atau lakukan secara langsung dan otomatis di terminal: 
 ```bash
-./spark key:generate
+php spark key:generate
 ```
 
 
 ### Migrasi Data
 Jalankan perintah migrasi berikut ini di terminal untuk membuat [table-table yang telah dikonfigurasikan](https://github.com/biteteam/mabar.in/tree/master/app/Database/Migrations):
 ```bash
-./spark migrate:refresh
+php spark migrate:refresh
 ```
 
 
 ### Seeding Data
-soon...
+Jalankan perintah seeder berikut ini di terminal untuk memasukan data dummy dari [table-table yang telah dikonfigurasikan](https://github.com/biteteam/mabar.in/tree/master/app/Database/Seeds):
+```bash
+php spark db:seed AllSeeder
+```
 
 
 ### Jalankan Server
 Gunakan perintah berikut untuk menjalankannya:
 ```bash
-./spark server
+php spark serve
 ```
 Kemudian buka link yang muncul di browser, biasanya http://localhost:8080.
 
@@ -110,6 +113,22 @@ Lalu jika ingin recompile tailwindcss dan melakukan perubahan/penambahan pada at
   ```bash
   yarn dev
   ```
+
+### Build TailwindCSS Opsi
+Jika ingin build yang di minify untuk production dapt menggunakan perintah:
+```bash
+yarn build:minify
+```
+
+Atau jika hanya ingin build yang tidak di minify, dapat menggunakan:
+```bash
+yarn build
+```
+
+Jika ingin recompile pada saat development, dapat menggunakan:
+```bash
+yarn dev
+```
 
 
 #### Publish
