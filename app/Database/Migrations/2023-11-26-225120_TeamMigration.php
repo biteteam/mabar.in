@@ -7,13 +7,15 @@ use App\Models\TeamModel;
 use App\Models\UserModel;
 use CodeIgniter\Database\Migration;
 
-class TeamMigration extends Migration {
+class TeamMigration extends Migration
+{
     protected string $tableName;
     protected string $primaryKey;
     protected string $uniqueKey  = 'code';
     protected array $foreignKeys = [];
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->tableName  = TeamModel::getConfigName('tableName');
@@ -46,7 +48,8 @@ class TeamMigration extends Migration {
         ];
     }
 
-    public function up() {
+    public function up()
+    {
         $foreignKey = [];
         foreach ($this->foreignKeys as $foreignKeyConstraintName => $foreignKeyConstraintValue) {
             $foreignKey[$this->foreignKeys[$foreignKeyConstraintName]['field']] = $foreignKeyConstraintValue['field_type'];
@@ -90,7 +93,8 @@ class TeamMigration extends Migration {
         $this->forge->createTable($this->tableName, true);
     }
 
-    public function down(): void {
+    public function down(): void
+    {
         foreach ($this->foreignKeys as $foreignKeyConstraintName => $foreignKey) {
             $this->forge->dropForeignKey($this->tableName, $foreignKeyConstraintName);
         }

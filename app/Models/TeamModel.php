@@ -4,8 +4,11 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class TeamModel extends Model {
+class TeamModel extends Model
+{
     protected $table            = 'teams';
+    protected $tableSingular    = 'team';
+
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
@@ -37,11 +40,14 @@ class TeamModel extends Model {
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public static function getConfigName(string $configName = null): string|array {;
+    public static function getConfigName(string $configName = null): string|array
+    {;
         $instance = new self();
         switch ($configName) {
             case 'tableName':
                 return $instance->table;
+            case 'tableSingular':
+                return $instance->tableSingular;
             case 'primaryKey':
                 return $instance->primaryKey;
             case 'createdField':
