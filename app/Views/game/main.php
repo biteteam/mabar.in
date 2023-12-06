@@ -19,7 +19,7 @@
         <?php if (!empty($games->own)) : ?>
         <div class="block w-full">
             <h2 class="text-lg font-medium leading-6 text-slate-100">Game yang kamu buat</h2>
-            <div class="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            <div class="mt-4 grid grid-cols-2 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 <?php foreach ($games->own as $game) : ?>
                 <?= view_cell('GameCardCell', ['game' => $game]) ?>
                 <?php endforeach; ?>
@@ -30,7 +30,7 @@
         <?php if (auth()->isLoggedIn() && auth()->isAdmin() && !empty($games->verifyRequired)) : ?>
         <div class="block w-full">
             <h2 class="text-lg font-medium leading-6 text-slate-100">Game yang perlu di verifikasi</h2>
-            <div class="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            <div class="mt-4 grid grid-cols-2 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 <?php foreach ($games->verifyRequired as $game) : ?>
                 <?= view_cell('GameCardCell', ['game' => $game]) ?>
                 <?php endforeach; ?>
@@ -41,7 +41,7 @@
         <?php if (!empty($games->all)) : ?>
         <div class="block w-full">
             <h2 class="text-lg font-medium leading-6 text-slate-100">Game <?= !empty($games->own) ? 'lainnya' : 'yang didukung' ?></h2>
-            <div class="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            <div class="mt-4 grid grid-cols-2 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 <?php foreach ($games->all as $game) : ?>
                 <?= view_cell('GameCardCell', ['game' => $game]) ?>
                 <?php endforeach; ?>
