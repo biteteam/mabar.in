@@ -10,5 +10,8 @@ class AllSeeder extends Seeder
     {
         $this->call('UserSeeder');
         $this->call('GameSeeder');
+        $this->call('GameAccountSeeder');
+        // $this->call('TeamSeeder');
+        // $this->call('TeamMemberSeeder');
     }
 }

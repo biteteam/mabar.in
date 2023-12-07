@@ -62,8 +62,7 @@ class GameMigration extends Migration
                 'null'       => false
             ],
             'description' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 255,
+                'type'       => 'TEXT',
                 'null'       => true
             ],
             'image' => [

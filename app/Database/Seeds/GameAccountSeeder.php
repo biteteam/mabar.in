@@ -14,15 +14,28 @@ class GameAccountSeeder extends Seeder
     {
         $faker =  FakerFactory::create('id_ID');
         $tableName = GameAccountModel::getConfigName("tableName");
-        $availableAccountStatus = GameAccountModel::$availableStatus;
 
-        for ($i = 1; $i <= $this->seedCount; $i++) {
+        $randExist = ["identity" => [], 'zone_id' => []];
+        $max = $this->seedCount;
+        for ($i = 1; $i <= $max; $i++) {
+            $identity = $faker->numberBetween(1000000000, 2147483647);
+            $zoneId = $faker->numberBetween(100, 9999);
+            if (in_array($identity, $randExist['identity']) || in_array($zoneId, $randExist['zone_id'])) {
+                $max++;
+                continue;
+            }
+
+            $randExist = array_merge($randExist, [
+                'identity' => array_merge($randExist['identity'], [$identity]),
+                'zone_id' => array_merge($randExist['zone_id'], [$zoneId])
+            ]);
+
             $this->db->table($tableName)->insert([
-                'user' => $faker->randomNumber(1, $this->seedCount),
-                'game' => $faker->randomNumber(1, 2),
-                'identity' => $faker->regexify('[0-9]{16}'),
-                'identity_zone_id' => $faker->regexify('[0-9]{5}'),
-                'status' => "ENUM({$availableAccountStatus})",
+                'user' => $faker->numberBetween(1, $this->seedCount),
+                'game' => $faker->numberBetween(1, 2),
+                'identity' => $identity,
+                'identity_zone_id' => $zoneId,
+                'status' => $faker->randomElements(GameAccountModel::$availableStatus)[0],
             ]);
         }
     }

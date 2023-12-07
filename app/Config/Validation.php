@@ -132,11 +132,10 @@ class Validation extends BaseConfig
             ],
         ],
         'game_description' => [
-            'rules'  => 'required|min_length[8]|max_length[255]',
+            'rules'  => 'required|min_length[8]',
             'errors' => [
                 'required' => 'Deskripsi game tidak boleh kosong.',
                 'min_length' => 'Deskripsi game harus minimal 8 karakter.',
-                'max_length' => 'Deskripsi game tidak boleh lebih dari 255 karakter.',
             ]
         ],
         'game_image' => [
