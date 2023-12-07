@@ -14,7 +14,7 @@ class TeamMemberModel extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['team', 'account', 'hero', 'hero_id', 'hero_role', 'hero_image', 'hero_scraper'];
 
     // Dates
     protected $useTimestamps = true;

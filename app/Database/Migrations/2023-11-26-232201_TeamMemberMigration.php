@@ -69,7 +69,11 @@ class TeamMemberMigration extends Migration
             'hero' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 64,
-                'null'   => false,
+                'null'       => false,
+            ],
+            'hero_id' => [
+                'type'       => 'INT',
+                'null'       => true,
             ],
             'hero_role' => [
                 'type'       => 'VARCHAR',
@@ -85,7 +89,7 @@ class TeamMemberMigration extends Migration
                 'type'       => "VARCHAR",
                 'constraint' => 32,
                 'null'       => true,
-                'check' => "hero_scraper IN $availableGameScraper OR hero_scraper IS NULL",
+                'check'      => "hero_scraper IN $availableGameScraper OR hero_scraper IS NULL",
             ],
             'created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP',
             'updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
