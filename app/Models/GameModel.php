@@ -12,6 +12,7 @@ use function PHPUnit\Framework\isNull;
 class GameModel extends Model
 {
     public static array $availableScraper = ['mobile-legends', 'pubg-mobile'];
+    public static string $defaultScrapper = 'mobile-legends';
 
     protected $table            = 'games';
     protected $tableSingular    = 'game';

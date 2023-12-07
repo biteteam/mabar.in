@@ -21,6 +21,8 @@ class UserMigration extends Migration
 
     public function up(): void
     {
+        $availableRole = "'" . implode("', '", UserModel::$availableRole) . "'";
+
         $this->forge->addField([
             $this->primaryKey => [
                 'type'           => 'BIGINT',
@@ -59,8 +61,8 @@ class UserMigration extends Migration
                 'null'       => false
             ],
             'role' => [
-                'type'       => 'ENUM("user", "admin")',
-                'default'    => 'user',
+                'type'       => "ENUM($availableRole)",
+                'default'    => UserModel::$defaultRole,
                 'null'       => false
             ],
             'created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP',

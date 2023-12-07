@@ -6,6 +6,9 @@ use CodeIgniter\Model;
 
 class TeamModel extends Model
 {
+    public static array $teamStatus     = ["draft", "recruite", "matches", "archive"];
+    public static string $defaultStatus = "draft";
+
     protected $table            = 'teams';
     protected $tableSingular    = 'team';
 

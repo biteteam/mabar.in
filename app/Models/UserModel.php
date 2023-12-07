@@ -7,6 +7,10 @@ use PhpParser\Node\Stmt\TryCatch;
 
 class UserModel extends Model
 {
+    public static array $availableRole = ['user', 'admin'];
+    public static string $defaultRole = 'user';
+    public static string $superRole = 'admin';
+
     protected $table            = 'users';
     protected $tableSingular    = 'user';
 
@@ -68,7 +72,7 @@ class UserModel extends Model
                 'username' => $username,
                 'email'    => $email,
                 'phone'    => $phone ?? null,
-                'photo'    => $photo ?? "https://ui-avatars.com/api?name=" . initial_name($name, "+") . "&color=7F9CF5&background=EBF4FF",
+                'photo'    => $photo ?? self::getDefaultAvatar($name),
                 'password' => auth(true)->hashCreds($password),
                 'role'     => $role,
             ], true);
@@ -100,5 +104,17 @@ class UserModel extends Model
                     'updatedField' => $instance->updatedField,
                 ];
         }
+    }
+
+    public static function getAvatarAmikomA22(string $nim): string
+    {
+        $formattedUriNim = preg_replace("/\./i", "_", $nim);
+        return "https://fotomhs.amikom.ac.id/2022/$formattedUriNim.jpg";
+    }
+
+    public static function getDefaultAvatar(string $name, string $color = "7F9CF5", string $background = "EBF4FF"): string
+    {
+        $initialName = initial_name($name, "+");
+        return "https://ui-avatars.com/api?name=$initialName&color=$color&background=$background";
     }
 }

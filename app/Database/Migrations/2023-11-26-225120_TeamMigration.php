@@ -3,6 +3,7 @@
 namespace App\Database\Migrations;
 
 use App\Models\GameModel;
+use App\Models\TeamMemberModel;
 use App\Models\TeamModel;
 use App\Models\UserModel;
 use CodeIgniter\Database\Migration;
@@ -55,6 +56,9 @@ class TeamMigration extends Migration
             $foreignKey[$this->foreignKeys[$foreignKeyConstraintName]['field']] = $foreignKeyConstraintValue['field_type'];
         }
 
+        $availableStatus = "'" . implode("', '", TeamModel::$teamStatus) . "'";
+        $defaultStatus   = TeamModel::$defaultStatus;
+
         $this->forge->addField([
             $this->primaryKey => [
                 'type'           => 'BIGINT',
@@ -74,8 +78,8 @@ class TeamMigration extends Migration
                 'null'       => false
             ],
             'status' => [
-                'type'       => 'ENUM("draft", "recruite", "matches", "archive")',
-                'default'    => 'draft',
+                'type'       => "ENUM($availableStatus)",
+                'default'    => $defaultStatus,
                 'null'       => false
             ],
             'created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP',

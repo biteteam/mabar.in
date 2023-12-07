@@ -63,6 +63,7 @@ class GameAccountMigration extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
+            ...$foreignKey,
             'identity' => [
                 'type'       => 'INT',
                 'constraint' => 32,
@@ -73,7 +74,6 @@ class GameAccountMigration extends Migration
                 'constraint' => 16,
                 'null'       => true
             ],
-            ...$foreignKey,
             'status' => [
                 'type'       => "ENUM($availableAccountStatus)",
                 'default'    => GameAccountModel::$defaultStatus,

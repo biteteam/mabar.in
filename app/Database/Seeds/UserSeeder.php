@@ -24,50 +24,54 @@ class UserSeeder extends Seeder
                 'username' => 'nsmle',
                 'email'    => 'fikipratama@students.amikom.ac.id',
                 'phone'    => '+6289531538005',
-                'photo'    => 'https://fotomhs.amikom.ac.id/2022/22_12_2551.jpg',
+                'photo'    => UserModel::getAvatarAmikomA22("22.12.2551"),
                 'password' => $auth->hashCreds('nsmlesleep'),
-                'role'     => 'admin',
-
+                'role'     => UserModel::$superRole,
             ],
             [
                 'name'     => 'Realino Primanda Prasano',
                 'username' => 'realino',
                 'email'    => 'realino@students.amikom.ac.id',
                 'phone'    => '+6282255556666',
-                'photo'    => 'https://fotomhs.amikom.ac.id/2022/22_12_2548.jpg',
+                'photo'    => UserModel::getAvatarAmikomA22("22.12.2548"),
                 'password' => $auth->hashCreds('primandaprasano'),
-                'role'     => 'user',
-
+                'role'     => UserModel::$defaultRole,
             ],
             [
                 'name'     => 'Zulafan Fadhlan Widadi',
                 'username' => 'zulafan',
                 'email'    => 'zulafan@students.amikom.ac.id',
                 'phone'    => '+6282466662222',
-                'photo'    => 'https://fotomhs.amikom.ac.id/2022/22_12_2568.jpg',
+                'photo'    => UserModel::getAvatarAmikomA22("22.12.2568"),
                 'password' => $auth->hashCreds('fadhlanwidadi'),
-                'role'     => 'admin',
-
+                'role'     => UserModel::$superRole,
             ],
             [
                 'name'     => 'Sabib Prastio',
                 'username' => 'sabib',
                 'email'    => 'sabibprastio@students.amikom.ac.id',
                 'phone'    => '+6282344448888',
-                'photo'    => 'https://fotomhs.amikom.ac.id/2022/22_12_2598.jpg',
+                'photo'    => UserModel::getAvatarAmikomA22("22.12.2598"),
                 'password' => $auth->hashCreds('sprastio'),
-                'role'     => 'user',
-
+                'role'     => UserModel::$defaultRole,
             ],
             [
                 'name'     => 'Rizka Amela Sari',
                 'username' => 'rizka',
                 'email'    => 'rizka@students.amikom.ac.id',
                 'phone'    => '+6289677779999',
-                'photo'    => 'https://fotomhs.amikom.ac.id/2022/22_12_2603.jpg',
+                'photo'    => UserModel::getAvatarAmikomA22("22.12.2603"),
                 'password' => $auth->hashCreds('ameliasari'),
-                'role'     => 'admin',
-
+                'role'     => UserModel::$superRole,
+            ],
+            [
+                'name'     => 'Admin',
+                'username' => 'admin',
+                'email'    => 'admin.amikom.ac.id',
+                'phone'    => '+6289622224444',
+                'photo'    => UserModel::getDefaultAvatar("Admin"),
+                'password' => $auth->hashCreds('admin123'),
+                'role'     => UserModel::$superRole,
             ],
         ];
 
@@ -78,19 +82,19 @@ class UserSeeder extends Seeder
         $adminCount = 1;
         for ($i = 0; $i < $this->seedCount; $i++) {
             $gender = $faker->randomElements(['male', 'female'])[0];
-            $role = $faker->randomElements(['admin', 'user'])[0];
+            $role = $faker->randomElements(UserModel::$availableRole)[0];
             $name = $faker->name($gender);
 
-            if ($role == 'admin') $adminCount += 1;
-            if ($adminCount > 3) $role = 'user';
+            if ($role == UserModel::$superRole) $adminCount += 1;
+            if ($adminCount > 3) $role = UserModel::$defaultRole;
 
             $user = [
                 'name'     => $name,
                 'username' => $faker->userName(),
                 'email'    => $faker->unique()->email(),
                 'phone'    => $faker->unique()->e164PhoneNumber(),
-                'photo'    => "https://ui-avatars.com/api?name=" . initial_name($name, "+") . "&color=7F9CF5&background=EBF4FF",
                 'password' => $defaultPassword,
+                'photo'    => UserModel::getDefaultAvatar($name),
                 'role'     => $role,
             ];
 
