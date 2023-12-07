@@ -1,7 +1,7 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
-use App\Controllers\{Auth, Game, GameAccount, Home};
+use App\Controllers\{Auth, Game, GameAccount, Home, Team};
 
 /**
  * @var RouteCollection $routes
@@ -43,11 +43,11 @@ $routes->group('game', static function ($route) {
 // Team Routes
 $routes->group('team', static function ($route) {
     // Team Route
-    $route->get('', [GameAccount::class, 'main'], ['as' => 'team']);
-    $route->get('/(:any)/detail', [GameAccount::class, 'main'], ['as' => 'team.detail']);
-    $route->match(['get', 'post'], '/add', [GameAccount::class, "addTeam"], ['as' => 'team.add']);
-    $route->match(['get', 'post'], '/(:any)/edit', [GameAccount::class, "editTeam"], ['as' => 'team.edit']);
-    $route->post('account/(:any)/delete', [GameAccount::class, "deleteTeam"], ['as' => 'team.delete']);
+    $route->get('', [Team::class, 'main'], ['as' => 'team']);
+    $route->get('/(:any)/detail', [Team::class, 'main'], ['as' => 'team.detail']);
+    $route->match(['get', 'post'], '/add', [Team::class, "addTeam"], ['as' => 'team.add']);
+    $route->match(['get', 'post'], '/(:any)/edit', [Team::class, "editTeam"], ['as' => 'team.edit']);
+    $route->post('account/(:any)/delete', [Team::class, "deleteTeam"], ['as' => 'team.delete']);
 
     // Team Member Route
 });

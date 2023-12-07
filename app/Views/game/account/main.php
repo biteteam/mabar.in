@@ -30,7 +30,7 @@
              </div>
 
              <?php if (empty($accounts) || count($accounts) < 1) : ?>
-             <div class="flex w-full justify-center text-center py-8">
+             <div class="flex w-full justify-center text-center py-2 md:py-8">
                  <span class="text-sm font-medium text-slate-400">Kamu Belum Memiliki Akun Game Yang Terkoneksi.</span>
              </div>
              <?php endif ?>

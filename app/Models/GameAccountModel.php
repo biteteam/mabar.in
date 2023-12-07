@@ -13,7 +13,7 @@ class GameAccountModel extends Model
     public static string $defaultStatus  = 'unverified';
 
     protected $table            = 'game_accounts';
-    protected $tableSingular    = 'game_account';
+    protected $tableSingular    = 'account';
 
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
