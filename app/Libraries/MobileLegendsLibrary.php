@@ -90,9 +90,9 @@ class MobileLegendsLibrary
     {
         return array_map(function ($hero) {
             return [
-                'id'    => isset($hero['heroid']) ? $hero['heroid'] : null,
-                'name'  => isset($hero['name']) ? $hero['name'] : null,
-                'image' => isset($hero['key']) ? preg_replace('/^\/\//', 'https://', $hero['key']) : null
+                'id'    => $this->validate($hero, 'heroid'),
+                'name'  => $this->validate($hero, 'name'),
+                'image' => preg_replace('/^\/\//', 'https://', $this->validate($hero, 'key'))
             ];
         }, $heroes);
     }
