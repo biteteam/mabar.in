@@ -26,7 +26,10 @@ class InputGameCell extends Cell
             return;
         }
 
-        $games = model(GameModel::class)->where('is_verified', true)->findAll();
+        $games = model(GameModel::class);
+        if (auth()->isUser()) $games->where('is_verified', true);
+
+        $games = $games->findAll();
         $this->games = $games;
 
         if (!empty($this->value) && $this->value !== "") {
