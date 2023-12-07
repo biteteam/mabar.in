@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-    public function index()
+    public function main()
     {
         /**
          * If Authenticated   | return to dashboard view

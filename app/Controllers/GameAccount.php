@@ -20,7 +20,7 @@ class GameAccount extends BaseController
         $this->account = model(GameAccountModel::class);
     }
 
-    public function index()
+    public function main()
     {
         $data['accounts'] = $this->account->where('user =', auth()->user('id'))->findAllAccounts();
 

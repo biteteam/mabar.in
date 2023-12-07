@@ -6,12 +6,12 @@ use App\Controllers\{Auth, Game, GameAccount, Home};
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', [Home::class, 'index'], ['as' => 'home']);
+$routes->get('/', [Home::class, 'main'], ['as' => 'home']);
 
 
 // Authentication Routes
 $routes->group('auth', static function ($route) {
-    $route->get('', [Auth::class, 'index']);
+    $route->get('', [Auth::class, 'main']);
     $route->post('logout', [Auth::class, 'logout'], ['as' => 'logout']);
     $route->match(['get', 'post'], 'login', [Auth::class, 'login'], ['as' => 'login']);
     $route->match(['get', 'post'], 'register', [Auth::class, 'register'], ['as' => 'register']);
@@ -21,7 +21,7 @@ $routes->group('auth', static function ($route) {
 $routes->group('game', static function ($route) {
     // Account Game Routes
     $route->group('account', static function ($route) {
-        $route->get('', [GameAccount::class, "index"], ['as' => 'game.account']);
+        $route->get('', [GameAccount::class, 'main'], ['as' => 'game.account']);
         $route->match(['get', 'post'], 'add', [GameAccount::class, "addAccount"], ['as' => 'game.account.add']);
     });
     $route->group('(:any)/account', static function ($route) {
@@ -31,7 +31,7 @@ $routes->group('game', static function ($route) {
     });
 
     // Game
-    $route->get('', [Game::class, "index"], ['as' => 'game']);
+    $route->get('', [Game::class, 'main'], ['as' => 'game']);
     $route->get('(:any)/detail', [Game::class, "detailGame"], ['as' => 'game.detail']);
     $route->match(['get', 'post'], 'add', [Game::class, "addGame"], ['as' => 'game.add']);
     $route->match(['get', 'post'], '(:any)/edit', [Game::class, "editGame"], ['as' => 'game.edit']);
@@ -43,8 +43,8 @@ $routes->group('game', static function ($route) {
 // Team Routes
 $routes->group('team', static function ($route) {
     // Team Route
-    $route->get('', [GameAccount::class, "index"], ['as' => 'team']);
-    $route->get('/(:any)/detail', [GameAccount::class, "index"], ['as' => 'team.detail']);
+    $route->get('', [GameAccount::class, 'main'], ['as' => 'team']);
+    $route->get('/(:any)/detail', [GameAccount::class, 'main'], ['as' => 'team.detail']);
     $route->match(['get', 'post'], '/add', [GameAccount::class, "addTeam"], ['as' => 'team.add']);
     $route->match(['get', 'post'], '/(:any)/edit', [GameAccount::class, "editTeam"], ['as' => 'team.edit']);
     $route->post('account/(:any)/delete', [GameAccount::class, "deleteTeam"], ['as' => 'team.delete']);
@@ -54,6 +54,6 @@ $routes->group('team', static function ($route) {
 
 // User Routes
 $routes->group('user', static function ($route) {
-    $route->get('', [Game::class, "index"], ['as' => 'user']);
-    $route->get('(:any)/', [Game::class, "index"], ['as' => 'user.detail']);
+    $route->get('', [Game::class, 'main'], ['as' => 'user']);
+    $route->get('(:any)/', [Game::class, 'main'], ['as' => 'user.detail']);
 });

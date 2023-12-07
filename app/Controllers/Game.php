@@ -16,7 +16,7 @@ class Game extends BaseController
         $this->game = model(GameModel::class);
     }
 
-    public function index()
+    public function main()
     {
         $limit = $this->request->getVar('limit') ?? 100;
 

@@ -29,7 +29,7 @@ class Auth extends BaseController
      *
      * @return RedirectResponse
      */
-    public function index(): RedirectResponse
+    public function main(): RedirectResponse
     {
         return redirect('login');
     }
