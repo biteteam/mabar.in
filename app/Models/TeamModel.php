@@ -6,8 +6,8 @@ use CodeIgniter\Model;
 
 class TeamModel extends Model
 {
-    public static array $teamStatus     = ["draft", "recruite", "matches", "archive"];
-    public static string $defaultStatus = "draft";
+    public static array $availableTeamStatus     = ['draft', 'recruite', 'matches', 'archive'];
+    public static string $defaultStatus          = 'draft';
 
     protected $table            = 'teams';
     protected $tableSingular    = 'team';
@@ -17,7 +17,7 @@ class TeamModel extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['code', 'game', 'creator', 'name', 'status'];
 
     // Dates
     protected $useTimestamps = true;

@@ -56,7 +56,7 @@ class TeamMigration extends Migration
             $foreignKey[$this->foreignKeys[$foreignKeyConstraintName]['field']] = $foreignKeyConstraintValue['field_type'];
         }
 
-        $availableStatus = "'" . implode("', '", TeamModel::$teamStatus) . "'";
+        $availableStatus = "'" . implode("', '", TeamModel::$availableTeamStatus) . "'";
         $defaultStatus   = TeamModel::$defaultStatus;
 
         $this->forge->addField([
@@ -68,7 +68,7 @@ class TeamMigration extends Migration
             ],
             $this->uniqueKey => [
                 'type'       => 'VARCHAR',
-                'constraint' => '16',
+                'constraint' => '32',
                 'null'       => false
             ],
             ...$foreignKey,

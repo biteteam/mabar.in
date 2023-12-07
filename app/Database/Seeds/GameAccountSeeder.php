@@ -35,7 +35,7 @@ class GameAccountSeeder extends Seeder
                 'game' => $faker->numberBetween(1, 2),
                 'identity' => $identity,
                 'identity_zone_id' => $zoneId,
-                'status' => $faker->randomElements(GameAccountModel::$availableStatus)[0],
+                'status' => $faker->randomElement(GameAccountModel::$availableStatus),
             ]);
         }
     }

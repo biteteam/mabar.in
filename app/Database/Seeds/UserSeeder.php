@@ -81,8 +81,8 @@ class UserSeeder extends Seeder
 
         $adminCount = 1;
         for ($i = 0; $i < $this->seedCount; $i++) {
-            $gender = $faker->randomElements(['male', 'female'])[0];
-            $role = $faker->randomElements(UserModel::$availableRole)[0];
+            $gender = $faker->randomElement(['male', 'female']);
+            $role = $faker->randomElement(UserModel::$availableRole);
             $name = $faker->name($gender);
 
             if ($role == UserModel::$superRole) $adminCount += 1;
