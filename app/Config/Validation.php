@@ -198,4 +198,46 @@ class Validation extends BaseConfig
             ],
         ],
     ];
+
+    // --------------------------------------------------------------------
+    // Team Rules
+    // --------------------------------------------------------------------
+
+    public array $team = [
+        'team_name' => [
+            'rules'  => 'required|min_length[4]|max_length[64]',
+            'errors' => [
+                'required' => 'Nama tim tidak boleh kosong.',
+                'min_length' => 'Nama tim harus minimal 4 karakter.',
+                'max_length' => 'Nama tim tidak boleh lebih dari 64 karakter.',
+            ],
+        ],
+        'team_code' => [
+            'rules'  => 'required|min_length[4]|max_length[32]',
+            'errors' => [
+                'required' => 'Kode tim tidak boleh kosong.',
+                'min_length' => 'Kode tim harus minimal 4 karakter.',
+                'max_length' => 'Kode tim tidak boleh lebih dari 32 karakter.',
+            ],
+        ],
+        'team_status' => [
+            'rules'  => 'required|in_list[draft,recruite,matches,archive]',
+            'errors' => [
+                'required' => 'Status tim harus dipilih.',
+                'in_list' => 'Status tim harus salah satu dari "draft", "recruite", "matches", atau "archive".',
+            ]
+        ],
+        'team_creator' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Terjadi kesalahan (creator), Silahkan coba lagi.',
+            ]
+        ],
+        'team_game' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Game harus dipilih.',
+            ]
+        ],
+    ];
 }

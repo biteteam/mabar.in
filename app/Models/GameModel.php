@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Libraries\MobileLegendsLibrary;
 use CodeIgniter\Database\BaseResult;
 use CodeIgniter\Model;
 use Error;
@@ -207,6 +208,16 @@ class GameModel extends Model
         if (is_string($data)) return strval($data);
 
         return $data;
+    }
+
+    public function getHeroScraper(string|null $gameCode = null)
+    {
+        switch ($gameCode) {
+            case self::$availableScraper[0]:
+                return new MobileLegendsLibrary();
+            default:
+                return null;
+        }
     }
 
     public static function getConfigName(string $configName = null): string|array

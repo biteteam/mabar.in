@@ -72,7 +72,8 @@ class TeamMemberMigration extends Migration
                 'null'       => false,
             ],
             'hero_id' => [
-                'type'       => 'INT',
+                'type'       => 'VARCHAR',
+                'constraint' => 64,
                 'null'       => true,
             ],
             'hero_role' => [

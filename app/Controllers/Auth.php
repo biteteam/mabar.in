@@ -97,6 +97,8 @@ class Auth extends BaseController
      */
     public function logout(): RedirectResponse
     {
+        $referer = $this->request->getHeaderLine('Referer');
+        if (!empty($referer)) $this->session->set("redirect_after_login", $referer);
         return auth()->logout();
     }
 

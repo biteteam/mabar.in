@@ -32,26 +32,27 @@ $routes->group('game', static function ($route) {
 
     // Game
     $route->get('', [Game::class, 'main'], ['as' => 'game']);
-    $route->get('(:any)/detail', [Game::class, "detailGame"], ['as' => 'game.detail']);
     $route->match(['get', 'post'], 'add', [Game::class, "addGame"], ['as' => 'game.add']);
     $route->match(['get', 'post'], '(:any)/edit', [Game::class, "editGame"], ['as' => 'game.edit']);
     $route->match(['get', 'post'], '(:any)/verify', [Game::class, "editGame"], ['as' => 'game.verify']);
     $route->post('(:any)/delete', [Game::class, "deleteGame"], ['as' => 'game.delete']);
     $route->post('upload-image', [Game::class, "uploadImage"], ['as' => 'game.upload-image']);
+    $route->get('(:any)', [Game::class, "detailGame"], ['as' => 'game.detail']);
 });
 
 // Team Routes
 $routes->group('team', static function ($route) {
     // Team Route
     $route->get('', [Team::class, 'main'], ['as' => 'team']);
-    $route->get('/(:any)/detail', [Team::class, 'main'], ['as' => 'team.detail']);
-    $route->match(['get', 'post'], '/add', [Team::class, "addTeam"], ['as' => 'team.add']);
-    $route->match(['get', 'post'], '/(:any)/edit', [Team::class, "editTeam"], ['as' => 'team.edit']);
-    $route->match(['get', 'post'], '/(:any)/join', [Team::class, "joinTeam"], ['as' => 'team.join']);
+    $route->get('(:any)/detail', [Team::class, 'main'], ['as' => 'team.detail']);
+    $route->match(['get', 'post'], 'create', [Team::class, "addTeam"], ['as' => 'team.add']);
+    $route->match(['get', 'post'], '(:any)/edit', [Team::class, "editTeam"], ['as' => 'team.edit']);
     $route->post('(:any)/delete', [Team::class, "deleteTeam"], ['as' => 'team.delete']);
     $route->post('(:any)/archive', [Team::class, "archiveTeam"], ['as' => 'team.archive']);
 
     // Team Member Route
+    $route->match(['get', 'post'], '(:any)/join', [Team::class, "joinTeam"], ['as' => 'team.join']);
+    $route->match(['get', 'post'], '(:any)/leave/(:any)', [Team::class, "leaveTeam"], ['as' => 'team.leave']);
 });
 
 // User Routes

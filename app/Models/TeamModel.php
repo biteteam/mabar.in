@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use CodeIgniter\Database\BaseResult;
 use CodeIgniter\Model;
 use Error;
 use PhpParser\Node\Stmt\TryCatch;
@@ -72,6 +73,20 @@ class TeamModel extends Model
         return $this->serialize($result);
     }
 
+    public function first()
+    {
+        $result =  parent::first();
+        if (!$this->isWithMembers) return $this->serialize($result);
+
+        $result = to_object(array_merge(to_array($result), ['members' => []]));
+
+        $teamMembers = $this->teamMemberModel->where('team', $result->id)->findAllMembers(true, false);
+        if (count($teamMembers) > 0) $result->members = $this->teamMemberModel->serialize($teamMembers);
+
+        $this->isWithMembers = false;
+        return $this->serialize($result);
+    }
+
 
     public function findAllTeams(int $limit = 0, int $offset = 0)
     {
@@ -85,6 +100,19 @@ class TeamModel extends Model
 
 
         return $teams;
+    }
+
+    public function findTeamByCode(int|string $teamCode)
+    {
+        $team = $this->select("$this->table.*")
+            ->where("$this->table.code", $teamCode)
+            ->withMembers()
+            ->withCreator()
+            ->withGame()
+            ->orderBy("$this->table.status", "DESC")
+            ->orderBy("$this->table.updated_at", "DESC");
+
+        return $team->first();
     }
 
     public function findOwnTeams(int $creatorId, int $limit = 0, int $offset = 0)
@@ -141,6 +169,41 @@ class TeamModel extends Model
         $this->isWithMembers = true;
         return $this;
     }
+
+
+    /**
+     * Create new Team
+     *
+     * @param array $teamData
+     * @return integer|boolean
+     */
+    public function addTeam(array $teamData): int|bool
+    {
+        try {
+            return $this->insert($teamData, true);
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    public function updateTeam(string|int $teamId, array $teamData): bool
+    {
+        try {
+            return $this->update($teamId, $teamData);
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    public function deleteTeam(string|int $teamId): BaseResult|bool
+    {
+        try {
+            return $this->delete($teamId);
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
 
     private function modelMapper(string $model, ?string $prefixName = null): string
     {
