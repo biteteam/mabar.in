@@ -5,7 +5,7 @@
                 <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg bg-blue-700/80 text-blue-200">
                     <i class="fa-solid fa-info-circle"></i>
                 </div>
-                <div class="ms-3 text-[14px] md:text-sm font-normal transition-all duration-1000 font-medium"><?= esc($message) ?></div>
+                <div class="ms-3 text-[14px] md:text-sm transition-all duration-1000 font-medium"><?= esc($message) ?></div>
                 <button type="button" aria-label="Close" class="transition-all inline-flex opacity-0 w-0 h-0 md:group-hover/toast:opacity-100 md:group-hover/toast:ms-auto md:group-hover/toast:-mr-1.5 md:group-hover/toast:ml-2 md:group-hover/toast:-my-1.5 rounded-lg focus:ring-2 focus:ring-blue-400/30 md:group-hover/toast:p-1.5 items-center justify-center md:group-hover/toast:h-8 md:group-hover/toast:w-8 text-slate-400 hover:text-slate-300 hover:bg-blue-600 hover:bg-clip-padding hover:backdrop-filter hover:backdrop-blur-2xl hover:bg-opacity-10">
                     <span class="sr-only">Close</span>
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -22,7 +22,7 @@
                 <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg bg-green-700/80 text-green-200">
                     <i class="fa-solid fa-check"></i>
                 </div>
-                <div class="ms-3 text-[14px] md:text-sm font-normal transition-all duration-1000 font-medium"><?= esc($message) ?></div>
+                <div class="ms-3 text-[14px] md:text-sm transition-all duration-1000 font-medium"><?= esc($message) ?></div>
                 <button class="transition-all inline-flex opacity-0 w-0 h-0 md:group-hover/toast:opacity-100 md:group-hover/toast:ms-auto md:group-hover/toast:-mr-1.5 md:group-hover/toast:ml-2 md:group-hover/toast:-my-1.5 rounded-lg focus:ring-2 focus:ring-green-400/30 md:group-hover/toast:p-1.5 items-center justify-center md:group-hover/toast:h-8 md:group-hover/toast:w-8 text-slate-400 hover:text-slate-300 hover:bg-green-600 hover:bg-clip-padding hover:backdrop-filter hover:backdrop-blur-2xl hover:bg-opacity-10" type="button" aria-label="Close">
                     <span class="sr-only">Close</span>
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -39,7 +39,7 @@
                 <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg bg-orange-700/80 text-orange-200">
                     <i class="fa-solid fa-triangle-exclamation -mt-0.5"></i>
                 </div>
-                <div class="ms-3 text-[14px] md:text-sm font-normal transition-all duration-1000 font-medium"><?= esc($message) ?></div>
+                <div class="ms-3 text-[14px] md:text-sm transition-all duration-1000 font-medium"><?= esc($message) ?></div>
                 <button class="transition-all inline-flex opacity-0 w-0 h-0 md:group-hover/toast:opacity-100 md:group-hover/toast:ms-auto md:group-hover/toast:-mr-1.5 md:group-hover/toast:ml-2 md:group-hover/toast:-my-1.5 rounded-lg focus:ring-2 focus:ring-orange-400/30 md:group-hover/toast:p-1.5 items-center justify-center md:group-hover/toast:h-8 md:group-hover/toast:w-8 text-slate-400 hover:text-slate-300 hover:bg-orange-600 hover:bg-clip-padding hover:backdrop-filter hover:backdrop-blur-2xl hover:bg-opacity-10" type="button" aria-label="Close">
                     <span class="sr-only">Close</span>
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -56,7 +56,7 @@
                 <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg bg-red-700/80 text-red-200">
                     <i class="fa-solid fa-circle-exclamation"></i>
                 </div>
-                <div class="ms-3 text-[14px] md:text-sm font-normal transition-all duration-1000 font-medium"><?= esc($message) ?></div>
+                <div class="ms-3 text-[14px] md:text-sm transition-all duration-1000 font-medium"><?= esc($message) ?></div>
                 <button type="button" aria-label="Close" class="transition-all inline-flex opacity-0 w-0 h-0 md:group-hover/toast:opacity-100 md:group-hover/toast:ms-auto md:group-hover/toast:-mr-1.5 md:group-hover/toast:ml-2 md:group-hover/toast:-my-1.5 rounded-lg focus:ring-2 focus:ring-red-400/30 md:group-hover/toast:p-1.5 items-center justify-center md:group-hover/toast:h-8 md:group-hover/toast:w-8 text-slate-400 hover:text-slate-300 hover:bg-red-600 hover:bg-clip-padding hover:backdrop-filter hover:backdrop-blur-2xl hover:bg-opacity-10">
                     <span class="sr-only">Close</span>
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">

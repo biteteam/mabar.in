@@ -30,21 +30,21 @@ const navMenuAction = (oldScrollY, scrollY) => {
 
     if (screenGreatherThan('md')) {
         if (isScrollDown && scrollY > navMenuTopInit) {
-            navMenu.classList.replace("nav-menu-wrapper", "nav-menu-wrapper-on-top")
-            navMenu.previousElementSibling.classList.replace("opacity-100", "opacity-0");
-            navMenu.querySelector('.profile-toggle').classList.replace("opacity-0", "opacity-100");
-            document.querySelector('header .profile-toggle').classList.replace("opacity-100", "opacity-0");
-            document.querySelector('header').classList.add("header-on-top");
+            navMenu?.classList?.replace("nav-menu-wrapper", "nav-menu-wrapper-on-top")
+            navMenu?.previousElementSibling?.classList?.replace("opacity-100", "opacity-0");
+            navMenu?.querySelector('.profile-toggle')?.classList?.replace("opacity-0", "opacity-100");
+            document?.querySelector('header .profile-toggle')?.classList?.replace("opacity-100", "opacity-0");
+            document?.querySelector('header')?.classList?.add("header-on-top");
         } else if (isScrollTop && scrollY < navMenuTopInit) {
-            navMenu.classList.replace("nav-menu-wrapper-on-top", "nav-menu-wrapper")
-            navMenu.previousElementSibling.classList.replace("opacity-0", "opacity-100");
-            navMenu.querySelector('.profile-toggle').classList.replace("opacity-100", "opacity-0");
-            document.querySelector('header .profile-toggle').classList.replace("opacity-0", "opacity-100");
-            document.querySelector('header').classList.remove("header-on-top");
+            navMenu?.classList?.replace("nav-menu-wrapper-on-top", "nav-menu-wrapper")
+            navMenu?.previousElementSibling?.classList?.replace("opacity-0", "opacity-100");
+            navMenu?.querySelector('.profile-toggle')?.classList?.replace("opacity-100", "opacity-0");
+            document?.querySelector('header .profile-toggle')?.classList?.replace("opacity-0", "opacity-100");
+            document?.querySelector('header')?.classList?.remove("header-on-top");
 
         }
     } else {
-        if (navMenu.classList.contains("nav-menu-wrapper-on-top")) navMenu.classList.replace("nav-menu-wrapper-on-top", "nav-menu-wrapper")
+        if (navMenu?.classList?.contains("nav-menu-wrapper-on-top")) navMenu?.classList?.replace("nav-menu-wrapper-on-top", "nav-menu-wrapper")
     }
 }
 
@@ -63,14 +63,14 @@ const profileMenu = document.querySelector('.profile-menu');
 profileToggles?.forEach(profileToggle => {
     profileToggle.addEventListener('click', () => {
         if (screenGreatherThan("md")) {
-            if (profileMenu.classList.contains('opacity-0')) {
-                profileMenu.classList.replace('-z-50', 'z-50')
-                profileMenu.classList.replace('-translate-y-full', 'translate-y-0')
-                profileMenu.classList.replace('opacity-0', 'opacity-100')
+            if (profileMenu?.classList?.contains('opacity-0')) {
+                profileMenu?.classList?.replace('-z-50', 'z-50')
+                profileMenu?.classList?.replace('-translate-y-full', 'translate-y-0')
+                profileMenu?.classList?.replace('opacity-0', 'opacity-100')
             } else {
-                profileMenu.classList.replace('translate-y-0', '-translate-y-full')
-                profileMenu.classList.replace('opacity-100', 'opacity-0')
-                profileMenu.classList.replace('z-50', '-z-50')
+                profileMenu?.classList?.replace('translate-y-0', '-translate-y-full')
+                profileMenu?.classList?.replace('opacity-100', 'opacity-0')
+                profileMenu?.classList?.replace('z-50', '-z-50')
             }
         } else {
             window.location.href = "/profile"
@@ -86,12 +86,12 @@ inputPasswordShowBtns.forEach(passwordShowBtn => {
         const eyeSlash = passwordShowBtn.querySelector('.fa-eye-slash')
 
         if (input.type == 'password') {
-            eyeSlash.classList.replace('hidden', 'inline')
-            eye.classList.replace('inline', 'hidden')
+            eyeSlash?.classList?.replace('hidden', 'inline')
+            eye?.classList?.replace('inline', 'hidden')
             input.setAttribute('type', 'text')
         } else {
-            eye.classList.replace('hidden', 'inline')
-            eyeSlash.classList.replace('inline', 'hidden')
+            eye?.classList?.replace('hidden', 'inline')
+            eyeSlash?.classList?.replace('inline', 'hidden')
             input.setAttribute('type', 'password')
 
         }
@@ -110,8 +110,8 @@ if (window.scrollY > 0 && navMenu?.classList?.contains('nav-menu-wrapper')) navM
 const removeToast = (toastElement) => {
     const remove = (element) => {
         if (element) {
-            toastElement.classList.add('translate-x-full')
-            setTimeout(() => toastElement.classList.add('opacity-0'), 200);
+            toastElement?.classList?.add('translate-x-full')
+            setTimeout(() => toastElement?.classList?.add('opacity-0'), 200);
             setTimeout(() => {
                 toastElement.parentElement.remove()
                 toastElement.remove()
@@ -179,8 +179,8 @@ buttonsFileInput?.forEach(buttonFileInput => {
     const handlingOnImageNotEmpty = (previewImgUri, isInitialRender = false) => {
         if (!isInitialRender) {
             targetPreview.src = previewImgUri;
-            wrapper.classList.replace("bg-black/50", "group-hover/upload-image:bg-black/50")
-            buttonFileInput.classList.replace('opacity-100', 'opacity-0');
+            wrapper?.classList?.replace("bg-black/50", "group-hover/upload-image:bg-black/50")
+            buttonFileInput?.classList?.replace('opacity-100', 'opacity-0');
         }
 
         targetInput.value = previewImgUri;
