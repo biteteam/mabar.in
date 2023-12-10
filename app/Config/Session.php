@@ -4,7 +4,6 @@ namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Session\Handlers\BaseHandler;
-use CodeIgniter\Session\Handlers\DatabaseHandler;
 use CodeIgniter\Session\Handlers\FileHandler;
 
 class Session extends BaseConfig
@@ -22,7 +21,7 @@ class Session extends BaseConfig
      *
      * @phpstan-var class-string<BaseHandler>
      */
-    public string $driver = DatabaseHandler::class;
+    public string $driver = FileHandler::class;
 
     /**
      * --------------------------------------------------------------------------
@@ -31,8 +30,7 @@ class Session extends BaseConfig
      *
      * The session cookie name, must contain only [0-9a-z_-] characters
      */
-    // public string $cookieName = 'ci_session'; // default
-    public string $cookieName = 'sessions'; // default
+    public string $cookieName = 'ci_session';
 
     /**
      * --------------------------------------------------------------------------
@@ -42,8 +40,7 @@ class Session extends BaseConfig
      * The number of SECONDS you want the session to last.
      * Setting to 0 (zero) means expire when the browser is closed.
      */
-    // public int $expiration = 7200;
-    public int $expiration = 5184000; // for 2 month
+    public int $expiration = 7200;
 
     /**
      * --------------------------------------------------------------------------
@@ -102,14 +99,4 @@ class Session extends BaseConfig
      * DB Group for the database session.
      */
     public ?string $DBGroup = null;
-
-    public function __construct()
-    {
-        parent::__construct();
-
-        $driver = (string) $this->driver;
-        if ($driver == "CodeIgniter\Session\Handlers\DatabaseHandler") {
-            $this->savePath = $this->cookieName;
-        }
-    }
 }
