@@ -16,6 +16,7 @@ class Team extends BaseController
 
     public function main()
     {
+        $teams['own'] = $this->team->findOwnTeams(auth()->user()->id);
         $teams['recruite'] = $this->team->where('status', 'recruite')->findAllTeams();
         $teams['matches'] = $this->team->where('status', 'matches')->findAllTeams();
         $teams['archive'] = $this->team->where('status', 'archive')->findAllTeams();
@@ -23,7 +24,7 @@ class Team extends BaseController
         if (auth()->isAdmin()) $teams['draft'] = $this->team->where('status', 'draft')->findAllTeams();
 
         return view('team/main', [
-            'team' => $teams,
+            'teams'     => $teams,
             'metadata'  => [
                 'title'   => "Team",
                 'header'  => [

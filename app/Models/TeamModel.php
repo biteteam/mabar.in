@@ -81,6 +81,21 @@ class TeamModel extends Model
             ->withGame()
             ->orderBy("$this->table.status", "DESC")
             ->orderBy("$this->table.updated_at", "DESC");
+        $teams = $teams->findAll($limit, $offset);
+
+
+        return $teams;
+    }
+
+    public function findOwnTeams(int $creatorId, int $limit = 0, int $offset = 0)
+    {
+        $teams = $this->select("$this->table.*")
+            ->where("$this->table.creator", $creatorId)
+            ->withMembers()
+            ->withCreator()
+            ->withGame()
+            ->orderBy("$this->table.status", "DESC")
+            ->orderBy("$this->table.updated_at", "DESC");
         $teams = $teams->findAll();
 
 

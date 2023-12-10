@@ -239,3 +239,24 @@ inputsMathParent?.forEach(input => handlingInputMathParent(input, input.getAttri
 
 const inputsMathParentSlug = document.querySelectorAll('input[match-parent-slug]')
 inputsMathParentSlug?.forEach(input => handlingInputMathParent(input, input.getAttribute('match-parent-slug'), true))
+
+// Handling Toggle
+const showToggle = (toggleWrapper, forceToggleShow) => {
+    const isToggleShow = forceToggleShow ?? toggleWrapper.getAttribute("toggle-show") == 'true';
+    const expandTarget = toggleWrapper.querySelector(`[toggle-expand="${toggleWrapper.getAttribute("toggle-expand-target")}"]`)
+
+    if (isToggleShow) {
+        toggleWrapper.setAttribute('toggle-show', 'false')
+        expandTarget?.classList?.replace("flex", "hidden")
+    } else {
+        toggleWrapper.setAttribute('toggle-show', 'true')
+        expandTarget?.classList?.replace("hidden", "flex")
+    }
+}
+
+const toggleWrappers = document.querySelectorAll('[aria-controls="toggle"]')
+toggleWrappers.forEach(toggleWrapper => {
+    toggleWrapper.addEventListener("click", () => showToggle(toggleWrapper));
+    toggleWrapper.addEventListener("mouseover", () => showToggle(toggleWrapper, false));
+    toggleWrapper.addEventListener("mouseout", () => showToggle(toggleWrapper), true);
+})

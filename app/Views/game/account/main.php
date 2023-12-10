@@ -3,7 +3,7 @@
  <?= $this->section('content') ?>
  <div class="w-full relative">
      <div class="mt-4 md:mt-0 md:mb-6">
-         <a class="text-xs lg:text-sm text-center w-auto py-1.5 px-4 font-medium rounded-md border transition focus:outline-none bg-vulcan-600 border-transparent bg-bg-vulcan-400/80 text-slate-200 hover:bg-vulcan-500 hover:border-vulcan-500 hover:text-white cursor-pointer"
+         <a class="text-sm text-center w-auto py-2 md:py-1.5 px-4 font-medium rounded-md border transition focus:outline-none bg-vulcan-600 border-transparent bg-bg-vulcan-400/80 text-slate-200 hover:bg-vulcan-500 hover:border-vulcan-500 hover:text-white cursor-pointer"
             href="<?= url_to('game.account.add') ?>">
              <?php if (!empty($accounts) && count($accounts) >= 1) : ?>
              <span class="inline">

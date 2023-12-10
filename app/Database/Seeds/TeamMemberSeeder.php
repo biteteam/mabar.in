@@ -17,8 +17,8 @@ class TeamMemberSeeder extends Seeder
         $faker = FakerFactory::create('id_ID');
         $tableName = TeamMemberModel::getConfigName('tableName');
 
-        $teams = model(TeamModel::class)->findAll();
-        $accounts = model(GameAccountModel::class)->where('status', 'verified')->findAll();
+        $teams = model(TeamModel::class)->where("status", "recruite")->findAll();
+        $accounts = model(GameAccountModel::class)->findAll();
 
         $mobileLegends = new MobileLegendsLibrary();
         $mobileLegendsHero = null;

@@ -47,7 +47,9 @@ $routes->group('team', static function ($route) {
     $route->get('/(:any)/detail', [Team::class, 'main'], ['as' => 'team.detail']);
     $route->match(['get', 'post'], '/add', [Team::class, "addTeam"], ['as' => 'team.add']);
     $route->match(['get', 'post'], '/(:any)/edit', [Team::class, "editTeam"], ['as' => 'team.edit']);
-    $route->post('account/(:any)/delete', [Team::class, "deleteTeam"], ['as' => 'team.delete']);
+    $route->match(['get', 'post'], '/(:any)/join', [Team::class, "joinTeam"], ['as' => 'team.join']);
+    $route->post('(:any)/delete', [Team::class, "deleteTeam"], ['as' => 'team.delete']);
+    $route->post('(:any)/archive', [Team::class, "archiveTeam"], ['as' => 'team.archive']);
 
     // Team Member Route
 });
