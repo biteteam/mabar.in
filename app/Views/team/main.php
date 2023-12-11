@@ -13,7 +13,6 @@
      </div>
 
      <div class="flex flex-col w-full mt-8 sm:mt-3 md:mt-4 gap-8 md:gap-12">
-
          <?php if (!empty($teams->own)): ?>
          <div class="flex flex-col w-full">
              <h2 class="text-lg font-medium leading-6 text-slate-100">Tim yang kamu buat</h2>
@@ -58,6 +57,17 @@
              <h2 class="text-lg font-medium leading-6 text-slate-100">Tim yang telah selesai bermain</h2>
              <div class="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                  <?php foreach ($teams->archive as $team) : ?>
+                 <?= view_cell('TeamCardCell', ['team' => $team]) ?>
+                 <?php endforeach; ?>
+             </div>
+         </div>
+         <?php endif?>
+
+         <?php if (!empty($teams->draft) && auth()->isAdmin()): ?>
+         <div class="flex flex-col w-full">
+             <h2 class="text-lg font-medium leading-6 text-slate-100">Tim yang masih dalam rancangan</h2>
+             <div class="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                 <?php foreach ($teams->draft as $team) : ?>
                  <?= view_cell('TeamCardCell', ['team' => $team]) ?>
                  <?php endforeach; ?>
              </div>
