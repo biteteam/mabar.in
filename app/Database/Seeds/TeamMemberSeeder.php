@@ -17,13 +17,13 @@ class TeamMemberSeeder extends Seeder
         $faker = FakerFactory::create('id_ID');
         $tableName = TeamMemberModel::getConfigName('tableName');
 
-        $teams = model(TeamModel::class)->where("status", "recruite")->findAll();
+        $teams = model(TeamModel::class)->where("status !=", "draft")->findAll();
         $accounts = model(GameAccountModel::class)->findAll();
 
         $mobileLegends = new MobileLegendsLibrary();
         $mobileLegendsHero = null;
 
-        foreach ($accounts as $account) {
+        foreach (array_merge($accounts, $accounts) as $account) {
             $matchesTeam = array_filter($teams, function ($team) use ($account) {
                 return boolval($team->game == $account->game);
             });
