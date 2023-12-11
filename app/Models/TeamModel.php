@@ -170,7 +170,6 @@ class TeamModel extends Model
         return $this;
     }
 
-
     /**
      * Create new Team
      *

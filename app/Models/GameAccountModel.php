@@ -76,6 +76,42 @@ class GameAccountModel extends Model
         return $account;
     }
 
+    public function findAccountsByUser(int|string $userId, int $limit = 0, int $offset = 0, array $options = ["withUser" => true, "withGame" => true, "withParseGameCreator" => true]): array|\stdClass|null
+    {
+
+        $account = $this->select("$this->table.*")->where("$this->table.user", $userId);
+        if (!empty($options['withUser']) && $options['withUser'] == true) $account = $account->withUser();
+        if (!empty($options['withGame']) && $options['withGame'] == true) {
+            (!empty($options['withParseGameCreator']) && $options['withParseGameCreator'] == true)
+                ? $account = $account->withGame(null, $options['withParseGameCreator'])
+                : $account = $account->withGame();
+        }
+
+        $account = $account->findAll($limit, $offset);
+        $account = $this->serialize($account);
+
+        return $account;
+    }
+
+    public function findAccountsByUserAndGame(int|string $userId, int|string $gameId, int $limit = 0, int $offset = 0, array $options = ["withUser" => true, "withGame" => true, "withParseGameCreator" => true]): array|\stdClass|null
+    {
+
+        $account = $this->select("$this->table.*")
+            ->where("$this->table.game", $gameId)
+            ->where("$this->table.user", $userId);
+        if (!empty($options['withUser']) && $options['withUser'] == true) $account = $account->withUser();
+        if (!empty($options['withGame']) && $options['withGame'] == true) {
+            (!empty($options['withParseGameCreator']) && $options['withParseGameCreator'] == true)
+                ? $account = $account->withGame(null, $options['withParseGameCreator'])
+                : $account = $account->withGame();
+        }
+
+        $account = $account->findAll($limit, $offset);
+        $account = $this->serialize($account);
+
+        return $account;
+    }
+
     public function findAccountByIdentity(int|string $identity, int|string $gameCodeOrId = null,  array $options = ["gameType" => "code", "withUser" => true, "withGame" => true, "withParseGameCreator" => true]): array|\stdClass|null
     {
         $account = $this->select("$this->table.*")->where("$this->table.identity", $identity);

@@ -65,6 +65,4 @@
          <?php endif?>
      </div>
  </div>
-
- <script src="<?= base_url('/js/team.js') ?>"></script>
  <?= $this->endSection() ?>

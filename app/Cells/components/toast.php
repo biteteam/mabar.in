@@ -67,3 +67,5 @@
         </div>
     <?php endif; ?>
 </div>
+
+<script src="<?= base_url('/js/toast.js') ?>" async></script>

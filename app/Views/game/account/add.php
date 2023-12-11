@@ -13,7 +13,7 @@
                         'name' => 'account_game',
                         'label' => 'Game',
                         'placeholder' => 'Mau pilih game lainnya? Tenang semua ada kok!',
-                        'value' => set_value('account_game'),
+                        'value' => set_value('account_game', session()->getFlashdata('connect_game_account_ref')),
                         'errorMessage' => !empty($error->account_game) ? $error->account_game : null,
                     ]) ?>
                 </div>

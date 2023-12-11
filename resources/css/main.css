@@ -91,6 +91,7 @@
         @apply bg-opacity-20 bg-vulcan-700 border-vulcan-800/50 text-slate-300 cursor-no-drop;
     }
 
+    /* Game Input */
     .game-input {
         @apply bg-[#302f6c] hover:bg-opacity-70 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-60 border-[#2c2b67] text-white hover:border-[#35347a];
     }
@@ -108,6 +109,47 @@
     }
     .game-input-list-color.selected {
         @apply bg-[#373680]  border-[#413e9c] hover:border-[#35347a] hover:bg-opacity-70  bg-opacity-100 bg-clip-padding backdrop-filter backdrop-blur-sm shadow-lg;
+    }
+   
+   /* Account Input */
+    .account-input {
+        @apply bg-vulcan-700 bg-clip-padding backdrop-filter backdrop-blur-sm focus:backdrop-blur-2xl bg-opacity-20 border-vulcan-800/50 text-white hover:border-vulcan-800/80;
+    }
+
+    .account-input-expander {
+        @apply flex w-full h-0 opacity-0;
+    }
+    
+    .account-input-expander-show {
+        @apply flex w-full h-[500px] opacity-100;
+    }
+
+    .account-input-list-color {
+        @apply bg-vulcan-800  border-vulcan-800/80 hover:border-vulcan-700/80 hover:bg-opacity-50 bg-opacity-30 bg-clip-padding backdrop-filter backdrop-blur-sm hover:shadow-lg;
+    }
+    .account-input-list-color.selected {
+        @apply bg-vulcan-500 border-vulcan-700 hover:border-vulcan-600 hover:bg-opacity-40 bg-opacity-30 bg-clip-padding backdrop-filter backdrop-blur-sm hover:shadow-lg;
+    }
+
+
+   /* Hero Input */
+    .hero-input {
+        @apply bg-vulcan-700 bg-clip-padding backdrop-filter backdrop-blur-sm focus:backdrop-blur-2xl bg-opacity-20 border-vulcan-800/50 text-white hover:border-vulcan-800/80;
+    }
+
+    .hero-input-expander {
+        @apply flex w-full h-0 opacity-0;
+    }
+    
+    .hero-input-expander-show {
+        @apply flex w-full h-[500px] opacity-100;
+    }
+
+    .hero-input-list-color {
+        @apply bg-vulcan-800  border-vulcan-800/80 hover:border-vulcan-700/80 hover:bg-opacity-50 bg-opacity-30 bg-clip-padding backdrop-filter backdrop-blur-sm hover:shadow-lg;
+    }
+    .hero-input-list-color.selected {
+        @apply bg-vulcan-500 border-vulcan-700 hover:border-vulcan-600 hover:bg-opacity-40 bg-opacity-30 bg-clip-padding backdrop-filter backdrop-blur-sm hover:shadow-lg;
     }
 
     .invalid-input {

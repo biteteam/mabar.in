@@ -87,7 +87,7 @@
                                                          <img class="h-7 w-7 rounded-md object-cover" src="<?= $member->hero_image ?>" alt="<?= $member->hero ?>">
                                                      </div>
                                                  <?php endif ?>
-                                                 <div class="flex flex-col">
+                                                 <div class="flex flex-col text-start">
                                                      <span class="text-xs text-slate-300 font-medium"><?= $member->hero ?></span>
                                                      <?php if (!empty($member->hero_role)) : ?>
                                                          <span class="text-[10px] -mt-1 text-slate-300/70 font-medium"><?= $member->hero_role ?></span>

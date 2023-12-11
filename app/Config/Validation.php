@@ -240,4 +240,37 @@ class Validation extends BaseConfig
             ]
         ],
     ];
+
+    public array $teamMember = [
+        'team_member_hero' => [
+            'rules'  => 'required|min_length[4]|max_length[64]',
+            'errors' => [
+                'required' => 'Hero tidak boleh kosong.',
+                'min_length' => 'Hero harus minimal 4 karakter.',
+                'max_length' => 'Hero tidak boleh lebih dari 64 karakter.',
+            ],
+        ],
+        'team_member_hero_role' => [
+            'rules'  => 'required|min_length[4]|max_length[32]',
+            'errors' => [
+                'required' => 'Role hero tidak boleh kosong.',
+                'min_length' => 'Role hero harus minimal 4 karakter.',
+                'max_length' => 'Role hero tidak boleh lebih dari 32 karakter.',
+            ],
+        ],
+        'team_member_hero_id' => [],
+        'team_member_hero_image' => [],
+        'team_member_team' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Terjadi kesalahan (team id), Silahkan coba lagi.',
+            ]
+        ],
+        'team_member_account' => [
+            'rules'  => 'required',
+            'errors' => [
+                'required' => 'Akun game harus dipilih.',
+            ]
+        ],
+    ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use CodeIgniter\Database\BaseResult;
 use CodeIgniter\Model;
 use Error;
 
@@ -115,6 +116,30 @@ class TeamMemberModel extends Model
         }
 
         return $team;
+    }
+
+    /**
+     * Join to team 
+     *
+     * @param array $teamMemberData
+     * @return integer|boolean
+     */
+    public function joinTeam(array $teamMemberData): int|bool
+    {
+        try {
+            return $this->insert($teamMemberData, true);
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    public function leaveTeam(string|int $teamMemberId): BaseResult|bool
+    {
+        try {
+            return $this->delete($teamMemberId);
+        } catch (\Throwable $th) {
+            return false;
+        }
     }
 
     private function modelMapper(string $model, ?string $prefixName = null): string

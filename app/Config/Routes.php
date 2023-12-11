@@ -1,7 +1,7 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
-use App\Controllers\{Auth, Game, GameAccount, Home, Team};
+use App\Controllers\{Auth, Game, GameAccount, Home, Team, TeamMember};
 
 /**
  * @var RouteCollection $routes
@@ -51,8 +51,8 @@ $routes->group('team', static function ($route) {
     $route->post('(:any)/archive', [Team::class, "archiveTeam"], ['as' => 'team.archive']);
 
     // Team Member Route
-    $route->match(['get', 'post'], '(:any)/join', [Team::class, "joinTeam"], ['as' => 'team.join']);
-    $route->match(['get', 'post'], '(:any)/leave/(:any)', [Team::class, "leaveTeam"], ['as' => 'team.leave']);
+    $route->match(['get', 'post'], '(:any)/join', [TeamMember::class, "joinTeam"], ['as' => 'team.join']);
+    $route->match(['get', 'post'], '(:any)/leave/(:any)', [TeamMember::class, "leaveTeam"], ['as' => 'team.leave']);
 });
 
 // User Routes

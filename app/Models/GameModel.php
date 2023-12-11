@@ -8,12 +8,17 @@ use CodeIgniter\Model;
 use Error;
 use PhpParser\Node\Stmt\TryCatch;
 
-use function PHPUnit\Framework\isNull;
+
+enum HeroScraper: string
+{
+    case MOBILE_LEGENDS = 'mobile-legends';
+    case PUBG_MOBILE = 'pubg-mobile';
+}
 
 class GameModel extends Model
 {
-    public static array $availableScraper = ['mobile-legends', 'pubg-mobile'];
-    public static string $defaultScrapper = 'mobile-legends';
+    public static array $availableScraper = [HeroScraper::MOBILE_LEGENDS->value, HeroScraper::PUBG_MOBILE->value];
+    public static string $defaultScrapper = HeroScraper::MOBILE_LEGENDS->value;
 
     protected $table            = 'games';
     protected $tableSingular    = 'game';
@@ -210,14 +215,23 @@ class GameModel extends Model
         return $data;
     }
 
-    public function getHeroScraper(string|null $gameCode = null)
+    public static function getHeroScraper(string|null $gameCode = null)
     {
         switch ($gameCode) {
-            case self::$availableScraper[0]:
+            case HeroScraper::MOBILE_LEGENDS->value:
                 return new MobileLegendsLibrary();
             default:
                 return null;
         }
+    }
+
+    public static function getHeroScraperName(object $heroScraperClass)
+    {
+        if ($heroScraperClass instanceof MobileLegendsLibrary) {
+            return HeroScraper::MOBILE_LEGENDS->value;
+        }
+
+        return null;
     }
 
     public static function getConfigName(string $configName = null): string|array

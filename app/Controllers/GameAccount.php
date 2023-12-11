@@ -22,7 +22,7 @@ class GameAccount extends BaseController
 
     public function main()
     {
-        $data['accounts'] = $this->account->where('user =', auth()->user('id'))->findAllAccounts();
+        $data['accounts'] = $this->account->findAccountsByUser(auth()->user()->id);
 
         if (auth()->isAdmin()) {
             $data['allUserAccounts'] = $this->account->where('user !=', auth()->user('id'))->where("status", 'verified')->findAllAccounts();
@@ -72,11 +72,16 @@ class GameAccount extends BaseController
             }
 
             if ($accountData && empty($validationErrors)) {
-
                 $isAccountAdded = $this->account->addAccount($accountData);
 
                 if ($isAccountAdded) {
                     $this->session->setFlashdata('toast_success', "Berhasil menambahkan akun game.");
+                    $redirection = $this->session->get('redirect_after_action');
+                    if (!empty($redirection) && is_string($redirection)) {
+                        $this->session->remove('redirect_after_action');
+                        return redirect()->to($redirection);
+                    }
+
                     return redirect('game.account');
                 }
             }
