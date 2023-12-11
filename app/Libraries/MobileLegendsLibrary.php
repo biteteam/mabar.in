@@ -60,13 +60,37 @@ class MobileLegendsLibrary
      * 
      * @return array|\stdClass
      */
-    public function getHero(int|string $heroId = null, ?string $returnType = 'array'): array|\stdClass
+    public function getHero(int|string $heroId = null, ?string $returnType = 'array', bool $withDetail = false): array|\stdClass
     {
         $uri = 'https://mapi.mobilelegends.com/hero/list';
         if (!empty($heroId)) $uri = "https://mapi.mobilelegends.com/hero/detail?id=$heroId";
 
-        $response = $this->http->get($uri);
-        $body = json_decode($response->getBody(), true);
+        // $cacheName = base64_encode($uri);
+        $cacheName = preg_replace("/\/|\?/", "-", preg_replace("/https:\/\//", "", $uri));
+
+        $body = cache($cacheName);
+        if (empty($body)) {
+            log_message('info', "Scrape mobile legegends " . !empty($heroId) ? "on hero id $heroId" : "all hero" . ", because cache not found on $uri");
+            $response = $this->http->get($uri);
+            $body = json_decode($response->getBody(), true);
+
+            cache()->save($cacheName, $body, 2592000);
+        }
+
+        if (empty($heroId) && $withDetail) {
+            foreach ($body['data'] as $index => $hero) {
+                $heroDetailCacheName = preg_replace("/\/|\?/", "-", preg_replace("/https:\/\//", "", "https://mapi.mobilelegends.com/hero/detail?id={$hero['heroid']}"));
+                $heroDetailCached = cache($heroDetailCacheName);
+
+                $withDetailCachedData = [];
+                if (!empty($heroDetailCached)) $withDetailCachedData['detail'] = $heroDetailCached['data'];
+
+                $body['data'][$index] = array_merge($hero, $withDetailCachedData);
+            }
+
+            cache()->save($cacheName, $body, 2592000);
+        }
+
         $data =  empty($heroId) ? $this->serializeHero($body['data']) : $this->serializeHeroDetail($body['data']);
         if (empty($heroId)) usort($data, function ($prevHero, $nextHero) {
             return intval($prevHero['id']) - intval($nextHero['id']);
@@ -89,11 +113,16 @@ class MobileLegendsLibrary
     protected function serializeHero(array $heroes): array
     {
         return array_map(function ($hero) {
-            return [
+            $data = [
                 'id'    => $this->validate($hero, 'heroid'),
                 'name'  => $this->validate($hero, 'name'),
                 'image' => preg_replace('/^\/\//', 'https://', $this->validate($hero, 'key'))
             ];
+
+            if (!empty($hero['detail']))
+                $data['detail'] = $this->serializeHeroDetail($hero['detail']);
+
+            return $data;
         }, $heroes);
     }
 
