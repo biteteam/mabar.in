@@ -1,6 +1,5 @@
- <div class="group/team-card p-2 pt-2.5 transition-all duration-300 overflow-hidden rounded-xl md:rounded-2xl bg-vulcan-700 bg-opacity-50 shadow-lg border border-vulcan-700 hover:shadow-2xl">
+ <div class="group/team-card p-2 pt-2.5 pb-3 transition-all duration-300 overflow-hidden rounded-xl md:rounded-2xl bg-vulcan-700 bg-opacity-50 shadow-lg border border-vulcan-700 hover:shadow-2xl">
      <div class="flex flex-col">
-
          <div class="flex flex-col w-auto mt-2 px-1 gap-0.5">
              <div class="flex flex-row items-center justify-between w-auto">
                  <span class="text-sm text-slate-300/90 font-medium">Nama Tim</span>
@@ -103,7 +102,6 @@
                  </div>
              <?php endif ?>
          </div>
-
      </div>
      <?php if (!empty($team->creator->id) && intval($team->creator->id) == intval(auth()->user('id'))) : ?>
          <div class="flex flex-row justify-between mt-2.5 pt-2 pb-1 px-1 gap-2.5 border-t border-vulcan-700">
@@ -141,16 +139,18 @@
          <?php endif ?>
      <?php endif ?>
      <?php if (intval($team->creator->id) !== intval(auth()->user('id')) && count($team->members) > 0 && count($team->members) < $team->game->max_player && !$includeSelf) : ?>
-         <div class="flex flex-row justify-between mt-2.5 pt-2 pb-1 px-1 gap-2.5 border-t border-vulcan-700">
-             <?php if ($team->status == 'recruite') : ?>
-                 <a href="<?= url_to("team.join", $team->code) ?>" class="flex w-full items-center gap-1 py-1.5 px-2.5 justify-center text-blue-100 hover:text-white text-sm font-medium bg-blue-500 border border-transparent bg-opacity-30 hover:bg-opacity-70 active:transition-none active:duration-0 hover:shadow-md transition duration-300 rounded-md active:scale-95 cursor-pointer">
-                     <i class="fa-solid fa-user-group text-xs mr-0.5"></i>
-                     Gabung
-                 </a>
-             <?php elseif ($team->status == 'recruite' && count($team->members) > $team->game->max_player) : ?>
-                 <span class="text-xs font-medium text-slate-300/80">Tim Penuh</span>
-             <?php endif ?>
-         </div>
+         <?php if ($team->status == 'recruite' || ($team->status == 'recruite' && count($team->members) > $team->game->max_player)) : ?>
+             <div class="flex flex-row justify-between mt-2.5 pt-2 pb-1 px-1 gap-2.5 border-t border-vulcan-700">
+                 <?php if ($team->status == 'recruite') : ?>
+                     <a href="<?= url_to("team.join", $team->code) ?>" class="flex w-full items-center gap-1 py-1.5 px-2.5 justify-center text-blue-100 hover:text-white text-sm font-medium bg-blue-500 border border-transparent bg-opacity-30 hover:bg-opacity-70 active:transition-none active:duration-0 hover:shadow-md transition duration-300 rounded-md active:scale-95 cursor-pointer">
+                         <i class="fa-solid fa-user-group text-xs mr-0.5"></i>
+                         Gabung
+                     </a>
+                 <?php elseif ($team->status == 'recruite' && count($team->members) > $team->game->max_player) : ?>
+                     <span class="text-xs font-medium text-slate-300/80">Tim Penuh</span>
+                 <?php endif ?>
+             </div>
+         <?php endif ?>
      <?php elseif ($team->status !== 'archive' && $includeSelf && !empty($includeSelfAccountId)) : ?>
          <form action="<?= url_to("team.leave", $team->code, $includeSelfAccountId) ?>" method="post" class="flex flex-row justify-between mt-2.5 pt-2 pb-1 px-1 gap-2.5 border-t border-vulcan-700">
              <button type="submit" class="flex w-full items-center gap-1 py-1.5 px-2.5 justify-center text-blue-100 hover:text-white text-sm font-medium bg-red-500 border border-transparent bg-opacity-30 hover:bg-opacity-70 active:transition-none active:duration-0 hover:shadow-md transition duration-300 rounded-md active:scale-95 cursor-pointer">
