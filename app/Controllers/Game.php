@@ -24,8 +24,6 @@ class Game extends BaseController
         $data['own'] = $this->game->findGameByUserId(auth()->user('id'), $limit);
         $data['verifyRequired'] = $this->game->where('is_verified', false)->findAllGame($limit);
 
-
-
         return view('game/main', [
             'games'     => $data,
             'metadata'  => [
@@ -54,7 +52,6 @@ class Game extends BaseController
                     'game_is_verified'  => $this->validation->getError('game_is_verified'),
                 ];
             }
-
 
             $gameValidated = $this->validation->getValidated();
             $gameData = $this->serialize($gameValidated);
