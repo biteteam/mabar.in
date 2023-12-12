@@ -60,5 +60,6 @@ $routes->group('user', static function ($route) {
     $route->get('', [User::class, 'main'], ['as' => 'user']);
     $route->get('profile', [User::class, 'selfProfile'], ['as' => 'user.profile']);
     $route->get('profile/edit', [User::class, 'editSelfProfile'], ['as' => 'user.profile.edit']);
+    $route->get('(:any)/edit', [User::class, 'editProfile'], ['as' => 'user.edit']);
     $route->get('(:any)/', [User::class, 'userProfile'], ['as' => 'user.detail']);
 });

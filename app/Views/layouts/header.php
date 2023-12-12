@@ -48,6 +48,13 @@
                                         <i class="fa-solid fa-user mr-2"></i>
                                         <span>Profil</span>
                                     </a>
+                                    <?php if(auth()->isAdmin()): ?>
+                                    <a class="flex items-center rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-vulcan-500/30 hover:text-slate-200 focus:outline-none md:block"
+                                       href="<?= url_to('user') ?>">
+                                        <i class="fa-solid fa-user-group mr-1"></i>
+                                        <span>Pengguna</span>
+                                    </a>
+                                    <?php endif ?>
                                     <a class="flex items-center rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-vulcan-500/30 hover:text-slate-200 focus:outline-none md:block"
                                        href="<?= url_to('game.account') ?>">
                                         <i class="fa-brands fa-steam mr-1.5"></i>
