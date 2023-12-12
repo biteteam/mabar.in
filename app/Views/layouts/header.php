@@ -80,17 +80,17 @@
                                 <span>Home</span>
                             </span>
                         </a>
+                        <a class="nav-item <?= is_active_class('/team') ?>" href="<?= url_to('team') ?>">
+                            <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
+                                <i class="fa-solid fa-layer-group mb-0.5 mt-1 md:m-0"></i>
+                                <span>Team</span>
+                            </span>
+                        </a>
                         <a class="nav-item <?= is_active_class('/game', false, ['route' => ['/game/account'], 'matchOnly' => false]) ?>"
                            href="<?= url_to('game') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-gamepad mb-0.5 mt-1 md:m-0"></i>
                                 <span>Game</span>
-                            </span>
-                        </a>
-                        <a class="nav-item <?= is_active_class('/team') ?>" href="<?= url_to('team') ?>">
-                            <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
-                                <i class="fa-solid fa-layer-group mb-0.5 mt-1 md:m-0"></i>
-                                <span>Team</span>
                             </span>
                         </a>
                         <a class="nav-item <?= is_active_class('/game/account') ?>" href="<?= url_to('game.account') ?>">
