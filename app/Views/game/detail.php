@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 <div class="w-full relative">
     <div class="flex w-full justify-center">
-        <div class="flex flex-col lg:flex-row w-full bg-slate-900 border border-slate-800 rounded-xl shadow-lg shadow-elephant-800/10">
+        <div class="flex flex-col-reverse lg:flex-row w-full bg-slate-900 border border-slate-800 rounded-xl shadow-lg shadow-elephant-800/10">
             <div class="flex flex-col w-full lg:w-1/2 px-4 py-6 md:px-6 md:py-8">
                 <div class="mb-5">
                     <?= view_cell('InputCell', [
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div
-                 class="group/upload-image relative transition-all duration-700 flex w-full aspect-square md:aspect-video lg:h-auto lg:w-1/2 rounded-b-xl rounded-t-2xl md:rounded-t-2xl border-t lg:border-l lg:border-t-0 border-slate-700 lg:border-slate-800 lg:rounded-none lg:rounded-r-xl lg:rounded-l-3xl bg-elephant-800 bg-opacity-10 opacity-80 bg-center object-cover overflow-hidden">
+                 class="group/upload-image relative transition-all duration-700 flex w-full aspect-square md:aspect-video lg:h-auto lg:w-1/2 rounded-b-xl rounded-t-2xl md:rounded-t-2xl border-b lg:border-l lg:border-t-0 border-slate-700 lg:border-slate-800 lg:rounded-none lg:rounded-r-xl lg:rounded-l-3xl bg-elephant-800 bg-opacity-10 opacity-80 bg-center object-cover overflow-hidden">
                 <img class="absolute object-cover h-full w-full" id="preview-game-image" src="<?= esc($game->image) ?>" alt="<?= esc($game->name) ?>">
                 <div class="relative w-full h-full">
                     <div class="absolute w-full h-full group-hover/upload-image:bg-black/50 transition-colors duration-700">
