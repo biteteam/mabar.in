@@ -132,7 +132,6 @@ class Game extends BaseController
             }
 
             if ($gameData && empty($validationErrors)) {
-                // dd($gameData);
                 $isGameUpdated = $this->game->update($game->id, $gameData);
                 if ($isGameUpdated) return redirect('game')->with('toast_success', "Berhasil $messageType game {$gameData['name']}!");
             }

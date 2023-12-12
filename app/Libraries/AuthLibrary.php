@@ -50,6 +50,11 @@ class AuthLibrary
         return $isValid;
     }
 
+    public function isSameCreds(string $rawCredential, string $encryptedCredential)
+    {
+        return password_verify($rawCredential, $encryptedCredential);
+    }
+
     public function hashCreds(string $password)
     {
         $encryptedPassword = password_hash($password, PASSWORD_DEFAULT);

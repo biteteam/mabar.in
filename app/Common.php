@@ -56,7 +56,6 @@ function view(string $name, array $data = [], array $options = []): string
     return $renderer->setData($data, 'raw')->render($name, $options, $saveData);
 }
 
-
 function auth(bool $silent = false)
 {
     return service("auth", $silent);
