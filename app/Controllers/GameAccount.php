@@ -104,10 +104,8 @@ class GameAccount extends BaseController
     public function editAccount($gameCode, $identity)
     {
         $account = $this->account->findAccountByIdentity($identity, $gameCode);
-        if (empty($account)) {
-            $this->session->setFlashdata('toast_error', "Akun game $gameCode dengan user id $identity tidak ditemukan!");
-            return redirect('game.account');
-        }
+        if (empty($account)) return redirect('game.account')->with('toast_error', "Akun game $gameCode dengan user id $identity tidak ditemukan!");
+
 
         if ($this->request->is('post')) {
             $validationErrors = [];
@@ -140,10 +138,7 @@ class GameAccount extends BaseController
 
             if ($accountData && empty($validationErrors)) {
                 $isAccountUpdate = $this->account->updateAccount($account->id, $accountData);
-                if ($isAccountUpdate) {
-                    $this->session->setFlashdata('toast_success', "Berhasil mengedit akun game!");
-                    return redirect('game.account');
-                }
+                if ($isAccountUpdate) return redirect('game.account')->with('toast_success', "Berhasil mengedit akun game!");
             }
 
             $this->session->setFlashdata('error', count($validationErrors) ? $validationErrors : ['global' => "Gagal menambahkan akun, Silahkan Coba Lagi!"]);
@@ -164,16 +159,10 @@ class GameAccount extends BaseController
 
     public function verifyAccount($gameCode, $identity)
     {
-        if (auth()->isUser()) {
-            $this->session->setFlashdata('toast_error', "Kamu tidak memiliki akses untuk verifikasi akun!");
-            return redirect('game.account');
-        }
+        if (auth()->isUser()) return redirect('game.account')->with('toast_error', "Kamu tidak memiliki akses untuk verifikasi akun!");
 
         $account = $this->account->findAccountByIdentity($identity, $gameCode);
-        if (empty($account)) {
-            $this->session->setFlashdata('toast_error', "Akun game $gameCode dengan user id $identity tidak ditemukan!");
-            return redirect('game.account');
-        }
+        if (empty($account)) return redirect('game.account')->with('toast_error', "Akun game $gameCode dengan user id $identity tidak ditemukan!");
 
         $isVerified = $this->account->updateAccount($account->id, array_merge(to_array($account), [
             'user' => $account->user->id,
@@ -188,15 +177,12 @@ class GameAccount extends BaseController
     }
 
     public function deleteAccount($gameCode, $identity)
-
     {
         $account = $this->account->findAccountByIdentity($identity, $gameCode);
         if (empty($account)) {
-            $this->session->setFlashdata('toast_error', "Akun game $gameCode dengan user id $identity tidak ditemukan!");
-            return redirect('game.account');
+            return redirect('game.account')->with('toast_error', "Akun game $gameCode dengan user id $identity tidak ditemukan!");
         } else if (auth()->isUser() && intval($account->user->id) !== intval(auth()->user('id'))) {
-            $this->session->setFlashdata('toast_error', "Kamu tidak memiliki akses untuk menghapus akun $account->id!");
-            return redirect('game.account');
+            return redirect('game.account')->with('toast_error', "Kamu tidak memiliki akses untuk menghapus akun $account->id!");
         }
 
         $isDeleted = $this->account->deleteAccount($account->id);
@@ -204,8 +190,6 @@ class GameAccount extends BaseController
 
         return redirect('game.account');
     }
-
-
 
     private function serialize(array $accountValidated)
     {

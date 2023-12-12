@@ -12,7 +12,6 @@ use App\Models\TeamModel;
 
 class TeamMember extends BaseController
 {
-
     protected TeamModel $team;
     protected TeamMemberModel $teamMember;
     protected GameAccountModel $account;
@@ -28,11 +27,9 @@ class TeamMember extends BaseController
     {
         $team = $this->team->findTeamByCode($teamCode);
         if (empty($team)) {
-            $this->session->setFlashdata('toast_error', "Tim dengan kode $teamCode tidak ditemukan!");
-            return redirect('team');
+            return redirect('team')->with('toast_error', "Tim dengan kode $teamCode tidak ditemukan!");
         } else if (count($team->members) >= intval($team->game->max_player)) {
-            $this->session->setFlashdata('toast_error', "Tim $team->name sudah penuh!");
-            return redirect('team');
+            return redirect('team')->with('toast_error', "Tim $team->name sudah penuh!");
         }
 
         $heroScraper = GameModel::getHeroScraper($team->game->code);
@@ -65,8 +62,7 @@ class TeamMember extends BaseController
                     if (count($team->members) + 1 >= $team->game->max_player)
                         $this->team->updateTeam($team->id, ['status' => 'matches']);
 
-                    $this->session->setFlashdata('toast_success', "Berhasil bergabung ke tim {$team->name}!");
-                    return redirect('team');
+                    return redirect('team')->with('toast_success', "Berhasil bergabung ke tim {$team->name}!");
                 }
             }
 
@@ -98,14 +94,14 @@ class TeamMember extends BaseController
 
     public function leaveTeam(int|string $teamCode, int|string $teamMemberAccountId)
     {
-        if (!$this->request->is('post')) return $this->redirect_error('team', "Method {$this->request->getMethod()} tidak diizinkan!");
+        if (!$this->request->is('post')) return redirect('team')->with('toast_error', "Method {$this->request->getMethod()} tidak diizinkan!");
 
         $error = null;
         $team = $this->team->findTeamByCode($teamCode);
-        if (empty($team)) $this->redirect_error('team', "Tim $teamCode tidak dapat ditemukan!");
+        if (empty($team)) redirect('team')->with('toast_error', "Tim $teamCode tidak dapat ditemukan!");
 
         $teamMember = !empty($team) ? array_filter($team->members, fn ($member) => intval($member->account->id) == intval($teamMemberAccountId)) : null;
-        if (empty($teamMember)) return $this->redirect_error('team', "Akun dengan id $teamMemberAccountId pada tim $team->name tidak dapat ditemukan!");
+        if (empty($teamMember)) return redirect('team')->with('toast_error', "Akun dengan id $teamMemberAccountId pada tim $team->name tidak dapat ditemukan!");
 
         $teamMember = reset($teamMember);
         $isMemberLeaved = $this->teamMember->leaveTeam($teamMember->id);
@@ -114,7 +110,7 @@ class TeamMember extends BaseController
         if ($isMemberLeaved && intval(count($team->members)) == intval($team->game->max_player) && $team->status == 'matches')
             $this->team->updateTeam($team->id, ['status' => 'recruite']);
 
-        $this->session->setFlashdata(
+        return redirect('team')->with(
             isset($error) ?
                 'toast_error' :
                 'toast_success',
@@ -122,8 +118,6 @@ class TeamMember extends BaseController
                 $error :
                 "Berhasil keluar dari tim $team->name!"
         );
-
-        return redirect('team');
     }
 
     private function serialize($teamMemberDataValidated, $scraper = null)
@@ -146,11 +140,5 @@ class TeamMember extends BaseController
             : "";
 
         return $teamMember;
-    }
-
-    private function redirect_error($route, $flashErrorMessage)
-    {
-        $this->session->setFlashdata("toast_error", $flashErrorMessage);
-        return redirect($route);
     }
 }

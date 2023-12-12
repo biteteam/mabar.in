@@ -45,10 +45,7 @@ class Auth extends BaseController
     public function login(): string | RedirectResponse
     {
         // Redirect to homepage if user id authenticated
-        if (auth()->isLoggedIn()) {
-            $this->session->setFlashdata('toast_info', 'Kamu sudah login sebelumnya, Silahkan logout untuk ganti akun.');
-            return redirect('home');
-        };
+        if (auth()->isLoggedIn()) return redirect('home')->with('toast_info', 'Kamu sudah login sebelumnya, Silahkan logout untuk ganti akun.');
 
         // Handling post method | from login form
         if ($this->request->is('post')) {
@@ -113,10 +110,8 @@ class Auth extends BaseController
     public function register(): string | RedirectResponse
     {
         // Redirect to homepage if user id authenticated
-        if (auth()->isLoggedIn()) {
-            $this->session->setFlashdata('toast_info', 'Kamu sudah login sebelumnya, Silahkan logout untuk ganti akun.');
-            return redirect('home');
-        };
+        if (auth()->isLoggedIn())
+            return redirect('home')->with('toast_info', 'Kamu sudah login sebelumnya, Silahkan logout untuk ganti akun.');
 
         // Handling post method | from register form 
         if ($this->request->is('post')) {
@@ -142,7 +137,6 @@ class Auth extends BaseController
                     return redirect('login')->withInput($this->request);
                 }
             }
-
 
             $this->session->setFlashdata('error', count($validationErrors) ? $validationErrors : ['global' => "Terjadi Kesalahan, Silahkan Coba Lagi!"]);
         }

@@ -94,15 +94,11 @@ class Game extends BaseController
         $isFromVerify = url_to('game.verify', $gameCode) == current_url();
         $messageType = $isFromVerify ? 'memverifikasi' : 'mengedit';
         $game = $this->game->findGameByCode($gameCode);
-        if (empty($game)) {
-            $this->session->setFlashdata('toast_error', "Game $gameCode tidak ditemukan!");
-            return redirect('game');
-        }
+        if (empty($game)) return redirect('game')->with('toast_error', "Game $gameCode tidak ditemukan!");
 
-        if (($isFromVerify && auth()->isUser()) || (intval($game->creator->id) !== intval(auth()->user('id')) && auth()->isUser())) {
-            $this->session->setFlashdata('toast_error', "Kamu tidak memiliki akses untuk $messageType game $gameCode!");
-            return redirect('game');
-        }
+        if (($isFromVerify && auth()->isUser()) || (intval($game->creator->id) !== intval(auth()->user('id')) && auth()->isUser()))
+            return redirect('game')->with('toast_error', "Kamu tidak memiliki akses untuk $messageType game $gameCode!");
+
 
         if ($this->request->is('post')) {
             $validationErrors = [];
@@ -138,10 +134,7 @@ class Game extends BaseController
             if ($gameData && empty($validationErrors)) {
                 // dd($gameData);
                 $isGameUpdated = $this->game->update($game->id, $gameData);
-                if ($isGameUpdated) {
-                    $this->session->setFlashdata('toast_success', "Berhasil $messageType game {$gameData['name']}!");
-                    return redirect('game');
-                }
+                if ($isGameUpdated) return redirect('game')->with('toast_success', "Berhasil $messageType game {$gameData['name']}!");
             }
 
             $this->session->setFlashdata('error', count($validationErrors) ? $validationErrors : ['global' => "Gagal $messageType game, Silahkan Coba Lagi!"]);
@@ -195,7 +188,7 @@ class Game extends BaseController
         $isDeleted = $this->game->deleteGame($game->id);
         if (!$isDeleted) $error = "Gagal menghapus game $game->name";
 
-        $this->session->setFlashdata(
+        return redirect('game')->with(
             isset($error) ?
                 'toast_error' :
                 'toast_success',
@@ -203,7 +196,6 @@ class Game extends BaseController
                 $error :
                 "Berhasil menghapus game $game->name!"
         );
-        return redirect('game');
     }
 
     /**

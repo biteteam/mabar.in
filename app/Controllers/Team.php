@@ -61,10 +61,7 @@ class Team extends BaseController
 
             if ($teamData && empty($validationErrors)) {
                 $isTeamAdded = $this->team->addTeam($teamData);
-                if ($isTeamAdded) {
-                    $this->session->setFlashdata('toast_success', "Berhasil membuat tim {$teamData['name']}!");
-                    return redirect('team');
-                }
+                if ($isTeamAdded) return redirect('team')->with('toast_success', "Berhasil membuat tim {$teamData['name']}!");
             }
 
             $this->session->setFlashdata('error', count($validationErrors) ? $validationErrors : ['global' => "Gagal membuat tim, Silahkan Coba Lagi!"]);
@@ -86,10 +83,7 @@ class Team extends BaseController
     public function editTeam(string $teamCode)
     {
         $team = $this->team->findTeamByCode($teamCode);
-        if (empty($team)) {
-            $this->session->setFlashdata('toast_error', "Tim dengan kode $teamCode tidak ditemukan!");
-            return redirect('team');
-        }
+        if (empty($team)) return redirect('team')->with('toast_error', "Tim dengan kode $teamCode tidak ditemukan!");
 
         if ($this->request->is('post')) {
             $validationErrors = [];
@@ -117,10 +111,7 @@ class Team extends BaseController
 
             if ($teamData && empty($validationErrors)) {
                 $isTeamEdited = $this->team->updateTeam($team->id, $teamData);
-                if ($isTeamEdited) {
-                    $this->session->setFlashdata('toast_success', "Berhasil mengedit tim {$teamData['name']}!");
-                    return redirect('team');
-                }
+                if ($isTeamEdited) return redirect('team')->with('toast_success', "Berhasil mengedit tim {$teamData['name']}!");
             }
 
             $this->session->setFlashdata('error', count($validationErrors) ? $validationErrors : ['global' => "Gagal mengedit tim $team->name, Silahkan Coba Lagi!"]);
@@ -154,7 +145,7 @@ class Team extends BaseController
         $isTeamDeleted = $this->team->deleteTeam($team->id);
         if (!$isTeamDeleted) $error = "Gagal menghapus tim $team->name";
 
-        $this->session->setFlashdata(
+        return redirect('team')->with(
             isset($error) ?
                 'toast_error' :
                 'toast_success',
@@ -162,8 +153,6 @@ class Team extends BaseController
                 $error :
                 "Berhasil menghapus tim $team->name!"
         );
-
-        return redirect('team');
     }
 
 
