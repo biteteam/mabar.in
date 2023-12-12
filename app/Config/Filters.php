@@ -73,7 +73,7 @@ class Filters extends BaseConfig
     public array $filters = [
         'auth' => [
             'before' => [
-                'game', 'game/*', 'team', 'team/*', 'profile'
+                'game', 'game/*', 'team', 'team/*', 'user'
             ],
         ]
     ];

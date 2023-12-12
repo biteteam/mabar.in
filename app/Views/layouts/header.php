@@ -37,19 +37,19 @@
                                  class="z-50 rounded-xl border border-vulcan-600/80 bg-vulcan-500 bg-opacity-40 bg-clip-padding px-1 py-1 shadow-lg backdrop-blur-lg backdrop-filter">
                                 <div>
                                     <a class="flex items-center rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-vulcan-500/30 hover:text-slate-200 focus:outline-none md:block"
-                                       href="<?= base_url('/') ?>">
+                                       href="<?= url_to('home') ?>">
                                         <i class="fa-solid fa-house mr-1 md:mb-0.5"></i>
                                         <span>Home</span>
                                     </a>
                                 </div>
                                 <div class="pb-1 pt-0.5">
                                     <a class="flex items-center rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-vulcan-500/30 hover:text-slate-200 focus:outline-none md:block"
-                                       href="<?= base_url('/profile') ?>">
+                                       href="<?= url_to('user.profile') ?>">
                                         <i class="fa-solid fa-user mr-2"></i>
                                         <span>Profil</span>
                                     </a>
                                     <a class="flex items-center rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-vulcan-500/30 hover:text-slate-200 focus:outline-none md:block"
-                                       href="<?= base_url('/game/account') ?>">
+                                       href="<?= url_to('game.account') ?>">
                                         <i class="fa-brands fa-steam mr-1.5"></i>
                                         <span>Akun Game</span>
                                     </a>
@@ -74,46 +74,46 @@
             <div class="nav-menu-wrapper z-40" id="nav-menu-wrapper">
                 <div class="flex w-full justify-between rounded-lg transition-all duration-700 lg:rounded-xl">
                     <nav class="flex w-full items-center justify-between space-x-4 transition-all duration-700 md:justify-normal">
-                        <a class="nav-item <?= is_active_class('/', true) ?>" href="<?= base_url('/') ?>">
+                        <a class="nav-item <?= is_active_class('/', true) ?>" href="<?= url_to('home') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-house mb-0.5 mt-1 md:m-0 md:mb-0.5"></i>
                                 <span>Home</span>
                             </span>
                         </a>
                         <a class="nav-item <?= is_active_class('/game', false, ['route' => ['/game/account'], 'matchOnly' => false]) ?>"
-                           href="<?= base_url('/game') ?>">
+                           href="<?= url_to('game') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-gamepad mb-0.5 mt-1 md:m-0"></i>
                                 <span>Game</span>
                             </span>
                         </a>
-                        <a class="nav-item <?= is_active_class('/team') ?>" href="<?= base_url('/team') ?>">
+                        <a class="nav-item <?= is_active_class('/team') ?>" href="<?= url_to('team') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-layer-group mb-0.5 mt-1 md:m-0"></i>
                                 <span>Team</span>
                             </span>
                         </a>
-                        <a class="nav-item <?= is_active_class('/game/account') ?>" href="<?= base_url('/game/account') ?>">
+                        <a class="nav-item <?= is_active_class('/game/account') ?>" href="<?= url_to('game.account') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-brands fa-steam mb-0.5 mt-1 md:m-0"></i>
                                 <span>Akun</span>
                             </span>
                         </a>
-                        <a class="nav-item hidden md:flex <?= is_active_class('/profile') ?>" href="<?= base_url('/profile') ?>">
+                        <a class="nav-item hidden md:flex <?= is_active_class('/profile') ?>" href="<?= url_to('user.profile') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-user mb-0.5 mt-1 md:m-0"></i>
                                 <span>Profil</span>
                             </span>
                         </a>
                         <?php if ($userAuth->isAdmin): ?>
-                        <a class="nav-item hidden md:flex <?= is_active_class('/user') ?>" href="<?= base_url('/user') ?>">
+                        <a class="nav-item hidden md:flex <?= is_active_class('/user') ?>" href="<?= url_to('user') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-user-group mb-0.5 mt-1 md:m-0"></i>
                                 <span>Pengguna</span>
                             </span>
                         </a>
                         <?php endif; ?>
-                        <a class="nav-item flex md:hidden <?= is_active_class('/profile') ?>" href="<?= base_url('/profile') ?>">
+                        <a class="nav-item flex md:hidden <?= is_active_class('/profile') ?>" href="<?= url_to('user.profile') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <img class="h-7 w-7 rounded-full object-cover" src="<?= $userAuth->photo ?>" alt="<?= $userAuth->name ?>">
                                 <span>Profil</span>

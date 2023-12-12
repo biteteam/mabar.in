@@ -58,5 +58,6 @@ $routes->group('team', static function ($route) {
 // User Routes
 $routes->group('user', static function ($route) {
     $route->get('', [Game::class, 'main'], ['as' => 'user']);
+    $route->get('profile', [Game::class, 'main'], ['as' => 'user.profile']);
     $route->get('(:any)/', [Game::class, 'main'], ['as' => 'user.detail']);
 });

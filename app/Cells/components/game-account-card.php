@@ -58,7 +58,7 @@
                  <i class="fa-solid fa-pen text-xs"></i>
                  Edit
              </a>
-             <form class="flex w-full p-0 m-0 justify-center items-center" action="<?= route_to("game.account.delete",  $account->game->code, $account->identity) ?>" method="post">
+             <form class="flex w-full p-0 m-0 justify-center items-center" action="<?= url_to("game.account.delete",  $account->game->code, $account->identity) ?>" method="post">
                  <button type="submit" class="flex items-center gap-1 py-2 md:py-1 px-2.5 w-full justify-center text-rose-100 hover:text-white text-sm font-medium bg-rose-500 border border-transparent bg-opacity-30 hover:bg-opacity-70 active:transition-none active:duration-0 hover:shadow-md transition duration-300 rounded-md active:scale-95 cursor-pointer">
                      <i class="fa-solid fa-trash text-xs"></i>
                      Hapus
