@@ -7,9 +7,7 @@
             <form class="flex flex-col w-full  px-4 py-6 md:px-8 md:pt-8 md:pb-10" action="<?= url_to('team.edit', $team->code) ?>" method="post"
                   accept-charset="utf-8">
                 <input id="team_creator" name="team_creator" type="hidden" value="<?= set_value('team_creator', $team->creator->id) ?>">
-                <?php if(($team->status !== 'draft' && $team->status !== 'recruite') && count($team->members) > 0): ?>
                 <input id="team_status" name="team_status" type="hidden" value="<?= set_value('team_status', $team->status) ?>">
-                <?php endif?>
                 <div class="mb-5">
                     <?= view_cell('InputGameCell', [
                         'name' => 'team_game',
@@ -63,12 +61,13 @@
                 </div>
                 <?php endif ?>
 
-                <?php if (!empty($error->global) || !empty($error->team_creator) ||!empty($error->team_game)) : ?>
+                <?php if (!empty($error->global) || !empty($error->team_creator) || !empty($error->team_game) || !empty($error->team_status)) : ?>
                 <div class="mb-2 -mt-6 w-full">
                     <span class="text-xs text-red-400 font-medium ml-0.5">
                         <?= !empty($error->global) ? esc($error->global) : '' ?>
                         <?= !empty($error->team_creator) ? esc($error->team_creator) : '' ?>
                         <?= !empty($error->team_game) ? esc($error->team_game) : '' ?>
+                        <?= !empty($error->team_status) ? esc($error->team_status) : '' ?>
                     </span>
                 </div>
                 <?php endif; ?>

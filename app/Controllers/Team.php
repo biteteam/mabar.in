@@ -109,8 +109,11 @@ class Team extends BaseController
 
             if (isset($teamData['code']) && $teamData['code'] !== $team->code) {
                 $isTeamCodeExist = $this->team->where('code', $teamData['code'])->first();
-                if ($isTeamCodeExist) $validationErrors['team_code'] = "Kode tim sudah ada, gunakan kode tim yang lain.!";
+                if ($isTeamCodeExist) $validationErrors['team_code'] = "Kode tim sudah ada, gunakan kode tim yang lain!";
             }
+
+            if (isset($teamData['game']) && intval($teamData['game']) !== intval($team->game->id) && count($team->members) > 0)
+                $validationErrors['team_game'] = "Game tidak dapat diubah, Jika tim ini sudah memiliki anggota maka game sudah tidak dapat lagi diubah!";
 
             if ($teamData && empty($validationErrors)) {
                 $isTeamEdited = $this->team->updateTeam($team->id, $teamData);
