@@ -16,25 +16,38 @@
                         </svg>
                     </button>
 
-                    <div class="z-10 mt-2 shadow-xl absolute hidden flex-col divide-y rounded-lg w-60 bg-vulcan-700 divide-vulcan-600"
+                    <div class="z-10 mt-2 shadow-xl absolute hidden flex-col divide-y rounded-lg w-60 bg-vulcan-600 divide-vulcan-500"
                          toggle-expand="user-menu-action" show-on-toggle="true">
                         <ul class="py-1 text-sm text-slate-200" aria-labelledby="dropdownActionButton">
                             <li>
-                                <a class="block px-4 py-2 hover:bg-vulcan-600 hover:text-white" href="#">Jadikan Admin</a>
+                                <a class="flex items-center gap-2 text-center px-4 py-2 hover:bg-vulcan-500 hover:text-white font-medium" href="#">
+                                    <i class="fa-solid fa-user-shield mr-0.5"></i>
+                                    <span>Jadikan Admin</span>
+                                </a>
                             </li>
                             <li>
-                                <a class="block px-4 py-2 hover:bg-vulcan-600 hover:text-white" href="#">Jadikan Pengguna Biasa</a>
+                                <a class="flex items-center gap-2 text-center px-4 py-2 hover:bg-vulcan-500 hover:text-white font-medium" href="#">
+                                    <i class="fa-solid fa-user-pen mr-0.5"></i>
+                                    <span>Jadikan Pengguna Biasa</span>
+                                </a>
                             </li>
                             <li>
-                                <a class="block px-4 py-2 hover:bg-vulcan-600 hover:text-white" href="#">Nonaktifkan</a>
+                                <a class="flex items-center gap-2 text-center px-4 py-2 hover:bg-vulcan-500 hover:text-white font-medium" href="#">
+                                    <i class="fa-solid fa-user-lock mr-0.5"></i>
+                                    <span>Nonaktifkan</span>
+                                </a>
                             </li>
                         </ul>
                         <div class="py-1">
-                            <a class="block px-4 py-2 text-sm text-slate-200 hover:bg-vulcan-600 hover:text-white" href="#">Hapus Pengguna Dipilih</a>
+                            <a class="flex items-center gap-2 text-center px-4 py-2 text-sm text-slate-200 hover:bg-rose-600/80 hover:text-white font-medium"
+                               href="#">
+                                <i class="fa-solid fa-user-xmark mr-0.5"></i>
+                                <span>Hapus Pengguna Dipilih</span>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <label class="sr-only" for="table-search">Search</label>
+                <label class="sr-only" for="table-search">Cari</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                         <svg class="w-4 h-4 text-slate-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -43,7 +56,7 @@
                         </svg>
                     </div>
                     <input class="block p-2 ps-10 text-sm slate-100 border rounded-lg w-full lg:max-w-80 bg-vulcan-700/80 placeholder:text-slate-200 border-vulcan-600 placeholder-vulcan-400 text-white ring-0 outline-none focus:border-vulcan-500"
-                           id="table-search-users" type="text" placeholder="Search for users">
+                           type="text" placeholder="Cari Pengguna">
                 </div>
             </div>
             <table class="w-full text-sm text-left rtl:text-right text-slate-300 shadow-xl">
@@ -102,7 +115,8 @@
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex items-center text-center">
-                                <span class="px-4 py-1 rounded-full font-semibold <?= $user->role == 'admin' ? 'bg-cyan-600/90' : 'bg-blue-600/80' ?>">
+                                <span
+                                      class="px-4 py-1 rounded-full font-semibold <?= $user->role == 'admin' ? 'bg-cyan-600/90 text-white' : 'bg-blue-600/80 text-slate-200' ?>">
                                     <?= esc($user->role == 'admin' ? 'Admin' : 'Pengguna') ?>
                                 </span>
                             </div>
@@ -115,7 +129,6 @@
                 </tbody>
             </table>
         </div>
-
     </div>
 </div>
 <?= $this->endSection() ?>

@@ -4,7 +4,7 @@
 <div class="w-full relative">
     <div class="flex w-full justify-center">
         <div class="flex flex-col w-full md:max-w-xl bg-slate-900 border border-slate-800 rounded-xl shadow-lg shadow-elephant-800/10">
-            <form class="flex flex-col w-full  px-4 py-6 md:px-8 md:pt-8 md:pb-10" action="<?= url_to('team.join', $team->code) ?>" method="post"
+            <form class="flex flex-col w-full px-4 py-6 md:px-8 md:pt-8 md:pb-10" action="<?= url_to('team.join', $team->code) ?>" method="post"
                   accept-charset="utf-8">
                 <input id="team_member_team" name="team_member_team" type="hidden" value="<?= set_value('team_member_team', $team->id) ?>">
 

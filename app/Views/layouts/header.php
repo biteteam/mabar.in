@@ -56,8 +56,8 @@
                                 </div>
                                 <div class="border-t border-vulcan-500/70"></div>
                                 <form action="<?= url_to('logout') ?>" method="POST">
-                                    <div class="pt-1">
-                                        <button class="flex items-center w-full rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-pink-700/20 hover:text-slate-200 focus:outline-none md:block"
+                                    <div class="pt-1 pb-0.5">
+                                        <button class="flex items-center w-full rounded-md px-4 py-2 text-left text-sm font-medium leading-5 text-slate-300/90 transition hover:bg-rose-600 hover:text-white focus:outline-none md:block active:scale-95"
                                                 type="submit">
                                             <i class="fa-solid fa-right-from-bracket ml-0.5 mr-1.5"></i>
                                             <span>Keluar</span>
@@ -99,21 +99,21 @@
                                 <span>Akun</span>
                             </span>
                         </a>
-                        <a class="nav-item hidden md:flex <?= is_active_class('/profile') ?>" href="<?= url_to('user.profile') ?>">
+                        <a class="nav-item hidden md:flex <?= is_active_class('/user/profile') ?>" href="<?= url_to('user.profile') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-user mb-0.5 mt-1 md:m-0"></i>
                                 <span>Profil</span>
                             </span>
                         </a>
                         <?php if ($userAuth->isAdmin): ?>
-                        <a class="nav-item hidden md:flex <?= is_active_class('/user') ?>" href="<?= url_to('user') ?>">
+                        <a class="nav-item hidden md:flex <?= is_active_class('/user', true) ?>" href="<?= url_to('user') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <i class="fa-solid fa-user-group mb-0.5 mt-1 md:m-0"></i>
                                 <span>Pengguna</span>
                             </span>
                         </a>
                         <?php endif; ?>
-                        <a class="nav-item flex md:hidden <?= is_active_class('/profile') ?>" href="<?= url_to('user.profile') ?>">
+                        <a class="nav-item flex md:hidden <?= is_active_class('/user/profile') ?>" href="<?= url_to('user.profile') ?>">
                             <span class="flex flex-col items-center gap-1.5 truncate md:flex-row md:gap-2">
                                 <img class="h-7 w-7 rounded-full object-cover" src="<?= $userAuth->photo ?>" alt="<?= $userAuth->name ?>">
                                 <span>Profil</span>

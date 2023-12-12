@@ -33,11 +33,48 @@ class User extends BaseController
 
     public function selfProfile()
     {
-        $user = $this->user->where('id', auth()->user()->id)->first();
+        $userLoggedInId = auth()->user()->id;
+        $user = $this->user
+            ->withTotalAccounts()
+            ->withTotalGames()
+            ->withTotalTeams()
+            ->find($userLoggedInId);
+
+        return view('user/profile', [
+            'user'      => $user,
+            'metadata'  => [
+                'title'   => "Profil",
+                'header'  => [
+                    'title'        => 'Profil',
+                    'description'  => 'Profil kamu.'
+                ]
+            ]
+        ]);
     }
 
-    public function userProfile(int|string $username)
+    public function userProfile(int|string $usernameOrEmail)
     {
-        $user = $this->user->where('username', $username)->first();
+        if (strval($usernameOrEmail) == strval(auth()->user()->username) || strval($usernameOrEmail) == strval(auth()->user()->email))
+            return redirect('user.profile');
+
+        $user = $this->user
+            ->findByUsernameOrEmail($usernameOrEmail, ['returning_model' => true])
+            ->withTotalAccounts()
+            ->withTotalGames()
+            ->withTotalTeams()
+            ->first();
+
+        if (empty($user)) $this->session->setFlashdata('error', "Pengguna $usernameOrEmail tidak dapat ditemukan!");
+
+        return view('user/detail', [
+            'user'      => $user,
+            'metadata'  => [
+                'title'   => !empty($user) ? "Profil {$user->name} (@{$user->username})" : "Pengguna $usernameOrEmail tidak dapat ditemukan",
+                'header'  => [
+                    'title'        => 'Profil',
+                    'description'  => 'Profil kamu.'
+                ]
+            ]
+        ]);
     }
 }

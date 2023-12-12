@@ -81,6 +81,58 @@ class UserModel extends Model
         }
     }
 
+    public function find($id = null)
+    {
+        $this->select("$this->table.*");
+        return parent::find($id);
+    }
+
+    public function findByUsernameOrEmail(int|string $usernameOrEmail, array $options = ['returning_model' => false])
+    {
+        $this->select("$this->table.*")
+            ->where("$this->table.username", $usernameOrEmail)
+            ->orWhere("$this->table.email", $usernameOrEmail);
+
+        if (!empty($options['returning_model']) && $options['returning_model'] = true) return $this;
+        return $this->first();
+    }
+
+    public function withTotalAccounts()
+    {
+        $accountTable = GameAccountModel::getConfigName('tableName');
+        $accountPK = GameAccountModel::getConfigName('primaryKey');
+        $accountFK = 'user';
+
+        $this->select("COUNT($accountTable.$accountPK) total_accounts")
+            ->join("$accountTable", "$accountTable.$accountFK = $this->table.$this->primaryKey", "LEFT")
+            ->groupBy("$this->table.$this->primaryKey");
+        return $this;
+    }
+
+    public function withTotalGames()
+    {
+        $gameTable = GameModel::getConfigName('tableName');
+        $gamePK = GameModel::getConfigName('primaryKey');
+        $gameFK = 'creator';
+
+        $this->select("COUNT($gameTable.$gamePK) total_games")
+            ->join("$gameTable", "$gameTable.$gameFK = $this->table.$this->primaryKey", "LEFT")
+            ->groupBy("$this->table.$this->primaryKey");
+        return $this;
+    }
+
+    public function withTotalTeams()
+    {
+        $teamTable = TeamModel::getConfigName('tableName');
+        $teamPK = TeamModel::getConfigName('primaryKey');
+        $teamFK = 'creator';
+
+        $this->select("COUNT($teamTable.$teamPK) total_teams")
+            ->join("$teamTable", "$teamTable.$teamFK = $this->table.$this->primaryKey", "LEFT")
+            ->groupBy("$this->table.$this->primaryKey");
+        return $this;
+    }
+
     public static function getConfigName(string $configName = null): string|array
     {;
         $instance = new self();
