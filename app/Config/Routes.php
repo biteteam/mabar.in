@@ -1,7 +1,7 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
-use App\Controllers\{Auth, Game, GameAccount, Home, Team, TeamMember};
+use App\Controllers\{Auth, Game, GameAccount, Home, Team, TeamMember, User};
 
 /**
  * @var RouteCollection $routes
@@ -57,7 +57,7 @@ $routes->group('team', static function ($route) {
 
 // User Routes
 $routes->group('user', static function ($route) {
-    $route->get('', [Game::class, 'main'], ['as' => 'user']);
-    $route->get('profile', [Game::class, 'main'], ['as' => 'user.profile']);
-    $route->get('(:any)/', [Game::class, 'main'], ['as' => 'user.detail']);
+    $route->get('', [User::class, 'main'], ['as' => 'user']);
+    $route->get('profile', [User::class, 'selfProfile'], ['as' => 'user.profile']);
+    $route->get('(:any)/', [User::class, 'userProfile'], ['as' => 'user.detail']);
 });

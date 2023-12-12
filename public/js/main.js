@@ -215,7 +215,8 @@ inputsMathParentSlug?.forEach(input => handlingInputMathParent(input, input.getA
 // Handling Toggle
 const showToggle = (toggleWrapper, forceToggleShow) => {
     const isToggleShow = forceToggleShow ?? toggleWrapper.getAttribute("toggle-show") == 'true';
-    const expandTarget = toggleWrapper.querySelector(`[toggle-expand="${toggleWrapper.getAttribute("toggle-expand-target")}"]`)
+    let expandTarget = toggleWrapper.querySelector(`[toggle-expand="${toggleWrapper.getAttribute("toggle-expand-target")}"]`)
+    if (!expandTarget) expandTarget = document.querySelector(`[toggle-expand="${toggleWrapper.getAttribute("toggle-expand-target")}"]`)
 
     if (isToggleShow) {
         toggleWrapper.setAttribute('toggle-show', 'false')
@@ -228,7 +229,13 @@ const showToggle = (toggleWrapper, forceToggleShow) => {
 
 const toggleWrappers = document.querySelectorAll('[aria-controls="toggle"]')
 toggleWrappers.forEach(toggleWrapper => {
-    toggleWrapper.addEventListener("click", () => showToggle(toggleWrapper));
-    toggleWrapper.addEventListener("mouseover", () => showToggle(toggleWrapper, false));
-    toggleWrapper.addEventListener("mouseout", () => showToggle(toggleWrapper), true);
+    const isOnClickOnly = toggleWrapper.querySelectorAll('[toggle-on-click-only="true"]')
+
+    if (isOnClickOnly) {
+        toggleWrapper.addEventListener("click", () => showToggle(toggleWrapper));
+    } else {
+        toggleWrapper.addEventListener("click", () => showToggle(toggleWrapper));
+        toggleWrapper.addEventListener("mouseover", () => showToggle(toggleWrapper, false));
+        toggleWrapper.addEventListener("mouseout", () => showToggle(toggleWrapper), true);
+    }
 })
