@@ -675,7 +675,7 @@ body {
   border-width: 1px;
   border-color: transparent;
   --tw-bg-opacity: 1;
-  background-color: rgb(47 57 75 / var(--tw-bg-opacity));
+  background-color: rgb(60 76 104 / var(--tw-bg-opacity));
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 1.25rem;
@@ -687,6 +687,8 @@ body {
 
 @media (min-width: 768px) {
   .nav-menu-wrapper>div {
+    --tw-bg-opacity: 1;
+    background-color: rgb(47 57 75 / var(--tw-bg-opacity));
     background-color: transparent;
     padding-left: 0px;
     padding-right: 0px;
@@ -1821,11 +1823,6 @@ body {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
   border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
-}
-
-.divide-vulcan-600 > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-opacity: 1;
-  border-color: rgb(73 93 128 / var(--tw-divide-opacity));
 }
 
 .divide-vulcan-500 > :not([hidden]) ~ :not([hidden]) {
@@ -2976,13 +2973,13 @@ body {
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-blue-500\/50:hover {
+  background-color: rgb(59 130 246 / 0.5);
+}
+
 .hover\:bg-blue-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(37 99 235 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-blue-600\/80:hover {
-  background-color: rgb(37 99 235 / 0.8);
 }
 
 .hover\:bg-green-600:hover {
@@ -3029,6 +3026,10 @@ body {
   background-color: rgb(225 29 72 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-rose-600\/80:hover {
+  background-color: rgb(225 29 72 / 0.8);
+}
+
 .hover\:bg-sky-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(14 165 233 / var(--tw-bg-opacity));
@@ -3051,27 +3052,6 @@ body {
 .hover\:bg-vulcan-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(60 76 104 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-blue-600\/70:hover {
-  background-color: rgb(37 99 235 / 0.7);
-}
-
-.hover\:bg-blue-600\/50:hover {
-  background-color: rgb(37 99 235 / 0.5);
-}
-
-.hover\:bg-blue-500\/50:hover {
-  background-color: rgb(59 130 246 / 0.5);
-}
-
-.hover\:bg-vulcan-400:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(125 147 179 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-rose-600\/80:hover {
-  background-color: rgb(225 29 72 / 0.8);
 }
 
 .hover\:bg-opacity-10:hover {
