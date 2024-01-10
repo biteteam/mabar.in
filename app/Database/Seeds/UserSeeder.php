@@ -70,7 +70,7 @@ class UserSeeder extends Seeder
                 'email'    => 'admin.amikom.ac.id',
                 'phone'    => '+6289622224444',
                 'photo'    => UserModel::getDefaultAvatar("Admin"),
-                'password' => $auth->hashCreds('admin123'),
+                'password' => $auth->hashCreds('admin'),
                 'role'     => UserModel::$superRole,
             ],
         ];

@@ -52,10 +52,10 @@ class Validation extends BaseConfig
             ],
         ],
         'password' => [
-            'rules'  => 'required|min_length[8]|max_length[132]',
+            'rules'  => 'required|min_length[5]|max_length[132]',
             'errors' => [
                 'required' => 'Password tidak boleh kosong.',
-                'min_length' => 'Password harus minimal 8 karakter.',
+                'min_length' => 'Password harus minimal 5 karakter.',
                 'max_length' => 'Password tidak boleh lebih dari 132 karakter.',
             ]
         ],
